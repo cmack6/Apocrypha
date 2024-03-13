@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.lab02.controller.NumbersController;
 import edu.ycp.cs320.lab02.model.Numbers;
 
-public class AddNumbersServlet extends HttpServlet {
+public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override

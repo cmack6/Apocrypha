@@ -5,9 +5,7 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets --><servlet>
-	<servlet-name>GameServlet</servlet-name>
-	<servlet-class>CS320_Apocrypha_Servlets.GameServlet</servlet-class></servlet>
+  <!-- Servlets -->
 	<servlet>
     <servlet-name>IndexServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab02.servlet.IndexServlet</servlet-class>
@@ -37,9 +35,7 @@
     <servlet-class>edu.ycp.cs320.lab02.servlet.ajax.NextGuessAjaxServlet</servlet-class>
   </servlet>
 
-  <!-- Servlet mappings --><servlet-mapping>
-	<servlet-name>GameServlet</servlet-name>
-	<url-pattern>/game</url-pattern></servlet-mapping>
+  <!-- Servlet mappings -->
 	<servlet-mapping>
     <servlet-name>IndexServlet</servlet-name>
     <url-pattern>/index</url-pattern>
