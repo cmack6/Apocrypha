@@ -5,6 +5,7 @@ public class Room {
 	public int xLoc;
 	public String shortDescription;
 	public String longDescription;
+	public boolean isLocked;
 	
 	public Room() {
 		this.roomID = roomID;
