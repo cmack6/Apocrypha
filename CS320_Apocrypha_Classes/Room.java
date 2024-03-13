@@ -8,6 +8,13 @@ public class Room {
 	public String shortDescription;
 	public String longDescription;
 	
+	public Room() {
+		this.roomID = roomID;
+		this.yLoc = yLoc;
+		this.xLoc = xLoc;
+		this.shortDescription = shortDescription;
+		this.longDescription = longDescription;
+	}
 	
 	public String refreshroom() {
 		return shortDescription;
