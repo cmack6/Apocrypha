@@ -16,24 +16,25 @@ public class AddNumbersServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		System.out.println("AddNumbers Servlet: doGet");	
+		System.out.println("game Servlet: doGet");	
 		
 		// call JSP to generate empty form
-		req.getRequestDispatcher("/_view/addNumbers.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("AddNumbers Servlet: doPost");
+		System.out.println("game Servlet: doPost");
 	
 		
 		String stringFirst = req.getParameter("stringFirst");
 		String stringSecond = req.getParameter("stringSecond");
 		String stringThird = req.getParameter("stringThird");
 		
-		Numbers model = new Numbers(stringFirst, stringSecond, stringThird);
+		User modelUser = new User();
+		NPC modelNPC = new NPC();
 		
 		NumbersController controller = new NumbersController();
 		
@@ -73,7 +74,7 @@ public class AddNumbersServlet extends HttpServlet {
 		req.setAttribute("numbers",  model);
 		
 		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/addNumbers.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 	}
 
 	

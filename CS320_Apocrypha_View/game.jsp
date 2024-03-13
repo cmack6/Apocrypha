@@ -4,24 +4,20 @@
 
 <html>
 	<head>
-		<title>Add Numbers</title>
-		<style type="text/css">
-		.error {
-			color: red;
-		}
+		<title>Apocrypha</title>
+			<style type="text/css">
 		
 		td.label {
 			text-align: right;
 		}
+		
 		</style>
 	</head>
 
 	<body>
-		<c:if test="${! empty errorMessage}">
-			<div class="error">${errorMessage}</div>
-		</c:if>
+		
 	
-		<form action="${pageContext.servletContext.contextPath}/addNumbers" method="post">
+		<form action="${pageContext.servletContext.contextPath}/game" method="post">
 			<table>
 				<tr>
 					<td class="label">First number:</td>
