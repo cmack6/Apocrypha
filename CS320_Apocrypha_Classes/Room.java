@@ -1,6 +1,6 @@
 package edu.ycp.cs320.lab02.model;
 
-public class Numbers {
+public class Room {
 	
 	private Double first, second, third, result;
 	private String stringFirst, stringSecond, stringThird;
