@@ -5,10 +5,9 @@ public class Treasure extends Item{
 	private int scoreValue;
 	
 public class Treasure() {
+	
 	this.name = name;	
 	this.scoreValue = scoreValue;
-	
-
 	
 }
 
@@ -19,6 +18,7 @@ public void setScoreValue(int scoreValue) {
 public int getScoreValue() {
 	return scoreValue;	
 }
+
 
 
 }

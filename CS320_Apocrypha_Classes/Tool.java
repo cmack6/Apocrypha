@@ -19,6 +19,10 @@ public int getHealth() {
 	return health;
 }
 
+public void use() {
+	
+}
+
 
 
 }
