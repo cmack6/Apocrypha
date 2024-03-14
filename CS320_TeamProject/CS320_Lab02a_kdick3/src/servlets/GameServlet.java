@@ -37,9 +37,13 @@ public class GameServlet extends HttpServlet {
 		
 		GameEngineController GE = new GameEngineController(model);
 		
+		model.setAction(input);
+		
+		GE.setAction(input);
 		
 		
-		req.setAttribute("gamemodel", model);
+		
+		req.setAttribute("GameModel", model);
 		
 		
 		

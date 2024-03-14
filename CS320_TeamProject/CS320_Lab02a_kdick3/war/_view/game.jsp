@@ -53,13 +53,15 @@
 <div class="container">
     <h1 class="title">Apocrypha</h1>
         <h2 class="mini_title">Your Adventure.</h2>
+        <td>${gamemodel.action}</td>
     <div class="scroll-box">
+    	<p>${gamemodel.action}</p>
         <!-- You can add more paragraphs here -->
     </div>
 </div>
 
 <!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->
-<input class="textbox" placeholder="What will you do?" type="text" name="input" value="${gamemodel.input}" />
+<input class="textbox" placeholder="What will you do?" type="text" name="input" value="${GameModel.action}" />
 
 </body>
 </html>

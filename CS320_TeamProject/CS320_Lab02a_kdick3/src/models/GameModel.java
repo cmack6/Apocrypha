@@ -11,7 +11,7 @@ public void setAction(String input) {
 this.input = input;
 }
 
-public String getAction(String input) {
+public String getAction() {
 return input;
 }
 }
