@@ -19,16 +19,16 @@ private GameEngineController controller;
 @Before
 public void setUp() {
 	String input = "south";
-	GameModel model = new GameModel(input);
-	GameEngineController controller = new GameEngineController();
+	model = new GameModel(input);
+	controller = new GameEngineController(model);
 	
 }
 
 @Test
-public void testGetAction() {
+public void testProcessInput() {
 	String input = "south";
-	controller.setAction(input);
-	assertTrue(controller.getAction().equals("south"));
+	model.setAction(input);
+	assertTrue(controller.processInput().equals("south"));
 
 	
 }

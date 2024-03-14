@@ -61,7 +61,7 @@
 </div>
 
 <!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->
-<input class="textbox" placeholder="What will you do?" type="text" name="input" value="${GameModel.action}" />
+<input class="textbox" placeholder="What will you do?" type="text" name="input" value="${gamemodel.action}" />
 
 </body>
 </html>

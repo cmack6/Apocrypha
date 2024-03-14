@@ -4,7 +4,7 @@ import models.GameModel;
 
 
 public class GameEngineController {
-private String input;
+
 
 private GameModel model;
 
@@ -15,21 +15,9 @@ this.model = model;
 public GameEngineController() {
 }
 
-public void setAction(String input) {
-model.setAction(input);
-this.setInput(input);
-}
-
-public String getAction() {
-return 
-}
-
-public String getInput() {
+public String processInput() {
+	String input = model.getAction();
 	return input;
-}
-
-public void setInput(String input) {
-	this.input = input;
 }
 
 }

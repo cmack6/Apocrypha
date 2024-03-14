@@ -1,24 +1,38 @@
 package junit.models;
 
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import models.GameModel;
 import controllers.GameEngineController;
 
+
 public class GameModelTest {
-private String input;
 
-public GameModelTest(String input) {
-this.input = input;
-}
+private GameModel model;
+private GameEngineController controller;
 
-public void setAction(String input) {
-this.input = input;
-}
 
-public String getAction() {
-return input;
-}
-}
-		
+
+@Before
+public void setUp() {
+	String input = "south";
+	model = new GameModel(input);
+	controller = new GameEngineController(model);
 	
+}
+
+@Test
+public void testSetAction() {
+	String input = "north";
+	model.setAction(input);
+	assertTrue(model.getAction().equals("north"));
+
 	
+}
+
+
+
+}

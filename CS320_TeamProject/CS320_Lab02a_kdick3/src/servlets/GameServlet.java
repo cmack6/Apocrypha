@@ -39,7 +39,7 @@ public class GameServlet extends HttpServlet {
 		
 		model.setAction(input);
 		
-		GE.setAction(input);
+		GE.processInput();
 		
 		
 		
