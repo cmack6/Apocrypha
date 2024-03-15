@@ -44,6 +44,13 @@
         width: 200px;
         padding: 10px;
     }
+    #actionInput{
+        padding: 10px;
+        width: 200px;
+    }
+    #actionList{
+        text-align: center;
+    }
 </style>
 </head>
 <body>
@@ -53,15 +60,44 @@
 <div class="container">
     <h1 class="title">Apocrypha</h1>
         <h2 class="mini_title">Your Adventure.</h2>
-        <td>${gamemodel.action}</td>
+        <td></td>
     <div class="scroll-box">
-    	<p>${gamemodel.action}</p>
+    	<p></p>
         <!-- You can add more paragraphs here -->
     </div>
 </div>
 
 <!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->
-<input class="textbox" placeholder="What will you do?" type="text" name="input" value="${gamemodel.action}" />
+<input class="textbox" placeholder="What will you do?" type="text" id="actionInput" /> 
 
+<script>
+    var inputs = []; // Array to store inputs
+    
+            function printToBox() {
+                var inputText = document.getElementById("actionInput").value;
+                if (inputText.trim() !== '') {
+                    inputs.push(inputText); // Add input to array
+                    updateScrollBox();
+                    document.getElementById("actionInput").value = ''; // Clear input box
+                }
+            }
+    
+            function updateScrollBox() {
+                var scrollBox = document.getElementByClass("scroll-box");
+                scrollBox.innerHTML = ''; // Clear existing content
+                var ul = document.createElement("ul"); // Create unordered list
+                inputs.slice().reverse().forEach(function(input) { // Reverse and iterate over inputs
+                    var li = document.createElement("li"); // Create list item
+                    li.textContent = input; // Set text content of list item
+                    ul.appendChild(li); // Append list item to unordered list
+                });
+                scrollBox.appendChild(ul); // Append unordered list to scroll box
+            }
+            
+            function handleKeyPress(event) {
+                if (event.keyCode === 13) { // Enter key pressed
+                    printToBox();
+            }
+    </script>
 </body>
 </html>
