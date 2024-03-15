@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scrolling Box Example</title>
+
 <style>
     body {
         margin: 0;
@@ -18,7 +19,6 @@
         height: 100vh;
     }
     .title {
-    	top: 0;
         font-size: 45px;
         margin-top: 0px;
         margin-bottom: 20px;
@@ -47,10 +47,12 @@
     #actionInput{
         padding: 10px;
         width: 200px;
+        font-size: 10px;
     }
     #actionList{
         text-align: center;
     }
+
 </style>
 </head>
 <body>
@@ -61,8 +63,7 @@
     <h1 class="title">Apocrypha</h1>
         <h2 class="mini_title">Your Adventure.</h2>
         <td></td>
-    <div class="scroll-box">
-    	<p></p>
+    <div class="scroll-box" id="scrollBox">
         <!-- You can add more paragraphs here -->
     </div>
 </div>
@@ -73,31 +74,32 @@
 <script>
     var inputs = []; // Array to store inputs
     
-            function printToBox() {
-                var inputText = document.getElementById("actionInput").value;
-                if (inputText.trim() !== '') {
-                    inputs.push(inputText); // Add input to array
-                    updateScrollBox();
-                    document.getElementById("actionInput").value = ''; // Clear input box
-                }
-            }
-    
-            function updateScrollBox() {
-                var scrollBox = document.getElementByClass("scroll-box");
-                scrollBox.innerHTML = ''; // Clear existing content
-                var ul = document.createElement("ul"); // Create unordered list
-                inputs.slice().reverse().forEach(function(input) { // Reverse and iterate over inputs
-                    var li = document.createElement("li"); // Create list item
-                    li.textContent = input; // Set text content of list item
-                    ul.appendChild(li); // Append list item to unordered list
-                });
-                scrollBox.appendChild(ul); // Append unordered list to scroll box
-            }
-            
-            function handleKeyPress(event) {
-                if (event.keyCode === 13) { // Enter key pressed
-                    printToBox();
-            }
-    </script>
+    function printToBox() {
+        var inputText = document.getElementById("actionInput").value;
+        if (inputText.trim() !== '') {
+            inputs.push(inputText); // Add input to array
+            updateScrollBox();
+            document.getElementById("actionInput").value = ''; // Clear input box
+        }
+    }
+
+    function updateScrollBox() {
+        var scrollBox = document.getElementById("scrollBox");
+        scrollBox.innerHTML = ''; // Clear existing content
+        var ul = document.createElement("ul"); // Create unordered list
+        inputs.slice().reverse().forEach(function(input) { // Reverse and iterate over inputs
+            var li = document.createElement("li"); // Create list item
+            li.textContent = input; // Set text content of list item
+            ul.appendChild(li); // Append list item to unordered list
+        });
+        scrollBox.appendChild(ul); // Append unordered list to scroll box
+    }
+
+    function handleKeyPress(event) {
+        if (event.keyCode === 13) { // Enter key pressed
+            printToBox();
+        }
+    }
+</script>
 </body>
 </html>
