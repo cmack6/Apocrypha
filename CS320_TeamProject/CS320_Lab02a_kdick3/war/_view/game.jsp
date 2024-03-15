@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scrolling Box Example</title>
+<title>Apocrypha</title>
 
 <style>
     body {
@@ -57,21 +57,20 @@
 </head>
 <body>
 	
-	<form action="${pageContext.servletContext.contextPath}/game" method="post">
-
+<form method="post">
 <div class="container">
     <h1 class="title">Apocrypha</h1>
         <h2 class="mini_title">Your Adventure.</h2>
         <td></td>
     <div class="scroll-box" id="scrollBox">
         <!-- You can add more paragraphs here -->
+       <p> ${input} </p>
     </div>
 </div>
-
 <!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->
-<input class="textbox" placeholder="What will you do?" type="text" id="actionInput" /> 
-
-<script>
+<input class="textbox" placeholder="What will you do?" type="text" id="input" name="input" /> 
+</form>
+<!--<script>
     var inputs = []; // Array to store inputs
     
     function printToBox() {
@@ -79,7 +78,7 @@
         if (inputText.trim() !== '') {
             inputs.push(inputText); // Add input to array
             updateScrollBox();
-            document.getElementById("actionInput").value = ''; // Clear input box
+            document.getElementById("actionInput").value = 'a'; // Clear input box
         }
     }
 
@@ -100,6 +99,6 @@
             printToBox();
         }
     }
-</script>
+</script>-->
 </body>
 </html>
