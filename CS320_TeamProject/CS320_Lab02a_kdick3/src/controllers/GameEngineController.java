@@ -27,11 +27,15 @@ import models.Room;
 
 		
 		
-		public String roomShortDescription() {
-			
-			return Room.getShortDescription();
+		public void setShortDescription(int roomIndex, String shortDescription) {
+			model.Rooms.get(roomIndex).setShortDescription(shortDescription);
+		
 		}
 		
+		public void setLongDescription(int roomIndex, String longDescription) {
+			model.Rooms.get(roomIndex).setLongDescription(longDescription);
+		
+		}
 		
 
 	}

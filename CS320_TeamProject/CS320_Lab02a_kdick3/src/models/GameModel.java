@@ -15,8 +15,12 @@ public class GameModel {
 		}
 
 		public String getAction() {
-	return input;
+			return input;
 		}
+		
+		
+		
+		
 	}
 		
 	
