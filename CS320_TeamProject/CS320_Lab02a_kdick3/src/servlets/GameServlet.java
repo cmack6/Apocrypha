@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import controllers.GameEngineController;
 import models.GameModel;
 import models.Room;
+import models.User;
 
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +25,8 @@ public class GameServlet extends HttpServlet {
 		
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+		
+		/////////////////////////////////////////////////////////////////////////////////////
 		
 		GameModel model = new GameModel();
 		
@@ -79,8 +82,11 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
+		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
+		User user = new User(4, 0);
 		
 		
+		//////////////////////////////////////////////////////////////////////////////////////
 	}
 	
 
@@ -100,6 +106,11 @@ public class GameServlet extends HttpServlet {
 		model.setAction(input);
 		
 		GE.processInput();*/
+		
+		
+		
+		
+		
 		String output = null;
 		
 		log.add(input);
