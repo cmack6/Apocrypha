@@ -82,7 +82,7 @@ public class Room {
 	
 	
 	
-	
+	/*
 	
 	public String refreshroom() {
 		return shortDescription;
@@ -98,13 +98,11 @@ public class Room {
 		return newScore;
 	}
 	
-	public boolean isValidMove (/*direction*/) {
+	public boolean isValidMove () {
 		/*implement if a room exists and can be moved to, to return true, otherwise return false*/
-	}
 	
-	public String display() {
-		return longDescription;
-	}
+	
+	
 	
 	
 	

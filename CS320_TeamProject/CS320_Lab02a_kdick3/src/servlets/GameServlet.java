@@ -85,6 +85,9 @@ public class GameServlet extends HttpServlet {
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
 		
+		controller.move(user, "north");
+		controller.move(user, "south");
+		
 		
 		//////////////////////////////////////////////////////////////////////////////////////
 	}

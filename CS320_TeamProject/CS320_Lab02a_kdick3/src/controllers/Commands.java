@@ -1,8 +1,10 @@
 package controllers;
 
+import models.User;
+
 public interface Commands {
 	
-	public void move();
+	public void move(User user, String direction);
 	
 	public void jump();
 	
