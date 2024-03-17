@@ -33,10 +33,12 @@ public class GameServlet extends HttpServlet {
 		GameEngineController controller = new GameEngineController(model);
 		
 		//making a makeshift "map" through populating an arraylist with rooms///maybe i could put this as a method in the controller and say like create map just so its moved from the servlet
+		/*
 		for(int i=0; i<9; i++) {
 			Room a = new Room();
 			controller.addNewRoom(a);
 		}
+		*/
 		
 		//populates the RoomID for each room, it corresponds with their index just for now, will change eventually^^ same with that above
 		for(int i=0; i<9; i++) {

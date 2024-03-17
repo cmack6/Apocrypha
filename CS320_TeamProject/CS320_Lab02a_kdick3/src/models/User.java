@@ -2,7 +2,7 @@ package models;
 
 import java.util.Scanner;
 
-public class User extends Actor{
+public class User{
 
 	private String password;
 	private String username;

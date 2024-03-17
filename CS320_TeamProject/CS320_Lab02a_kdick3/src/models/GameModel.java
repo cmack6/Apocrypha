@@ -4,10 +4,15 @@ import java.util.ArrayList;
 
 public class GameModel {
 		private String input;
-		public ArrayList<Room> Rooms = new ArrayList<Room>();
+		public ArrayList<Room> Rooms;
 
 
 		public GameModel() {
+			Rooms = new ArrayList<Room>();
+			for(int i=0; i<9; i++) {
+				Room a = new Room();
+				this.Rooms.add(a);
+			}
 		}
 		
 

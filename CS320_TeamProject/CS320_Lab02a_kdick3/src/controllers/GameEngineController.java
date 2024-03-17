@@ -18,14 +18,17 @@ import models.User;
 		
 		
 		
-		
-		public void addNewRoom(Room roomNum) {
-			model.Rooms.add(roomNum);
+		/*
+		public void addNewRoom() {
+			Room a = new Room();
+			model.Rooms.add(a);
 			
 		}
+		*/
 		
 		public void setRoomID(int roomIndex, int newRoomID) {
 			model.Rooms.get(roomIndex).setRoomID(newRoomID);
+			
 			
 		}
 		

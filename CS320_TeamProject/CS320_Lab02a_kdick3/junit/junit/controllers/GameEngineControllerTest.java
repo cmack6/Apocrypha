@@ -22,20 +22,24 @@ private User user;
 
 @Before
 public void setUp() {
-	//GameModel model = new GameModel();
-	
-	 controller = new GameEngineController(model);
+		model = new GameModel();
+		controller = new GameEngineController(model);
 	
 	//making a makeshift "map" through populating an arraylist with rooms///maybe i could put this as a method in the controller and say like create map just so its moved from the servlet
-	for(int i=0; i<9; i++) {
-		Room a = new Room();
-		controller.addNewRoom(a);
+	/*
+	 for(int i=0; i<9; i++) {
+		controller.addNewRoom();
 	}
+	*/
 	
 	//populates the RoomID for each room, it corresponds with their index just for now, will change eventually^^ same with that above
-	for(int i=0; i<9; i++) {
+	
+	 for(int i=0; i<9; i++) {
 		controller.setRoomID(i, i);
 	}
+	
+	
+	
 	
 	//for setting up room connections, im going to make them using just one arraylist laid out below
 	// [0][1][2]
@@ -82,9 +86,13 @@ public void setUp() {
 }
 
 @Test
-public void testProcessInput() {
+public void testMove() {
 	controller.move(user, "north");
-	assertEquals(user.getRoomID(), 2);
+	controller.move(user, "south");
+	controller.move(user, "east");
+	controller.move(user, "south");
+	controller.move(user, "east");
+	assertEquals(6, user.getRoomID());
 
 	
 }
