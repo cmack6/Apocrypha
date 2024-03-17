@@ -1,4 +1,4 @@
-
+package models;
 
 public class Room {
 
@@ -7,13 +7,19 @@ public class Room {
 	private int xLoc;
 	private String shortDescription;
 	private String longDescription;
-	private boolean isLocked;
+	private boolean isAlreadyEntered = false;
 	
 	
 	public Room() {
-		this.roomID = roomID;
-		this.yLoc = yLoc;
-		this.xLoc = xLoc;
+		
+	}
+	
+	public boolean getIsAlreadyEntered() {
+		return isAlreadyEntered;
+	}
+	
+	public void setIsAlreadyEntered(boolean isAlreadyEntered) {
+		this.isAlreadyEntered = isAlreadyEntered;
 	}
 	
 	public void setRoomID(int roomID) {
@@ -41,6 +47,15 @@ public class Room {
 		return longDescription;
 	
 	}
+	
+	
+	
+	//^^^korbins work^^^*plz dont touch yet*
+	
+	
+	
+	
+	
 	
 	
 	public String refreshroom() {

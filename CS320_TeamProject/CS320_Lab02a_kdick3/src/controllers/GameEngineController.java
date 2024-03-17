@@ -16,14 +16,16 @@ import models.Room;
 			this.model = model;
 		}
 		
-		public GameEngineController() {
+		public void addNewRoom(Room roomNum)) {
+			Rooms.add(Room);
+			
 		}
 
 		
 		
 		public String roomShortDescription() {
 			
-			return Rooms.get()
+			return Room.getShortDescription();
 		}
 		
 		
