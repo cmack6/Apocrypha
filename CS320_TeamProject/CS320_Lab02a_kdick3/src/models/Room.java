@@ -3,8 +3,10 @@ package models;
 public class Room {
 
 	private int roomID; 
-	private int yLoc;
-	private int xLoc;
+	private int north;
+	private int south;
+	private int west;
+	private int east;
 	private String shortDescription;
 	private String longDescription;
 	private boolean isAlreadyEntered = false;
@@ -46,6 +48,30 @@ public class Room {
 	public String getLongDescription() {
 		return longDescription;
 	
+	}
+	
+	public void setRoomConnections(int north, int south, int east, int west) {
+		this.north = north;
+		this.south = south;
+		this.east = east;
+		this.west = west;
+		
+	}
+	
+	public int getRoomConnectionNorth() {
+		return north;
+	}
+	
+	public int getRoomConnectionSouth() {
+		return south;
+	}
+	
+	public int getRoomConnectionEast() {
+		return east;
+	}
+	
+	public int getRoomConnectionWest() {
+		return west;
 	}
 	
 	

@@ -9,6 +9,7 @@ public class GameModel {
 
 		public GameModel() {
 		}
+		
 
 		public void setAction(String input) {
 			this.input = input;
@@ -17,6 +18,7 @@ public class GameModel {
 		public String getAction() {
 			return input;
 		}
+		
 		
 		
 		

@@ -15,6 +15,9 @@ import models.Room;
 			this.model = model;
 		}
 		
+		
+		
+		
 		public void addNewRoom(Room roomNum) {
 			model.Rooms.add(roomNum);
 			
@@ -23,6 +26,27 @@ import models.Room;
 		public void setRoomID(int roomIndex, int newRoomID) {
 			model.Rooms.get(roomIndex).setRoomID(newRoomID);
 			
+		}
+		
+		public void setRoomConnections(int roomID, int north, int south, int east, int west) {
+			model.Rooms.get(roomID).setRoomConnections(north, south, east, west);
+			
+		}
+		
+		public int getRoomConnectionNorth() {
+			model.Rooms.get(index)
+		}
+		
+		public int getRoomConnectionSouth() {
+			return south;
+		}
+		
+		public int getRoomConnectionEast() {
+			return east;
+		}
+		
+		public int getRoomConnectionWest() {
+			return west;
 		}
 
 		
@@ -37,6 +61,11 @@ import models.Room;
 		
 		}
 		
+		public boolean isValidMove(String direction, int userRoomID) {
+			if() {
+				
+			}
+		}
 
 	}
 		

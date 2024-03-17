@@ -69,6 +69,15 @@ public class GameServlet extends HttpServlet {
 		controller.setLongDescription(7, "The wall to the south looks as though they can bring you somewhere...");
 		controller.setLongDescription(8, "The walls to the east and south look as though they can bring you somewhere...");
 		
+		controller.setRoomConnections(0, 6, 3, 1, 2);
+		controller.setRoomConnections(1, 7, 4, 2, 0);
+		controller.setRoomConnections(2, 8, 5, 0, 1);
+		controller.setRoomConnections(3, 0, 6, 4, 5);
+		controller.setRoomConnections(4, 1, 7, 5, 3);
+		controller.setRoomConnections(5, 2, 8, 3, 4);
+		controller.setRoomConnections(6, 3, 0, 7, 8);
+		controller.setRoomConnections(7, 4, 1, 8, 6);
+		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
 		
 		

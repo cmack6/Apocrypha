@@ -9,6 +9,8 @@ public class User extends Actor{
 	private int score;
 	/* public statistic score */
 	
+	//this jaunt is all over the place
+	
 	public String select() {
 		Scanner input = new Scanner(password);
 		String select = input.next();
