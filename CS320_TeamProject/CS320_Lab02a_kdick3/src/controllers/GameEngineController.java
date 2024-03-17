@@ -16,8 +16,13 @@ import models.Room;
 			this.model = model;
 		}
 		
-		public void addNewRoom(Room roomNum)) {
-			Rooms.add(Room);
+		public void addNewRoom(Room roomNum) {
+			Rooms.add(roomNum);
+			
+		}
+		
+		public void setRoomID(int roomIndex, int newRoomID) {
+			Rooms.get(roomIndex).setRoomID(newRoomID);
 			
 		}
 

@@ -29,12 +29,16 @@ public class GameServlet extends HttpServlet {
 		
 		GameEngineController controller = new GameEngineController(model);
 		
-		Room r1 = new Room();
-		Room r2 = new Room();
-		Room r3 = new Room();
-		Room r4 = new Room();
-		Room r5 = new Room();
-		Room r6 = new Room();
+		//making a makeshift "map" through populating an arraylist with rooms
+		for(int i=0; i<9; i++) {
+			Room a = new Room();
+			controller.addNewRoom(a);
+		}
+		
+		//populates the RoomID for each room, it corresponds with their index just for now, will change eventually
+		for(int i=0; i<9; i++) {
+			controller.setRoomID(i, i);
+		}
 		
 		
 		
