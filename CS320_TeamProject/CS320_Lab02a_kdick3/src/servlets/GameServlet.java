@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -88,6 +89,9 @@ public class GameServlet extends HttpServlet {
 		req.setAttribute("model", setModel);
 		String input = "";
 		req.setAttribute("input",input);
+		String modelString = UUID.randomUUID().toString();
+		req.getSession().setAttribute("modelString", setModel);
+		req.setAttribute("modelString", modelString);
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 		System.out.println(setModel.getUser().getRoomID());
 
@@ -133,20 +137,26 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
-		GameModel model = new GameModel();
-		model = (GameModel)req.getAttribute("model");
-		System.out.println(model.getUser().getRoomID());
+		String modelString = req.getParameter("modelString");
+		Object transferModel = req.getSession().getAttribute("modelString");
+		GameModel model = (GameModel)transferModel;
+		req.getSession().removeAttribute("modelString");
+	//	GameModel model = new GameModel();
+	//	model = (GameModel)req.getAttribute("model");
+		System.out.println("before move:" + model.getUser().getRoomID());
 		String input = req.getParameter("input");
 	//	System.out.println(input);
 		GameEngineController GE = new GameEngineController(model);
 		
 		GE.processInput(model,input);
 		
-		
+		System.out.println("after move:" + model.getUser().getRoomID());
 		String newLog = log + input + tempModel.Rooms.get(model.getUser().getRoomID()).getLongDescription();
 		req.setAttribute("log",newLog);
 		req.setAttribute("model",model);
-		
+		modelString = UUID.randomUUID().toString();
+		req.getSession().setAttribute("modelString", model);
+		req.setAttribute("modelString", modelString);
 		
 		
 		

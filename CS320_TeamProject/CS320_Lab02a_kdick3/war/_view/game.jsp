@@ -60,6 +60,7 @@
         let model = 0;
     </script>
 <form method="post">
+<input type="hidden" name="model" value="${modelString}"/>
 <div class="container">
     <h1 class="title">Apocrypha</h1>
         <h2 class="mini_title">Your Adventure.</h2>
