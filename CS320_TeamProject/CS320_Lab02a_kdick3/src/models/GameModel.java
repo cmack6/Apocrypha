@@ -19,6 +19,11 @@ public class GameModel {
 		public GameModel(User user, String log) {
 			this.user=user;
 			this.log=log;
+			Rooms = new ArrayList<Room>();
+			for(int i=0; i<9; i++) {
+				Room a = new Room();
+				this.Rooms.add(a);
+			}
 		}
 
 		public void setAction(String input) {

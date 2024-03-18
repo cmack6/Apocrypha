@@ -104,9 +104,18 @@ public class GameServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		GameModel tempModel = new GameModel();
-		GameEngineController controller = new GameEngineController(tempModel);
 		System.out.println("Game Servlet: doPost");
+
+		String modelString = req.getParameter("modelString");
+		Object transferModel = req.getSession().getAttribute("modelString");
+		GameModel model = (GameModel)transferModel;
+		req.getSession().removeAttribute("modelString");
+	//	GameModel model = new GameModel();
+	//	model = (GameModel)req.getAttribute("model");
+		System.out.println("before move:" + model.getUser().getRoomID());
+		String input = req.getParameter("input");
+	//	System.out.println(input);
+		GameEngineController controller = new GameEngineController(model);
 		for(int i=0; i<9; i++) {
 			controller.setRoomID(i, i);
 		}
@@ -137,21 +146,12 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
-		String modelString = req.getParameter("modelString");
-		Object transferModel = req.getSession().getAttribute("modelString");
-		GameModel model = (GameModel)transferModel;
-		req.getSession().removeAttribute("modelString");
-	//	GameModel model = new GameModel();
-	//	model = (GameModel)req.getAttribute("model");
-		System.out.println("before move:" + model.getUser().getRoomID());
-		String input = req.getParameter("input");
-	//	System.out.println(input);
-		GameEngineController GE = new GameEngineController(model);
-		
-		GE.processInput(model,input);
+		controller.processInput(model,input);
 		
 		System.out.println("after move:" + model.getUser().getRoomID());
-		String newLog = log + input + tempModel.Rooms.get(model.getUser().getRoomID()).getLongDescription();
+		String newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getLongDescription() + "</p>";
+		model.setLog(newLog);
+		System.out.println(newLog);
 		req.setAttribute("log",newLog);
 		req.setAttribute("model",model);
 		modelString = UUID.randomUUID().toString();

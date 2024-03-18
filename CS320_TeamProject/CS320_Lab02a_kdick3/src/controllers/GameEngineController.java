@@ -46,7 +46,7 @@ import models.User;
 		
 		public void processInput(GameModel model, String input) {
 			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
-				move(model.getUser(),input);
+				move(model,input);
 			}
 			else if(input.equals("jump")||input.equals("j")) {
 				jump();
@@ -72,29 +72,28 @@ import models.User;
 
 
 		@Override
-		public void move(User user, String direction) {
+		public void move(GameModel model, String direction) {
 			//there might be a better way to do this without having to pass the user 
 			//back and forth 
 			int temp = 0;
-			GameModel tempModel = new GameModel();//this is a temp model for the hard written tests
 			if(direction.equals("north")) {
-			temp = tempModel.Rooms.get(user.getRoomID()).getRoomConnectionNorth();
-			user.setRoomID(temp);
+			temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionNorth();
+			model.getUser().setRoomID(temp);
 			}
 			
 			else if(direction.equals("south")) {
-				temp = tempModel.Rooms.get(user.getRoomID()).getRoomConnectionSouth();
-				user.setRoomID(temp);
+				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionSouth();
+				model.getUser().setRoomID(temp);
 				}
 			
 			else if(direction.equals("east")) {
-				temp = tempModel.Rooms.get(user.getRoomID()).getRoomConnectionEast();
-				user.setRoomID(temp);
+				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionEast();
+				model.getUser().setRoomID(temp);
 				}
 			
 			else
-				temp = tempModel.Rooms.get(user.getRoomID()).getRoomConnectionWest();
-				user.setRoomID(temp);
+				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionWest();
+				model.getUser().setRoomID(temp);
 				
 		}
 

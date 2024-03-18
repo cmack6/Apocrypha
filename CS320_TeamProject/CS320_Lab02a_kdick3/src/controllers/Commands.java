@@ -1,10 +1,11 @@
 package controllers;
 
+import models.GameModel;
 import models.User;
 
 public interface Commands {
 	
-	public void move(User user, String direction);
+	public void move(GameModel model, String direction);
 	
 	public void jump();
 	
