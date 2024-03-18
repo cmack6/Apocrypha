@@ -97,6 +97,32 @@ public void testMove() {
 	
 }
 
+@Test
+public void testSetRoomID() {
+	controller.setRoomID(0, 5);
+	assertEquals(5, model.Rooms.get(0).getRoomID());
+}
+
+@Test 
+public void testSetRoomConnections() {
+	controller.setRoomConnections(0, 2, 2, 3, 4);
+	assertEquals(2, model.Rooms.get(0).getRoomConnectionNorth());
+}
+
+@Test
+public void testSetLongDescription() {
+	controller.setLongDescription(0, "New long description");
+	assertTrue(model.Rooms.get(0).getLongDescription().equals("New long description"));
+	
+}
+
+@Test
+public void testSetShortDescription() {
+	controller.setShortDescription(0, "New short description");
+	assertTrue(model.Rooms.get(0).getShortDescription().equals("New short description"));
+	
+}
+
 }
 		
 	
