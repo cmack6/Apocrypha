@@ -56,7 +56,9 @@
 </style>
 </head>
 <body>
-	
+	<script>
+        let model = 0;
+    </script>
 <form method="post">
 <div class="container">
     <h1 class="title">Apocrypha</h1>
@@ -64,7 +66,8 @@
         <td></td>
     <div class="scroll-box" id="scrollBox">
         <!-- You can add more paragraphs here -->
-       <p> ${input} </p>
+       <p> ${model.log}
+         </p>
     </div>
 </div>
 <!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->

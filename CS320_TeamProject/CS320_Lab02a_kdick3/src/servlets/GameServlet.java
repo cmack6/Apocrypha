@@ -24,8 +24,6 @@ public class GameServlet extends HttpServlet {
 		System.out.println("Game Servlet: doGet");	
 		
 		// call JSP to generate empty form
-		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
-		
 		/////////////////////////////////////////////////////////////////////////////////////
 		
 		GameModel model = new GameModel();
@@ -86,9 +84,13 @@ public class GameServlet extends HttpServlet {
 		
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
-		
-		controller.move(user, "north");
-		controller.move(user, "south");
+		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
+		req.setAttribute("model", setModel);
+		String input = "";
+		req.setAttribute("input",input);
+		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+		System.out.println(setModel.getUser().getRoomID());
+
 		
 		
 		//////////////////////////////////////////////////////////////////////////////////////
@@ -98,25 +100,57 @@ public class GameServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+		GameModel tempModel = new GameModel();
+		GameEngineController controller = new GameEngineController(tempModel);
 		System.out.println("Game Servlet: doPost");
+		for(int i=0; i<9; i++) {
+			controller.setRoomID(i, i);
+		}
+		for(int i=0; i<9; i++) {
+			controller.setShortDescription(i, "A bare room, the some walls look awfully odd...");
+		}
+		
+		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths.");
+		controller.setShortDescription(4, "Welcome to Apocrypha!");
 		
 		
+		controller.setLongDescription(0, "The walls to the west and north look as though they can bring you somewhere...");
+		controller.setLongDescription(1, "The wall to the north looks as though it can bring you somewhere...");
+		controller.setLongDescription(2, "The walls to the east and north look as though they can bring you somewhere...");
+		controller.setLongDescription(3, "The wall to the west looks as though it can bring you somewhere...");
+		controller.setLongDescription(5, "The wall to the east looks as though they can bring you somewhere...");
+		controller.setLongDescription(6, "The walls to the south and west look as though they can bring you somewhere...");
+		controller.setLongDescription(7, "The wall to the south looks as though they can bring you somewhere...");
+		controller.setLongDescription(8, "The walls to the east and south look as though they can bring you somewhere...");
+		
+		controller.setRoomConnections(0, 6, 3, 1, 2);
+		controller.setRoomConnections(1, 7, 4, 2, 0);
+		controller.setRoomConnections(2, 8, 5, 0, 1);
+		controller.setRoomConnections(3, 0, 6, 4, 5);
+		controller.setRoomConnections(4, 1, 7, 5, 3);
+		controller.setRoomConnections(5, 2, 8, 3, 4);
+		controller.setRoomConnections(6, 3, 0, 7, 8);
+		controller.setRoomConnections(7, 4, 1, 8, 6);
+		controller.setRoomConnections(8, 5, 2, 6, 7);
+		
+		GameModel model = new GameModel();
+		model = (GameModel)req.getAttribute("model");
+		System.out.println(model.getUser().getRoomID());
 		String input = req.getParameter("input");
-		
-		/*GameModel model = new GameModel(input);
-		
+	//	System.out.println(input);
 		GameEngineController GE = new GameEngineController(model);
 		
-		model.setAction(input);
-		
-		GE.processInput();*/
+		GE.processInput(model,input);
 		
 		
+		String newLog = log + input + tempModel.Rooms.get(model.getUser().getRoomID()).getLongDescription();
+		req.setAttribute("log",newLog);
+		req.setAttribute("model",model);
 		
 		
 		
-		String output = null;
+		
+		/*String output = null;
 		
 		log.add(input);
 		req.setAttribute("size", log.size());
@@ -124,7 +158,7 @@ public class GameServlet extends HttpServlet {
 			output=log.get(i);
 			req.setAttribute("input",output);
 		}
-		
+		*/
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 	
 		
