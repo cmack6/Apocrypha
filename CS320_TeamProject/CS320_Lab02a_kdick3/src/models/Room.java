@@ -74,6 +74,15 @@ public class Room {
 		return west;
 	}
 	
+	public String getDescription(){
+		if(isAlreadyEntered==false) {
+			isAlreadyEntered=true;
+			return longDescription;
+		}
+		else {
+			return shortDescription;
+		}
+	}
 	
 	
 	//^^^korbins work^^^*plz dont touch yet*

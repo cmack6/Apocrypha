@@ -89,12 +89,13 @@ public class GameServlet extends HttpServlet {
 		req.setAttribute("model", setModel);
 		String input = "";
 		req.setAttribute("input",input);
+		setModel.Rooms.get(setModel.getUser().getRoomID()).getDescription();
 		String modelString = UUID.randomUUID().toString();
 		req.getSession().setAttribute("modelString", setModel);
 		req.setAttribute("modelString", modelString);
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 		System.out.println(setModel.getUser().getRoomID());
-
+		
 		
 		
 		//////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +106,7 @@ public class GameServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		System.out.println("Game Servlet: doPost");
-
+		
 		String modelString = req.getParameter("modelString");
 		Object transferModel = req.getSession().getAttribute("modelString");
 		GameModel model = (GameModel)transferModel;
@@ -149,7 +150,7 @@ public class GameServlet extends HttpServlet {
 		controller.processInput(model,input);
 		
 		System.out.println("after move:" + model.getUser().getRoomID());
-		String newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getLongDescription() + "</p>";
+		String newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p>";
 		model.setLog(newLog);
 		System.out.println(newLog);
 		req.setAttribute("log",newLog);
