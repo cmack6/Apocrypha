@@ -18,8 +18,8 @@ private GameEngineController controller;
 
 @Before
 public void setUp() {
-	String input = "south";
-	model = new GameModel(input);
+	
+	model = new GameModel();
 	controller = new GameEngineController(model);
 	
 }
