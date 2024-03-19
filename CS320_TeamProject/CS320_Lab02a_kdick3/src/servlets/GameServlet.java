@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import controllers.GameEngineController;
 import models.GameModel;
-import models.Room;
 import models.User;
 
 public class GameServlet extends HttpServlet {
@@ -96,8 +95,11 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
+		
+		
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
+		//controller.addItemToUserInvetory();
 		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
 		req.setAttribute("model", setModel);
 		String input = "";

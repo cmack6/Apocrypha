@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User{
@@ -8,6 +9,7 @@ public class User{
 	private String username;
 	private int roomID;
 	private int score;
+	private Inventory userInventory;
 	/* public statistic score */
 	
 	
@@ -19,6 +21,7 @@ public class User{
 	public User(int roomID, int score) {
 		this.roomID = roomID;
 		this.score = score;
+		
 	}
 	
 	
@@ -43,6 +46,16 @@ public class User{
 	
 	public int getScore() {
 		return score;
+	}
+
+
+	public Inventory getUserInventory() {
+		return userInventory;
+	}
+
+
+	public void setUserInventory(Inventory userInventory) {
+		this.userInventory = userInventory;
 	}
 	
 }

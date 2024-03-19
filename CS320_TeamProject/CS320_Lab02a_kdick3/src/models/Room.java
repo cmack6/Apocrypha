@@ -10,9 +10,10 @@ public class Room {
 	private String shortDescription;
 	private String longDescription;
 	private boolean isAlreadyEntered = false;
-	
+	private Inventory roomInventory;
 	
 	public Room() {
+		
 		
 	}
 	
@@ -82,6 +83,14 @@ public class Room {
 		else {
 			return shortDescription;
 		}
+	}
+
+	public Inventory getRoomInventory() {
+		return roomInventory;
+	}
+
+	public void setRoomInventory(Inventory roomInventory) {
+		this.roomInventory = roomInventory;
 	}
 	
 	
