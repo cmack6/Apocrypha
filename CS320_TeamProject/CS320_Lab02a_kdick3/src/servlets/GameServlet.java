@@ -176,12 +176,13 @@ public class GameServlet extends HttpServlet {
 		
 		System.out.println("after move:" + model.getUser().getRoomID());
 		String newLog;
-		if(model.getError().equals(null)) {
-			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.getError() + "</p>";
-			model.setError(null);
+		if(model.getError().equals("working")) {
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p>";
+
 		}
 		else {
-			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p>";
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.getError() + "</p>";
+			model.setError("working");
 		}
 		model.setLog(newLog);
 		System.out.println(newLog);
