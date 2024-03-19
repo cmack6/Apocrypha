@@ -9,7 +9,7 @@ public class User{
 	private String username;
 	private int roomID;
 	private int score;
-	private Inventory userInventory;
+	public Inventory userInventory;
 	/* public statistic score */
 	
 	
@@ -54,8 +54,8 @@ public class User{
 	}
 
 
-	public void setUserInventory(Inventory userInventory) {
-		this.userInventory = userInventory;
+	public void addToInventory() {
+		
 	}
 	
 }

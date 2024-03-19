@@ -87,11 +87,11 @@ public void setUp() {
 
 @Test
 public void testMove() {
-	controller.move(user, "north");
-	controller.move(user, "south");
-	controller.move(user, "east");
-	controller.move(user, "south");
-	controller.move(user, "east");
+	controller.processInput(model, "north");
+	controller.processInput(model, "south");
+	controller.processInput(model, "east");
+	controller.processInput(model, "south");
+	controller.processInput(model, "east");
 	assertEquals(6, user.getRoomID());
 
 	
