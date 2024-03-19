@@ -84,17 +84,17 @@ import models.User;
 			//there might be a better way to do this without having to pass the user 
 			//back and forth 
 			int temp = 0;
-			if(direction.equals("north")) {
+			if(direction.equals("north")||direction.equals("n")) {
 			temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionNorth();
 			model.getUser().setRoomID(temp);
 			}
 			
-			else if(direction.equals("south")) {
+			else if(direction.equals("south")||direction.equals("s")) {
 				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionSouth();
 				model.getUser().setRoomID(temp);
 				}
 			
-			else if(direction.equals("east")) {
+			else if(direction.equals("east")||direction.equals("e")) {
 				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionEast();
 				model.getUser().setRoomID(temp);
 				}
