@@ -10,13 +10,13 @@ public Inventory() {
 	
 
 }
-
+/*
 public void add(Item item) {
 	// TODO Auto-generated method stub
 	items.add(item);
 	
 }
-
+*/
 
 
 

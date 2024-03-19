@@ -100,9 +100,9 @@ public class GameServlet extends HttpServlet {
 		
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
-		Item sword = new Item(10);
+		//Item sword = new Item(10);
 		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
-		controller.addItemToInvetory(user, sword);
+		//controller.addItemToInvetory(user, sword);
 		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
 		req.setAttribute("model", setModel);
 		String input = "";

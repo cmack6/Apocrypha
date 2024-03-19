@@ -9,7 +9,7 @@ public class User{
 	private String username;
 	private int roomID;
 	private int score;
-	public Inventory userInventory;
+	//public Inventory userInventory;
 	/* public statistic score */
 	
 	
@@ -48,10 +48,11 @@ public class User{
 		return score;
 	}
 
-
+	/*
 	public Inventory getUserInventory() {
 		return userInventory;
 	}
+	*/
 
 
 	public void addToInventory() {
