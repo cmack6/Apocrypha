@@ -55,23 +55,36 @@ public class GameServlet extends HttpServlet {
 		//However, around the outside(everywhere but [4]) will have an instruction that brings the user across to the other end
 		//if the User commands north from [0], the User will end up in [6]
 		
+		// [plateau][canyon][desert]
+		// [forest][campsite][glacier]
+		// [hill][marsh][valley]
+		
 		//in case time doesnt permit im treating all of the rooms as literal rooms, might switch to caves/buildings/etc.
 		for(int i=0; i<9; i++) {
 			controller.setShortDescription(i, "A bare room, the some walls look awfully odd...");
 		}
 		
-		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths.");
-		controller.setShortDescription(4, "Welcome to Apocrypha!");
+		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
+		controller.setShortDescription(4, "A small campsite stands in an large open area.");
 		
 		
-		controller.setLongDescription(0, "The walls to the west and north look as though they can bring you somewhere...");
-		controller.setLongDescription(1, "The wall to the north looks as though it can bring you somewhere...");
-		controller.setLongDescription(2, "The walls to the east and north look as though they can bring you somewhere...");
-		controller.setLongDescription(3, "The wall to the west looks as though it can bring you somewhere...");
-		controller.setLongDescription(5, "The wall to the east looks as though they can bring you somewhere...");
-		controller.setLongDescription(6, "The walls to the south and west look as though they can bring you somewhere...");
-		controller.setLongDescription(7, "The wall to the south looks as though they can bring you somewhere...");
-		controller.setLongDescription(8, "The walls to the east and south look as though they can bring you somewhere...");
+		controller.setShortDescription(0, "You are at a plateau.");
+		controller.setShortDescription(1, "You are at a canyon.");
+		controller.setShortDescription(2, "You are at a desert.");
+		controller.setShortDescription(3, "You are at a forest.");
+		controller.setShortDescription(5, "You are at a glacier.");
+		controller.setShortDescription(6, "You are at a hill.");
+		controller.setShortDescription(7, "You are at a marsh.");
+		controller.setShortDescription(8, "You are at a valley.");
+
+		controller.setLongDescription(0, "You are at a plateau. To the north is a hill. To the west is a desert. To the east is a canyon. To the south is a forest.");
+		controller.setLongDescription(1, "You are at a canyon. To the north is a marsh. To the west is a plateau. To the east is a desert. To the south is a campsite.");
+		controller.setLongDescription(2, "You are at a desert. To the north is a valley. To the west is a canyon. To the east is a plateau. To the south is a glacier.");
+		controller.setLongDescription(3, "You are at a forest. To the north is a plateau. To the west is a glacier. To the east is a campsite. To the south is a hill.");
+		controller.setLongDescription(5, "You are at a glacier. To the north is a desert. To the west is a campsite. To the east is a forest. To the south is a valley.");
+		controller.setLongDescription(6, "You are at a hill. To the north is a forest. To the west is a valley. To the east is a marsh. To the south is a plateau.");
+		controller.setLongDescription(7, "You are at a marsh. To the north is a campsite. To the west is a hill. To the east is a valley. To the south is a canyon.");
+		controller.setLongDescription(8, "You are at a valley. To the north is a glacier. To the west is a marsh. To the east is a hill. To the south is a desert.");
 		
 		controller.setRoomConnections(0, 6, 3, 1, 2);
 		controller.setRoomConnections(1, 7, 4, 2, 0);
@@ -120,22 +133,29 @@ public class GameServlet extends HttpServlet {
 		for(int i=0; i<9; i++) {
 			controller.setRoomID(i, i);
 		}
-		for(int i=0; i<9; i++) {
-			controller.setShortDescription(i, "A bare room, the some walls look awfully odd...");
-		}
-		
-		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths.");
-		controller.setShortDescription(4, "Welcome to Apocrypha!");
 		
 		
-		controller.setLongDescription(0, "The walls to the west and north look as though they can bring you somewhere...");
-		controller.setLongDescription(1, "The wall to the north looks as though it can bring you somewhere...");
-		controller.setLongDescription(2, "The walls to the east and north look as though they can bring you somewhere...");
-		controller.setLongDescription(3, "The wall to the west looks as though it can bring you somewhere...");
-		controller.setLongDescription(5, "The wall to the east looks as though they can bring you somewhere...");
-		controller.setLongDescription(6, "The walls to the south and west look as though they can bring you somewhere...");
-		controller.setLongDescription(7, "The wall to the south looks as though they can bring you somewhere...");
-		controller.setLongDescription(8, "The walls to the east and south look as though they can bring you somewhere...");
+		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
+		controller.setShortDescription(4, "A small campsite stands in an large open area.");
+		
+		
+		controller.setShortDescription(0, "You are at a plateau.");
+		controller.setShortDescription(1, "You are at a canyon.");
+		controller.setShortDescription(2, "You are at a desert.");
+		controller.setShortDescription(3, "You are at a forest.");
+		controller.setShortDescription(5, "You are at a glacier.");
+		controller.setShortDescription(6, "You are at a hill.");
+		controller.setShortDescription(7, "You are at a marsh.");
+		controller.setShortDescription(8, "You are at a valley.");
+
+		controller.setLongDescription(0, "You are at a plateau. To the north is a hill. To the west is a desert. To the east is a canyon. To the south is a forest.");
+		controller.setLongDescription(1, "You are at a canyon. To the north is a marsh. To the west is a plateau. To the east is a desert. To the south is a campsite.");
+		controller.setLongDescription(2, "You are at a desert. To the north is a valley. To the west is a canyon. To the east is a plateau. To the south is a glacier.");
+		controller.setLongDescription(3, "You are at a forest. To the north is a plateau. To the west is a glacier. To the east is a campsite. To the south is a hill.");
+		controller.setLongDescription(5, "You are at a glacier. To the north is a desert. To the west is a campsite. To the east is a forest. To the south is a valley.");
+		controller.setLongDescription(6, "You are at a hill. To the north is a forest. To the west is a valley. To the east is a marsh. To the south is a plateau.");
+		controller.setLongDescription(7, "You are at a marsh. To the north is a campsite. To the west is a hill. To the east is a valley. To the south is a canyon.");
+		controller.setLongDescription(8, "You are at a valley. To the north is a glacier. To the west is a marsh. To the east is a hill. To the south is a desert.");
 		
 		controller.setRoomConnections(0, 6, 3, 1, 2);
 		controller.setRoomConnections(1, 7, 4, 2, 0);
