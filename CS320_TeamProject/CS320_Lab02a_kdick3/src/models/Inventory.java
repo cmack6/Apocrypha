@@ -7,13 +7,16 @@ public class Inventory{
 	private ArrayList<Item> items;
 
 public Inventory() {
+	//testing
 	items = new ArrayList<Item>();
-		Item a = new Item(10);
-		this.items.add(a);
 }
 
 public void add(Item item) {
 	items.add(item);
+}
+
+public void remove(Item item) {
+	items.remove(item);
 }
 
 

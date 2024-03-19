@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Room {
 
 	private int roomID; 
@@ -10,10 +12,9 @@ public class Room {
 	private String shortDescription;
 	private String longDescription;
 	private boolean isAlreadyEntered = false;
-	private Inventory roomInventory;
+	public Inventory roomInventory;
 	
 	public Room() {
-		
 		
 	}
 	
@@ -89,10 +90,18 @@ public class Room {
 	public Inventory getRoomInventory() {
 		return roomInventory;
 	}
+	
+	public String getRoomInventoryAsString() {
+		return roomInventory.toString();
+	}
 
 	
 	public void addToRoomInventory(Item item) {
 		roomInventory.add(item);
+	}
+	
+	public void removeFromRoomInventory(Item item) {
+		roomInventory.remove(item);
 	}
 	
 	

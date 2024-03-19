@@ -39,6 +39,10 @@ public class GameModel {
 			return user;
 		}
 		
+		public Room getRoom(int roomIndex) {
+			return Rooms.get(roomIndex);
+		}
+		
 		public String getLog() {
 			return log;
 		}

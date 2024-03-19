@@ -13,7 +13,7 @@ public class User extends Actor{
 	/* public statistic score */
 	
 	
-	//this jaunt is all over the place
+	
 	
 	
 	//maybe adding more parameters for password and username

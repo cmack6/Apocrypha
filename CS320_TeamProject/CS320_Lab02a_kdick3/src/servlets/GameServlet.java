@@ -34,13 +34,7 @@ public class GameServlet extends HttpServlet {
 		//Item sword = new Item(10);
 		//controller.addItemToInvetory(model, sword);
 		
-		//making a makeshift "map" through populating an arraylist with rooms///maybe i could put this as a method in the controller and say like create map just so its moved from the servlet
-		/*
-		for(int i=0; i<9; i++) {
-			Room a = new Room();
-			controller.addNewRoom(a);
-		}
-		*/
+		
 		
 		//populates the RoomID for each room, it corresponds with their index just for now, will change eventually^^ same with that above
 		for(int i=0; i<9; i++) {
@@ -62,10 +56,6 @@ public class GameServlet extends HttpServlet {
 		// [forest][campsite][glacier]
 		// [hill][marsh][valley]
 		
-		//in case time doesnt permit im treating all of the rooms as literal rooms, might switch to caves/buildings/etc.
-		for(int i=0; i<9; i++) {
-			controller.setShortDescription(i, "A bare room, the some walls look awfully odd...");
-		}
 		
 		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
 		controller.setShortDescription(4, "A small campsite stands in an large open area.");
@@ -106,15 +96,46 @@ public class GameServlet extends HttpServlet {
 		
 		
 		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
+		//Item sword = new Item(10);
+		//controller.addItemToInventory(model, sword, 4);
 		
+		
+		//when the jsp is first created, the first model created will be setModel, getting passed
+		//the user created above and the first long description of the starting room being the first log
 		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
+		
+		//sets what log is to display in the jsp model.log
 		req.setAttribute("model", setModel);
+		
+		//sets input for loading the page for the first time to nothing
 		String input = "";
+		
+		//puts nothing basically onto the jsp
 		req.setAttribute("input",input);
+		
+		//prints description of the room the user is in depending if the user has entered already or not
+		//if first time = long description. if second time = short description
 		setModel.Rooms.get(setModel.getUser().getRoomID()).getDescription();
+		
+		//universally unique identifier = UUID, this gets a random string of 36 characters, this
+		//basically sets the modelString as this unique string
 		String modelString = UUID.randomUUID().toString();
+		
+		//req.getSession() calls the current session, and if there isnt one, it creates one
+		//this line calls the current session and sets 
+		
+		
+		
+		//?
 		req.getSession().setAttribute("modelString", setModel);
+		
+		
+		
+		
+		//?
 		req.setAttribute("modelString", modelString);
+		
+		//
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 		System.out.println(setModel.getUser().getRoomID());
 		
@@ -138,6 +159,7 @@ public class GameServlet extends HttpServlet {
 	//	GameModel model = new GameModel();
 	//	model = (GameModel)req.getAttribute("model");
 		System.out.println("before move:" + model.getUser().getRoomID());
+		System.out.println();
 		String input = req.getParameter("input");
 	//	System.out.println(input);
 		GameEngineController controller = new GameEngineController(model);
@@ -147,6 +169,9 @@ public class GameServlet extends HttpServlet {
 		
 		//Item sword = new Item(10);
 		//controller.addItemToInvetory(model, sword);
+		
+		//Item sword = new Item(10);
+		//controller.addItemToInventory(model, sword, 4);
 		
 		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
 		controller.setShortDescription(4, "A small campsite stands in an large open area.");
