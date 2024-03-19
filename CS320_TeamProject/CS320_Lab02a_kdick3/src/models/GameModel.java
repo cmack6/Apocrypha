@@ -7,6 +7,7 @@ public class GameModel {
 		public ArrayList<Room> Rooms;
 		public User user;
 		public String log;
+		public String error = null;
 
 		public GameModel() {
 			Rooms = new ArrayList<Room>();
@@ -42,15 +43,21 @@ public class GameModel {
 			return log;
 		}
 		
-		public String setInvalidCommand(String add) {
-			String newlog=log+add+"This move is invalid.";
-			return newlog;
+		public void setInvalidCommand(String input) {
+			error=input + "is not a valid command.";
 		}
 		
 		public void setLog(String newLog) {
 			log=newLog;
 		}
 		
+		public String getError() {
+			return error;
+		}
+		
+		public void setError(String newError) {
+			error=newError;
+		}
 		
 		
 		

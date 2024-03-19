@@ -172,7 +172,14 @@ public class GameServlet extends HttpServlet {
 		controller.processInput(model,input);
 		
 		System.out.println("after move:" + model.getUser().getRoomID());
-		String newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p>";
+		String newLog;
+		if(model.getError().equals(null)) {
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.getError() + "</p>";
+			model.setError(null);
+		}
+		else {
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p>";
+		}
 		model.setLog(newLog);
 		System.out.println(newLog);
 		req.setAttribute("log",newLog);
