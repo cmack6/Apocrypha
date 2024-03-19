@@ -96,6 +96,7 @@ public class GameServlet extends HttpServlet {
 		
 		
 		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
+		//this returns null pointer exception
 		//Item sword = new Item(10);
 		//controller.addItemToInventory(model, sword, 4);
 		
@@ -204,7 +205,6 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(6, 3, 0, 7, 8);
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
-		
 		
 		
 		controller.processInput(model,input);

@@ -12,10 +12,19 @@ public class Room {
 	private String shortDescription;
 	private String longDescription;
 	private boolean isAlreadyEntered = false;
-	public Inventory roomInventory;
+	//public Inventory roomInventory;
+	private ArrayList<Item> inventory;
 	
 	public Room() {
 		
+	}
+	
+	public void addToInventory(Item item) {
+		inventory.add(item);
+	}
+	
+	public void removeFromInventory(Item item) {
+		inventory.remove(item);
 	}
 	
 	public boolean getIsAlreadyEntered() {
@@ -86,6 +95,7 @@ public class Room {
 		}
 	}
 	
+	/*
 
 	public Inventory getRoomInventory() {
 		return roomInventory;
@@ -104,6 +114,7 @@ public class Room {
 		roomInventory.remove(item);
 	}
 	
+	*/
 	
 	//^^^korbins work^^^*plz dont touch yet*
 	

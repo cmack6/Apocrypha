@@ -9,7 +9,8 @@ public class User extends Actor{
 	private String username;
 	private int roomID;
 	private int score;
-	public Inventory inventory;
+	//public Inventory inventory;
+	private ArrayList<Item> inventory;
 	/* public statistic score */
 	
 	
@@ -22,6 +23,14 @@ public class User extends Actor{
 		this.roomID = roomID;
 		this.score = score;
 		
+	}
+	
+	public void addToInventory(Item item) {
+		inventory.add(item);
+	}
+	
+	public void removeFromInventory(Item item) {
+		inventory.remove(item);
 	}
 	
 	
@@ -48,15 +57,12 @@ public class User extends Actor{
 		return score;
 	}
 
-	
-	public Inventory getInventory() {
+	public ArrayList<Item> getInventory() {
+		// TODO Auto-generated method stub
 		return inventory;
 	}
+
 	
-
-
-	public void addToInventory(Item item) {
-		inventory.add(item);
-	}
+	
 	
 }
