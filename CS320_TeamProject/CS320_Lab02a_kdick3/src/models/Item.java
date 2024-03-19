@@ -9,7 +9,7 @@ public class Item{
 
 public Item(int value) {
 	
-	this.setValue(value);
+	this.value = value;
 	
 	
 }

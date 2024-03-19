@@ -61,22 +61,22 @@ import models.User;
 			else if(input.equals("pickup")||input.equals("grab")) {
 				pickUp();
 			}
-			/*
+			
 			else if(input.equals("inventory")||input.equals("i")) {
 				inventory(model);
 			}
-			*/
+			
 			else {
 				model.setInvalidCommand(input);
 			}
 		}
 		
-		/*
-		public void addItemToInvetory(User user, Item item) {
-			user.userInventory.add(item);
+		
+		public void addItemToInvetory(GameModel model, Item item) {
+			model.Rooms.get(0).addToRoomInventory(item);
 			
 		}
-		*/
+		
 		
 		
 
@@ -147,20 +147,15 @@ import models.User;
 
 
 
-		@Override
-		public String inventory(GameModel model) {
-			// TODO Auto-generated method stub
-			return null;
-		}
 		
-		/*
+		
 		@Override
 		public String inventory(GameModel model) {
 			
-			return model.user.getUserInventory().toString();
+			return model.user.getInventory().toString();
 			
 		}
-*/
+
 
 
 		

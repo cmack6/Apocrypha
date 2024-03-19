@@ -3,13 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class User{
+public class User extends Actor{
 
 	private String password;
 	private String username;
 	private int roomID;
 	private int score;
-	//public Inventory userInventory;
+	public Inventory inventory;
 	/* public statistic score */
 	
 	
@@ -48,15 +48,15 @@ public class User{
 		return score;
 	}
 
-	/*
-	public Inventory getUserInventory() {
-		return userInventory;
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
-	*/
+	
 
 
-	public void addToInventory() {
-		
+	public void addToInventory(Item item) {
+		inventory.add(item);
 	}
 	
 }

@@ -10,7 +10,7 @@ public class Room {
 	private String shortDescription;
 	private String longDescription;
 	private boolean isAlreadyEntered = false;
-	//private Inventory roomInventory;
+	private Inventory roomInventory;
 	
 	public Room() {
 		
@@ -84,17 +84,17 @@ public class Room {
 			return shortDescription;
 		}
 	}
-	/*
+	
 
 	public Inventory getRoomInventory() {
 		return roomInventory;
 	}
 
-	public void setRoomInventory(Inventory roomInventory) {
-		this.roomInventory = roomInventory;
+	
+	public void addToRoomInventory(Item item) {
+		roomInventory.add(item);
 	}
 	
-	*/
 	
 	//^^^korbins work^^^*plz dont touch yet*
 	

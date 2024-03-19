@@ -31,6 +31,9 @@ public class GameServlet extends HttpServlet {
 		
 		GameEngineController controller = new GameEngineController(model);
 		
+		//Item sword = new Item(10);
+		//controller.addItemToInvetory(model, sword);
+		
 		//making a makeshift "map" through populating an arraylist with rooms///maybe i could put this as a method in the controller and say like create map just so its moved from the servlet
 		/*
 		for(int i=0; i<9; i++) {
@@ -100,9 +103,10 @@ public class GameServlet extends HttpServlet {
 		
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
-		//Item sword = new Item(10);
+		
+		
 		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
-		//controller.addItemToInvetory(user, sword);
+		
 		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
 		req.setAttribute("model", setModel);
 		String input = "";
@@ -125,6 +129,8 @@ public class GameServlet extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("Game Servlet: doPost");
 		
+		
+		
 		String modelString = req.getParameter("modelString");
 		Object transferModel = req.getSession().getAttribute("modelString");
 		GameModel model = (GameModel)transferModel;
@@ -139,6 +145,8 @@ public class GameServlet extends HttpServlet {
 			controller.setRoomID(i, i);
 		}
 		
+		//Item sword = new Item(10);
+		//controller.addItemToInvetory(model, sword);
 		
 		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
 		controller.setShortDescription(4, "A small campsite stands in an large open area.");
@@ -171,6 +179,8 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(6, 3, 0, 7, 8);
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
+		
+		
 		
 		controller.processInput(model,input);
 		
