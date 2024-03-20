@@ -10,7 +10,7 @@ public class User extends Actor{
 	private int roomID;
 	private int score;
 	//public Inventory inventory;
-	private ArrayList<Item> inventory = new ArrayList<Item>();
+	//private ArrayList<Item> inventory = new ArrayList<Item>();
 	/* public statistic score */
 	
 	
@@ -26,13 +26,7 @@ public class User extends Actor{
 		
 	}
 	
-	public void addToInventory(Item item) {
-		inventory.add(item);
-	}
 	
-	public void removeFromInventory(Item item) {
-		inventory.remove(item);
-	}
 	
 	
 	public String select() {
@@ -58,10 +52,13 @@ public class User extends Actor{
 		return score;
 	}
 
-	public String getInventory() {
-		return inventory.toString();
+	public void getInventory() {
+		//check old cs201 labs
+		
+		
 	}
 
+	
 	
 	
 	

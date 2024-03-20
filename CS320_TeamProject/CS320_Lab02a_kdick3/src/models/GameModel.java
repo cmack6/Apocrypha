@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GameModel {
 		private String input;
 		public ArrayList<Room> Rooms;
+		public ArrayList<Item> Items = new ArrayList<Item>();
 		public User user;
 		public String log;
 		public String error = "working";

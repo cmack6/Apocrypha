@@ -63,7 +63,7 @@ import models.User;
 			}
 			
 			else if(input.equals("inventory")||input.equals("i")) {
-				inventory(model);
+				inventory();
 			}
 			
 			else {
@@ -72,14 +72,21 @@ import models.User;
 		}
 		
 		
-		public void addToRoomInventory(GameModel model, Item item, int roomIndex) {
-			model.Rooms.get(roomIndex).addToInventory(item);
-			
+		
+		
+		public void addItem(GameModel model, Item item) {
+			model.Items.add(item);
 		}
 		
-		public void addToUserInventory(User user, Item item) {
-			user.addToInventory(item);
+		public void removeItem(GameModel model, Item item) {
+			model.Items.remove(item);
 		}
+		
+		public void getRoomInventory(GameModel model, int location) {
+			model.Items.get(location);
+		}
+		
+		
 		
 		
 		
@@ -151,15 +158,24 @@ import models.User;
 
 
 
-		
+		@Override
+		public void inventory() {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+
+		/*
 		
 		@Override
 		public String inventory(GameModel model) {
 			
-			return model.user.getInventory().toString();
+			return model.getUser().getInventory().toString();
 			
 		}
 
+*/
 
 
 		

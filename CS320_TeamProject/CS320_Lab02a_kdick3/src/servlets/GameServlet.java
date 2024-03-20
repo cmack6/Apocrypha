@@ -93,12 +93,13 @@ public class GameServlet extends HttpServlet {
 		
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
+		//Item sword = new Item(10);
 		
 		
 		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
 		//this returns null pointer exception
-		Item sword = new Item(10);
-		controller.addToUserInventory(user, sword);
+		
+		//controller.addToUserInventory(user, sword);
 		
 		
 		//when the jsp is first created, the first model created will be setModel, getting passed
@@ -206,8 +207,10 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
-		Item sword = new Item(10);
-		model.getUser().addToInventory(sword);
+		Item sword = new Item("sword", 4, 10);
+		controller.addItem(model,sword);
+		//Item sword = new Item(10);
+		//model.getUser().addToInventory(sword);
 		
 		
 		controller.processInput(model,input);
@@ -215,7 +218,8 @@ public class GameServlet extends HttpServlet {
 		System.out.println("after move:" + model.getUser().getRoomID());
 		String newLog;
 		if(model.getError().equals("working")) {
-			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p><p>" + model.getUser().getInventory() + "</p>";
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p>";
+			model.getUser().getInventory();
 
 		}
 		else {

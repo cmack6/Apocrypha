@@ -15,7 +15,7 @@ public interface Commands {
 	
 	public void pickUp();
 	
-	public String inventory(GameModel model);
+	public void inventory();
 	
 
 }
