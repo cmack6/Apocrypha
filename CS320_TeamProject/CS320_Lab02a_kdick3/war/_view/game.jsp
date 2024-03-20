@@ -74,6 +74,10 @@
 <!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->
 <input class="textbox" placeholder="What will you do?" type="text" id="input" name="input" /> 
 </form>
+<script>
+    var textarea = document.getElementById('scrollBox');
+    textarea.scrollTop = textarea.scrollHeight;
+</script>
 <!--<script>
     var inputs = []; // Array to store inputs
     
