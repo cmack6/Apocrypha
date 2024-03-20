@@ -94,12 +94,6 @@ public class GameServlet extends HttpServlet {
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
 		//Item sword = new Item(10);
-		Item sword = new Item("sword", -1, 10);
-		Item torch = new Item("torch", -1, 10);
-		controller.addItem(model,sword);
-		controller.addItem(model, torch);
-		Item shield = new Item("shield", 4, 25);
-		controller.addItem(model, shield);
 		
 		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
 		//this returns null pointer exception
@@ -110,6 +104,14 @@ public class GameServlet extends HttpServlet {
 		//when the jsp is first created, the first model created will be setModel, getting passed
 		//the user created above and the first long description of the starting room being the first log
 		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
+		
+		Item sword = new Item("sword", -1, 10);
+		Item torch = new Item("torch", -1, 10);
+		controller.addItem(setModel,sword);
+		controller.addItem(setModel, torch);
+		Item shield = new Item("shield", 4, 25);
+		controller.addItem(setModel, shield);
+		
 		
 		//sets what log is to display in the jsp model.log
 		req.setAttribute("model", setModel);
@@ -218,12 +220,12 @@ public class GameServlet extends HttpServlet {
 		
 		
 		
-		controller.processInput(model,input);
+		String output = controller.processInput(model,input); 
 		
 		System.out.println("after move:" + model.getUser().getRoomID());
 		String newLog;
 		if(model.getError().equals("working")) {
-			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p><p>" + controller.inventory(model) + "</p>";
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + output + "</p>";
 			//System.out.println();
 			//System.out.println(controller.roomInventory(model));
 

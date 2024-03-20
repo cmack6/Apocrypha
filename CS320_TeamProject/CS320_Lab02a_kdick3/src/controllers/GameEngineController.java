@@ -10,6 +10,7 @@ import models.User;
 
 		private GameModel model;
 		
+		
 		public GameEngineController(GameModel model) {
 			this.model = model;
 		}
@@ -49,9 +50,11 @@ import models.User;
 		
 		}
 		
-		public void processInput(GameModel model, String input) {
+		public String processInput(GameModel model, String input) {
+			String setOutput = "2";
 			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
 				move(model,input);
+				setOutput = "move";
 			}
 			else if(input.equals("jump")||input.equals("j")) {
 				jump();
@@ -68,19 +71,43 @@ import models.User;
 			
 			else if(input.equals("inventory")||input.equals("i")) {
 				inventory(model);
+				setOutput = "inventory";
 			}
 			else if(input.equals("room inventory")) {
 				roomInventory(model);
 			}
 			
 			else {
+				
+	
 				model.setInvalidCommand(input);
 			}
+			
+			return getOutput(model, setOutput);
+			
 		}
 		
 		
 		
 		
+		
+		
+		private String getOutput(GameModel model, String setOutput) {
+			String output = "";
+			if(setOutput.equals("move")) {
+				output = model.Rooms.get(model.getUser().getRoomID()).getDescription();
+			}
+			
+			else if(setOutput.equals("inventory")) {
+				output = inventory(model);
+			}
+			return output;
+			
+			
+		}
+
+
+
 		public void addItem(GameModel model, Item item) {
 			model.Items.add(item);
 		}
