@@ -13,7 +13,7 @@ public class Room {
 	private String longDescription;
 	private boolean isAlreadyEntered = false;
 	//public Inventory roomInventory;
-	private ArrayList<Item> inventory;
+	private ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	public Room() {
 		

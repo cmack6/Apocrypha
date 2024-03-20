@@ -10,7 +10,7 @@ public class User extends Actor{
 	private int roomID;
 	private int score;
 	//public Inventory inventory;
-	private ArrayList<Item> inventory;
+	private ArrayList<Item> inventory = new ArrayList<Item>();
 	/* public statistic score */
 	
 	
@@ -22,6 +22,7 @@ public class User extends Actor{
 	public User(int roomID, int score) {
 		this.roomID = roomID;
 		this.score = score;
+		
 		
 	}
 	

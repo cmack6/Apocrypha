@@ -97,8 +97,8 @@ public class GameServlet extends HttpServlet {
 		
 		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
 		//this returns null pointer exception
-		//Item sword = new Item(10);
-		//controller.addItemToInventory(model, sword, 4);
+		Item sword = new Item(10);
+		controller.addItemToInventory(model, sword, 4);
 		
 		
 		//when the jsp is first created, the first model created will be setModel, getting passed

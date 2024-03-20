@@ -73,7 +73,7 @@ import models.User;
 		
 		
 		public void addItemToInventory(GameModel model, Item item, int roomIndex) {
-			model.Rooms.get(roomIndex).addToInventory(item);;
+			model.Rooms.get(roomIndex).addToInventory(item);
 			
 		}
 		
