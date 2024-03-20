@@ -31,9 +31,6 @@ public class GameServlet extends HttpServlet {
 		
 		GameEngineController controller = new GameEngineController(model);
 		
-		//Item sword = new Item(10);
-		//controller.addItemToInvetory(model, sword);
-		
 		
 		
 		//populates the RoomID for each room, it corresponds with their index just for now, will change eventually^^ same with that above
@@ -93,12 +90,6 @@ public class GameServlet extends HttpServlet {
 		
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
 		User user = new User(4, 0);
-		//Item sword = new Item(10);
-		
-		//will be changed to actor, item as parameters so we can use this method to address any actor(user,npc) and any item treasure/weapon/tool
-		//this returns null pointer exception
-		
-		//controller.addToUserInventory(user, sword);
 		
 		
 		//when the jsp is first created, the first model created will be setModel, getting passed
@@ -176,11 +167,7 @@ public class GameServlet extends HttpServlet {
 			controller.setRoomID(i, i);
 		}
 		
-		//Item sword = new Item(10);
-		//controller.addItemToInvetory(model, sword);
 		
-		//Item sword = new Item(10);
-		//controller.addItemToInventory(model, sword, 4);
 		
 		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
 		controller.setShortDescription(4, "A small campsite stands in an large open area.");
@@ -226,8 +213,6 @@ public class GameServlet extends HttpServlet {
 		String newLog;
 		if(model.getError().equals("working")) {
 			newLog = model.getLog() + "<p>" + input + "</p><p>" + output + "</p>";
-			//System.out.println();
-			//System.out.println(controller.roomInventory(model));
 
 		}
 		else {
