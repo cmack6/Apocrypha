@@ -55,7 +55,7 @@
             <td>Password:</td>
             <td>
               <input
-                type="text"
+                type="password"
                 name="password"
                 size="12"
                 value="${password}"
