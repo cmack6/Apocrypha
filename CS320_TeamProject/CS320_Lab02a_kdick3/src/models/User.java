@@ -59,7 +59,6 @@ public class User extends Actor{
 	}
 
 	public String getInventory() {
-		// TODO Auto-generated method stub
 		return inventory.toString();
 	}
 

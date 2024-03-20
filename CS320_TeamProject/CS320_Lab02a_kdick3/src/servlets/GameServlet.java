@@ -207,7 +207,7 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
 		Item sword = new Item(10);
-		model.user.addToInventory(sword);
+		model.getUser().addToInventory(sword);
 		
 		
 		controller.processInput(model,input);
@@ -215,7 +215,7 @@ public class GameServlet extends HttpServlet {
 		System.out.println("after move:" + model.getUser().getRoomID());
 		String newLog;
 		if(model.getError().equals("working")) {
-			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p><p>" + model.user.getInventory() + "</p>";
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p><p>" + model.getUser().getInventory() + "</p>";
 
 		}
 		else {
