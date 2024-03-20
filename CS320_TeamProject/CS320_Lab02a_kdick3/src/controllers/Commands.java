@@ -17,7 +17,7 @@ public interface Commands {
 	
 	public String inventory(GameModel model);
 	
-	public void roomInventory(GameModel model);
+	public String roomInventory(GameModel model);
 	
 
 }

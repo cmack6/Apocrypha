@@ -167,28 +167,30 @@ import models.User;
 
 		@Override
 		public String inventory(GameModel model) {
+			String totalItems = "";
 			for(int i = 0; i<model.Items.size(); i++) {
 				if(model.Items.get(i).getLocation() == -1) {
-					return model.Items.get(i).getName();
+					totalItems = totalItems + " " + model.Items.get(i).getName();
 				}
-				else return null;
 			}
 			
-			return null;
+			return totalItems;
 		}
 
 
-
-		/*
-		
 		@Override
-		public String inventory(GameModel model) {
+		public String roomInventory(GameModel model) {
+			String totalItems = "";
+			for(int i = 0; i<model.Items.size(); i++) {
+				if(model.Items.get(i).getLocation() == model.user.getRoomID()) {
+					totalItems = totalItems + " " + model.Items.get(i).getName();
+				}
+			}
 			
-			return model.getUser().getInventory().toString();
-			
+			return totalItems;
 		}
 
-*/
+	
 
 
 		

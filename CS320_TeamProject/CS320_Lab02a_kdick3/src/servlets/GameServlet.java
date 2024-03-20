@@ -223,8 +223,9 @@ public class GameServlet extends HttpServlet {
 		System.out.println("after move:" + model.getUser().getRoomID());
 		String newLog;
 		if(model.getError().equals("working")) {
-			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p>";
-			
+			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.Rooms.get(model.getUser().getRoomID()).getDescription() + "</p><p>" + controller.inventory(model) + "</p>";
+			//System.out.println();
+			//System.out.println(controller.roomInventory(model));
 
 		}
 		else {
