@@ -72,9 +72,13 @@ import models.User;
 		}
 		
 		
-		public void addItemToInventory(GameModel model, Item item, int roomIndex) {
+		public void addToRoomInventory(GameModel model, Item item, int roomIndex) {
 			model.Rooms.get(roomIndex).addToInventory(item);
 			
+		}
+		
+		public void addToUserInventory(User user, Item item) {
+			user.addToInventory(item);
 		}
 		
 		

@@ -58,9 +58,9 @@ public class User extends Actor{
 		return score;
 	}
 
-	public ArrayList<Item> getInventory() {
+	public String getInventory() {
 		// TODO Auto-generated method stub
-		return inventory;
+		return inventory.toString();
 	}
 
 	
