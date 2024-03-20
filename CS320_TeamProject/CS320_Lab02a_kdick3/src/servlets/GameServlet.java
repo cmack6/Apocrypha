@@ -209,8 +209,7 @@ public class GameServlet extends HttpServlet {
 		
 		Item sword = new Item("sword", 4, 10);
 		controller.addItem(model,sword);
-		//Item sword = new Item(10);
-		//model.getUser().addToInventory(sword);
+		
 		
 		
 		controller.processInput(model,input);
