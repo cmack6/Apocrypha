@@ -27,6 +27,10 @@ import models.User;
 		public void setRoomID(int roomIndex, int newRoomID) {
 			model.Rooms.get(roomIndex).setRoomID(newRoomID);
 			
+		}
+		
+		public void setItem(int roomIndex, int newRoomID) {
+			model.Rooms.get(roomIndex).setRoomID(newRoomID);
 			
 		}
 		
@@ -63,7 +67,10 @@ import models.User;
 			}
 			
 			else if(input.equals("inventory")||input.equals("i")) {
-				inventory();
+				inventory(model);
+			}
+			else if(input.equals("room inventory")) {
+				roomInventory(model);
 			}
 			
 			else {
@@ -159,9 +166,15 @@ import models.User;
 
 
 		@Override
-		public void inventory() {
-			// TODO Auto-generated method stub
+		public String inventory(GameModel model) {
+			for(int i = 0; i<model.Items.size(); i++) {
+				if(model.Items.get(i).getLocation() == -1) {
+					return model.Items.get(i).getName();
+				}
+				else return null;
+			}
 			
+			return null;
 		}
 
 
