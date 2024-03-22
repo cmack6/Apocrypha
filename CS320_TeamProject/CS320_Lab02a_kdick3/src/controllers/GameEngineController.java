@@ -51,7 +51,11 @@ import models.User;
 		}
 		
 		public String processInput(GameModel model, String input) {
-			String setOutput = "2";
+			String setOutput = "";
+			String splitInput = input;
+			String parts[] = splitInput.split(" ", 2);
+			//System.out.println(String.format("cr: %s, cdr: %s", parts[0], parts[1]));
+			
 			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
 				move(model,input);
 				setOutput = "move";
@@ -65,16 +69,17 @@ import models.User;
 			else if(input.equals("fight")||input.equals("f")) {
 				fight();
 			}
-			else if(input.equals("pickup")||input.equals("grab")) {
-				pickUp();
+			else if(parts[0].equals("take") || parts[0].equals("grab") || parts[0].equals("pick up")) {
+				pickUp(model, parts[1]);
 			}
 			
 			else if(input.equals("inventory")||input.equals("i")) {
 				inventory(model);
 				setOutput = "inventory";
 			}
-			else if(input.equals("room inventory")) {
+			else if(input.equals("room inventory") || input.equals("room items")) {
 				roomInventory(model);
+				setOutput = "room inventory";
 			}
 			
 			else {
@@ -120,8 +125,9 @@ import models.User;
 			model.Items.get(location);
 		}
 		
-		
-		
+		public void moveItem(GameModel model, int newLocation) {
+			//model.Items
+		}
 		
 		
 
@@ -185,8 +191,8 @@ import models.User;
 
 
 		@Override
-		public void pickUp() {
-			// TODO Auto-generated method stub
+		public void pickUp(GameModel model, String nameOfItem) {
+			
 			
 		}
 

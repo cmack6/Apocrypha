@@ -163,6 +163,7 @@ public class GameServlet extends HttpServlet {
 		String input = req.getParameter("input");
 	//	System.out.println(input);
 		GameEngineController controller = new GameEngineController(model);
+		
 		for(int i=0; i<9; i++) {
 			controller.setRoomID(i, i);
 		}
