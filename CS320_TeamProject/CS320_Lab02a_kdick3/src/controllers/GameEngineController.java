@@ -251,13 +251,15 @@ import models.User;
 
 		@Override
 		public String inventory(GameModel model) {
+			//NOTE TO SELF FOR KORBIN, take name and value and check size then add sizes and subtract from maax size to be determined
+			//after that populate the space in between with characters-----
 			
-			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p><p>" + "______" + "NAME:" + "______" + "VALUE:" + "</p>";
+			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p><p>" + "NAME" + "----------" + "VALUE" + "</p>";
 			
 			for(int i = 0; i<model.Items.size(); i++) {
 				
 				if(model.Items.get(i).getLocation() == -1) {
-					totalItems = totalItems + "<p>" + model.Items.get(i).getName() + " " + model.Items.get(i).getValue() + "</p>";
+					totalItems = totalItems + "<p>" + model.Items.get(i).getName() + "----" + model.Items.get(i).getValue() + "</p>";
 					//totalItems = totalItems + " " + model.Items.get(i).getName();
 					
 				}
