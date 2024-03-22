@@ -52,6 +52,10 @@ public class GameModel {
 			error="''" + input + "'' is not a valid command.";
 		}
 		
+		public void setInvalidObjectInteraction(String object) {
+			error = "''" + object + "'' is not interactable at this moment";
+		}
+		
 		public void setLog(String newLog) {
 			log=newLog;
 		}

@@ -192,12 +192,17 @@ import models.User;
 
 		@Override
 		public void pickUp(GameModel model, String nameOfItem) {
-		
+		int notDoable = 0;
 			for(int i = 0; i<model.Items.size(); i++) {
 				if((model.Items.get(i).getName().equals(nameOfItem)) && (model.Items.get(i).getLocation() == model.getUser().getRoomID())) {
 					model.Items.get(i).setLocation(-1);
+					notDoable ++;
 				}
 			}
+			if(notDoable == 0) {
+				model.setInvalidObjectInteraction(nameOfItem);
+			}
+			
 			
 		}
 
