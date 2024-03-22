@@ -96,12 +96,14 @@ public class GameServlet extends HttpServlet {
 		//the user created above and the first long description of the starting room being the first log
 		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
 		
-		Item sword = new Item("sword", -1, 10, 0);
-		Item torch = new Item("torch", -1, 10, 1);
+		Item sword = new Item("Moonveil", -1, 150, 0);
+		Item torch = new Item("Flashlight", -1, 25, 1);
+		Item shield = new Item("Ketheric's Shield", 4, 125, 2);
+		Item potion = new Item("Health Potion", 7, 10, 3);
 		controller.addItem(setModel,sword);
 		controller.addItem(setModel, torch);
-		Item shield = new Item("shield", 4, 25, 2);
 		controller.addItem(setModel, shield);
+		controller.addItem(setModel, potion);
 		
 		
 		//sets what log is to display in the jsp model.log
@@ -204,7 +206,8 @@ public class GameServlet extends HttpServlet {
 		
 		controller.setItemDescription(0, "balls");
 		controller.setItemDescription(1, "This light stick is very bright...");
-		controller.setItemDescription(2, "The shield lies on the ground, shiny side up");
+		controller.setItemDescription(2, "A shield lies on the ground, shiny side up...");
+		controller.setItemDescription(3, "A potion that is used to heal");
 		
 		
 		
