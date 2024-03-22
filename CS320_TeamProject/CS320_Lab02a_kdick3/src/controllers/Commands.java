@@ -19,5 +19,7 @@ public interface Commands {
 	
 	public String roomInventory(GameModel model);
 	
+	public String talk(GameModel model);
+	
 
 }

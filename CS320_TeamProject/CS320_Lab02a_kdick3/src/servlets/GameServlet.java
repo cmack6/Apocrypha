@@ -213,7 +213,7 @@ public class GameServlet extends HttpServlet {
 		controller.setItemDescription(3, "A potion that is used to heal");
 		
 		controller.setNPCInteraction(0,"You see a decrepit old man. He grumbles nothing but the words, \"Get your money up.\"");
-		
+		controller.setNPCDialogue(0, "\"I'm Old Man John, and... you disgust me. You and your foul torch and stupid looking sword. The only thing that has value in this world is... money! And you got none of that, do ya? Broke boy, lil baby guy. Get ya money up sonny!\"");
 		
 		
 		

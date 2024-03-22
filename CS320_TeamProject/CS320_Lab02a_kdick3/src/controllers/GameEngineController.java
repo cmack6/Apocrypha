@@ -64,6 +64,10 @@ import models.User;
 			model.NPCs.get(NPCID).setNPCInteraction(interaction);
 		}
 		
+		public void setNPCDialogue(int NPCID, String dialogue) {
+			model.NPCs.get(NPCID).setNPCDialogue(dialogue);
+		}
+		
 		
 		public String processInput(GameModel model, String input) {
 			String setOutput = "";
@@ -96,6 +100,9 @@ import models.User;
 			else if(input.equals("room inventory") || input.equals("room items")) {
 				roomInventory(model);
 				setOutput = "room inventory";
+			}
+			else if(input.equals("talk")) {
+				setOutput = "talk";
 			}
 			
 			else {
@@ -132,6 +139,10 @@ import models.User;
 			else if(setOutput.equals("inventory")) {
 				output = inventory(model);
 			}
+			
+			else if(setOutput.equals("talk")) {
+				output = talk(model);
+			}
 			return output;
 			
 			
@@ -158,7 +169,7 @@ import models.User;
 		public void addNPC(GameModel model, NPC npc) {
 			model.NPCs.add(npc);
 		}
-
+		
 
 
 
@@ -273,7 +284,19 @@ import models.User;
 		}
 
 	
-
+		@Override
+		public String talk(GameModel model) {
+			String dialogue = "";
+			for(int i=0;i<model.NPCs.size();i++) {
+				if(model.NPCs.get(i).getRoomID()==model.getUser().getRoomID()) {
+					dialogue = model.NPCs.get(i).getNPCDialogue();
+				}
+			}
+			if(dialogue.length()==0) {
+				dialogue = "There is nobody to talk to here.";
+			}
+			return dialogue;
+		}
 
 		
 

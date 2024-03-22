@@ -4,6 +4,7 @@ package models;
 public class NPC extends Actor{
 	
 	public String NPCInteraction;
+	public String NPCDialogue;
 	public int NPCID;
 	public NPC(int roomID, int NPCID) {
 		this.roomID = roomID;
@@ -26,6 +27,13 @@ public class NPC extends Actor{
 		return NPCInteraction;
 	}
 	
+	public void setNPCDialogue(String n) {
+		this.NPCDialogue = n;
+	}
+	
+	public String getNPCDialogue() {
+		return NPCDialogue;
+	}
 
 	
 	
