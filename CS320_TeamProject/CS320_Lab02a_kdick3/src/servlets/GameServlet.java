@@ -207,10 +207,12 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
-		controller.setItemDescription(0, "balls");
-		controller.setItemDescription(1, "This light stick is very bright...");
-		controller.setItemDescription(2, "A shield lies on the ground, shiny side up...");
-		controller.setItemDescription(3, "A potion that is used to heal");
+		controller.setItemDescription(0, "The Moonveil. I honestly have no clue what this does but it's like insanely shart.");
+		controller.setItemDescription(1, "A classic. Lights the way so you can see. Batteries? It runs on love...");
+		controller.setItemDescription(2, "Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterent against projectiles...");
+		controller.setItemDescription(3, "Yet another classic. You drink this thing and it'll restore some of your health, simple.");
+		controller.setRoomDescription(2, "A shield lies on the ground, it wants to be picked up");
+		controller.setRoomDescription(3, "A healing potion lies on it's side.");
 		
 		controller.setNPCInteraction(0,"You see a decrepit old man. He grumbles nothing but the words, \"Get your money up.\"");
 		
