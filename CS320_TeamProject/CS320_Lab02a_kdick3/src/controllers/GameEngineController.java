@@ -52,7 +52,12 @@ import models.User;
 		}
 		
 		public void setItemDescription(int itemID, String description) {
-			model.Items.get(itemID).setDescription(description);
+			model.Items.get(itemID).setItemDescription(description);
+		}
+		
+		//FOR ITEMS
+		public void setRoomDescription(int itemID, String description) {
+			model.Items.get(itemID).setRoomDescription(description);
 		}
 		
 		public void setNPCInteraction(int NPCID, String interaction) {
@@ -84,7 +89,7 @@ import models.User;
 				pickUp(model, parts[1]);
 			}
 			
-			else if(input.equals("inventory")||input.equals("i")) {
+			else if(input.equals("inventory")||input.equals("i")||input.equals("inv")) {
 				inventory(model);
 				setOutput = "inventory";
 			}
@@ -114,7 +119,7 @@ import models.User;
 				output = model.Rooms.get(model.getUser().getRoomID()).getDescription();
 				for(int i = 0; i<model.Items.size(); i++) {
 					if(model.Items.get(i).getLocation() == model.getUser().getRoomID()) {
-						output += " " + model.Items.get(i).getDescription();
+						output += " " + model.Items.get(i).getRoomDescription();
 					}
 				}
 				for(int i=0;i<model.NPCs.size();i++) {
@@ -236,7 +241,7 @@ import models.User;
 		@Override
 		public String inventory(GameModel model) {
 			
-			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p>";
+			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p><p>" + "______" + "NAME:" + "______" + "VALUE:" + "</p>";
 			
 			for(int i = 0; i<model.Items.size(); i++) {
 				

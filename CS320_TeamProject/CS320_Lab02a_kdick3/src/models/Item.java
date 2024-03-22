@@ -8,7 +8,8 @@ public class Item{
 	private int location;
 	private int value;
 	private int itemID;
-	private String description;
+	private String itemDescription;
+	private String roomDescription;
 	
 	
 
@@ -55,12 +56,12 @@ public void setLocation(int location) {
 
 
 
-public String getDescription() {
-	return description;
+public String getItemDescription() {
+	return itemDescription;
 }
 
-public void setDescription(String description) {
-	this.description = description;
+public void setItemDescription(String itemDescription) {
+	this.itemDescription = itemDescription;
 }
 
 
@@ -73,6 +74,18 @@ public int getItemID() {
 
 public void setItemID(int itemID) {
 	this.itemID = itemID;
+}
+
+
+
+public String getRoomDescription() {
+	return roomDescription;
+}
+
+
+
+public void setRoomDescription(String roomDescription) {
+	this.roomDescription = roomDescription;
 }
 
 
