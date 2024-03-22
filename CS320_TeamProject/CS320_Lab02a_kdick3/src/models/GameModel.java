@@ -53,7 +53,8 @@ public class GameModel {
 		}
 		
 		public void setInvalidObjectInteraction(String object) {
-			error = "''" + object + "'' is not interactable at this moment";
+			error = object + " is not interactable";
+			//error = "''" + object + "'' is not interactable at this moment";
 		}
 		
 		public void setLog(String newLog) {

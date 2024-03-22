@@ -136,7 +136,7 @@ import models.User;
 
 		@Override
 		public void move(GameModel model, String direction) {
-			//there might be a better way to do this without having to pass the user 
+			//there might be a better way to do this without having to pass the model 
 			//back and forth 
 			int temp = 0;
 			if(direction.equals("north")||direction.equals("n")) {
@@ -202,6 +202,8 @@ import models.User;
 			if(notDoable == 0) {
 				model.setInvalidObjectInteraction(nameOfItem);
 			}
+			
+			
 			
 			
 		}
