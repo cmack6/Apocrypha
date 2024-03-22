@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import controllers.GameEngineController;
 import models.GameModel;
 import models.Item;
+import models.NPC;
 import models.User;
 
 public class GameServlet extends HttpServlet {
@@ -105,6 +106,8 @@ public class GameServlet extends HttpServlet {
 		controller.addItem(setModel, shield);
 		controller.addItem(setModel, potion);
 		
+		NPC John = new NPC(1,0);
+		controller.addNPC(setModel, John);
 		
 		//sets what log is to display in the jsp model.log
 		req.setAttribute("model", setModel);
@@ -209,6 +212,7 @@ public class GameServlet extends HttpServlet {
 		controller.setItemDescription(2, "A shield lies on the ground, shiny side up...");
 		controller.setItemDescription(3, "A potion that is used to heal");
 		
+		controller.setNPCInteraction(0,"You see a decrepit old man. He grumbles nothing but the words, \"Get your money up.\"");
 		
 		
 		

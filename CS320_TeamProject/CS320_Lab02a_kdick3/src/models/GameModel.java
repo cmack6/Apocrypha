@@ -6,6 +6,7 @@ public class GameModel {
 		private String input;
 		public ArrayList<Room> Rooms;
 		public ArrayList<Item> Items = new ArrayList<Item>();
+		public ArrayList<NPC> NPCs = new ArrayList<>();
 		public User user;
 		public String log;
 		public String error = "working";

@@ -2,6 +2,7 @@ package controllers;
 
 import models.GameModel;
 import models.Item;
+import models.NPC;
 import models.User;
 
 
@@ -30,10 +31,10 @@ import models.User;
 			
 		}
 		
-		public void setItem(int roomIndex, int newRoomID) {
+		/*public void setItem(int roomIndex, int newRoomID) {
 			model.Rooms.get(roomIndex).setRoomID(newRoomID);
 			
-		}
+		}*/
 		
 		public void setRoomConnections(int roomID, int north, int south, int east, int west) {
 			model.Rooms.get(roomID).setRoomConnections(north, south, east, west);
@@ -54,6 +55,9 @@ import models.User;
 			model.Items.get(itemID).setDescription(description);
 		}
 		
+		public void setNPCInteraction(int NPCID, String interaction) {
+			model.NPCs.get(NPCID).setNPCInteraction(interaction);
+		}
 		
 		
 		public String processInput(GameModel model, String input) {
@@ -113,6 +117,11 @@ import models.User;
 						output += " " + model.Items.get(i).getDescription();
 					}
 				}
+				for(int i=0;i<model.NPCs.size();i++) {
+					if(model.NPCs.get(i).getRoomID()==model.getUser().getRoomID()) {
+						output += "<br><br>"+model.NPCs.get(i).getNPCInteraction();
+					}
+				}
 			}
 			
 			else if(setOutput.equals("inventory")) {
@@ -141,7 +150,9 @@ import models.User;
 			//model.Items
 		}
 		
-		
+		public void addNPC(GameModel model, NPC npc) {
+			model.NPCs.add(npc);
+		}
 
 
 
