@@ -192,7 +192,12 @@ import models.User;
 
 		@Override
 		public void pickUp(GameModel model, String nameOfItem) {
-			
+		
+			for(int i = 0; i<model.Items.size(); i++) {
+				if((model.Items.get(i).getName().equals(nameOfItem)) && (model.Items.get(i).getLocation() == model.getUser().getRoomID())) {
+					model.Items.get(i).setLocation(-1);
+				}
+			}
 			
 		}
 

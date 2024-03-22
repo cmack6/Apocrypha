@@ -55,7 +55,7 @@ public class GameServlet extends HttpServlet {
 		
 		
 		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
-		controller.setShortDescription(4, "A small campsite stands in an large open area.");
+		controller.setShortDescription(4, "A small campsite stands in an large open area. A shield lies on the ground.");
 		
 		
 		controller.setShortDescription(0, "You are at a plateau.");
@@ -171,7 +171,7 @@ public class GameServlet extends HttpServlet {
 		
 		
 		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
-		controller.setShortDescription(4, "A small campsite stands in an large open area.");
+		controller.setShortDescription(4, "A small campsite stands in an large open area. A shield lies on the ground.");
 		
 		
 		controller.setShortDescription(0, "You are at a plateau.");
