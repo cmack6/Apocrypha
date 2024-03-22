@@ -50,11 +50,18 @@ import models.User;
 		
 		}
 		
+		public void setItemDescription(int itemID, String description) {
+			model.Items.get(itemID).setDescription(description);
+		}
+		
+		
+		
 		public String processInput(GameModel model, String input) {
 			String setOutput = "";
+			
 			String splitInput = input;
 			String parts[] = splitInput.split(" ", 2);
-			//System.out.println(String.format("cr: %s, cdr: %s", parts[0], parts[1]));
+			
 			
 			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
 				move(model,input);
@@ -69,7 +76,7 @@ import models.User;
 			else if(input.equals("fight")||input.equals("f")) {
 				fight();
 			}
-			else if(parts[0].equals("take") || parts[0].equals("grab") || parts[0].equals("pick up")) {
+			else if(((parts[0].equals("take") || parts[0].equals("grab") )&& input.length()>5) || (parts[0].equals("pickup") && input.length()>7)) {
 				pickUp(model, parts[1]);
 			}
 			
@@ -101,6 +108,11 @@ import models.User;
 			String output = "";
 			if(setOutput.equals("move")) {
 				output = model.Rooms.get(model.getUser().getRoomID()).getDescription();
+				for(int i = 0; i<model.Items.size(); i++) {
+					if(model.Items.get(i).getLocation() == model.getUser().getRoomID()) {
+						output += " " + model.Items.get(i).getDescription();
+					}
+				}
 			}
 			
 			else if(setOutput.equals("inventory")) {
@@ -212,14 +224,23 @@ import models.User;
 
 		@Override
 		public String inventory(GameModel model) {
-			String totalItems = "";
+			
+			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p>";
+			
 			for(int i = 0; i<model.Items.size(); i++) {
+				
 				if(model.Items.get(i).getLocation() == -1) {
-					totalItems = totalItems + " " + model.Items.get(i).getName();
+					totalItems = totalItems + "<p>" + model.Items.get(i).getName() + " " + model.Items.get(i).getValue() + "</p>";
+					//totalItems = totalItems + " " + model.Items.get(i).getName();
+					
 				}
+				
+				
 			}
 			
-			return totalItems;
+			
+			
+			return totalItems + "<p>" + "--------------------------------" + "</p>";
 		}
 
 
