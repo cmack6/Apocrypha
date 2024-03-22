@@ -7,7 +7,6 @@ public class User extends Actor{
 
 	private String password;
 	private String username;
-	private int roomID;
 	private int score;
 	//public Inventory inventory;
 	//private ArrayList<Item> inventory = new ArrayList<Item>();
