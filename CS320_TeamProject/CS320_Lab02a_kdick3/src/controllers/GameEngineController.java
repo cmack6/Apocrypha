@@ -97,7 +97,7 @@ import models.User;
 				inventory(model);
 				setOutput = "inventory";
 			}
-			else if(input.equals("room inventory") || input.equals("room items")) {
+			else if(input.equals("room description") || input.equals("room")) {
 				roomInventory(model);
 				setOutput = "room inventory";
 			}
@@ -273,14 +273,18 @@ import models.User;
 
 		@Override
 		public String roomInventory(GameModel model) {
+			
+			/*
 			String totalItems = "";
 			for(int i = 0; i<model.Items.size(); i++) {
 				if(model.Items.get(i).getLocation() == model.user.getRoomID()) {
 					totalItems = totalItems + " " + model.Items.get(i).getName();
 				}
 			}
+			*/
 			
-			return totalItems;
+			
+			return null ;
 		}
 
 	
