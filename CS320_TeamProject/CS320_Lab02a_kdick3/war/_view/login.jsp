@@ -12,15 +12,51 @@
       align-items: center;
     }
 
+    form {
+      margin-top: 20px;
+      align-items: center;
+      justify-content: center;
+      display: inline-block;
+      text-align: center;
+      background-color: rgba(75, 66, 66, 0.3);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    #loginTitle {
+      font-size: 20px;
+    }
+
+    input {
+      background-color: rgba(75, 66, 66, 0.371);
+      color: green;
+    }
+
+    input[type="Submit"],
+    input#loginButton {
+      margin-top: 10px;
+      background-color: rgba(75, 66, 66, 0.371);
+      color: green;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.5s;
+    }
+
+    input[type="Submit"]:hover,
+    button#loginButton:hover {
+      background-color: rgba(75, 66, 66, 0.589);
+    }
+
     .header {
       font-size: 50px;
       text-align: center;
-      margin-bottom: 100px;
     }
+
     .body {
       font-size: 20px;
       text-align: center;
-      margin-bottom: 100px;
+      margin-bottom: 10px;
     }
     .button {
       text-align: center;
@@ -30,7 +66,7 @@
     }
   </style>
   <head>
-    <h1>Apocrypha Login</h1>
+    <h1>Apocrypha</h1>
   </head>
   <body>
     <c:if test="${! empty errorMessage}">
@@ -39,11 +75,14 @@
 
     <form action="" method="post">
       <div name="login-info">
+        <div id="loginTitle">login Info</div>
+        <br />
         <table>
           <tr>
             <td>Username:</td>
             <td>
               <input
+                id="username"
                 type="text"
                 name="username"
                 size="12"
@@ -63,7 +102,7 @@
             </td>
           </tr>
         </table>
-        <input type="Submit" name="submit" value="Login" />
+        <input id="LoginButton" type="Submit" name="submit" value="Login" />
       </div>
     </form>
   </body>
