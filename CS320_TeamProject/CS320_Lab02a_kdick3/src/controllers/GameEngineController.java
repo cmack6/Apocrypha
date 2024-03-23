@@ -4,6 +4,7 @@ import models.GameModel;
 import models.Item;
 import models.NPC;
 import models.User;
+import org.apache.el.lang.*;;
 
 
 	public class GameEngineController implements Commands {
@@ -110,6 +111,10 @@ import models.User;
 				setOutput = "talk";
 			}
 			
+			else if(input.equals("help")||input.equals("HELP")||input.equals("Help")) {
+				setOutput = "help";
+			}
+			
 			else if(input == itemRequested) {
 				setOutput = "item description";
 			}
@@ -148,6 +153,10 @@ import models.User;
 			
 			else if(setOutput.equals("inventory")) {
 				output = inventory(model);
+			}
+			
+			else if(setOutput.equals("help")) {
+				output = help(model);
 			}
 			
 			else if(setOutput.equals("talk")) {
@@ -326,20 +335,37 @@ import models.User;
 
 		@Override
 		public String itemDescription(GameModel model, String input) {
-				String totalItems = "";
+				String itemDescription = "";
 				
 				for(int i = 0; i<model.Items.size(); i++) {
 					if(input.equals(model.Items.get(i).getName())) {
-						totalItems = totalItems + "<p>" + model.Items.get(i).getItemDescription() + "</p>";
+						itemDescription = itemDescription + "<p>" + model.Items.get(i).getItemDescription() + "</p>";
 					}
 				}
 			
 				
 				
 			//}
-			return totalItems;
+			return itemDescription;
 		}
 
+		@Override
+		public String help(GameModel model) {
+			//String dash1 = "-";
+			//String dash2 = "-";
+			//int count1 = 75;
+			//int count2 = 30;
+		
+			String help = "<p>" + "OBJECTIVE:" + "</p>";
+			help = help + "<p>" + "----------------------------------------------------------------------------------" + "</p>"; 
+			help = help + "<p>" + "Your objective is to collect the most amount of bag you can" + "</p>";
+			help = help + "<p>" + "----------------------------------------------------------------------------------" + "</p>";
+			help = help + "<p>" + 	"COMMANDS:" + "</p><p>" + "------------------------------------------------------" + "</p>";
+			help = help + "<p>" + "Move: north, south, east, west" + "</p><p>" + "Grab Item: grab, take, pickup *item*" + "</p>";
+			help = help + "<p>" + "Talk To NPC: talk" + "</p><p>" + "Open Inventory: inventory, i, inv" + "</p>";
+			help = help + "<p>" + "------------------------------------------------------" + "</p>";
+			return help;
+		}
 		
 
 	}
