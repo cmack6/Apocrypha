@@ -21,5 +21,7 @@ public interface Commands {
 	
 	public String talk(GameModel model);
 	
+	public String itemDescription(GameModel model, String input);
+	
 
 }

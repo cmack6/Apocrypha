@@ -71,9 +71,16 @@ import models.User;
 		
 		public String processInput(GameModel model, String input) {
 			String setOutput = "";
+			String itemRequested = "";
 			
 			String splitInput = input;
 			String parts[] = splitInput.split(" ", 2);
+			
+			for(int i = 0; i<model.Items.size(); i++) {
+				if(input.equals(model.Items.get(i).getName()) && model.Items.get(i).getLocation() == -1) {
+					 itemRequested = model.Items.get(i).getName();
+				}
+			}
 			
 			
 			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
@@ -91,27 +98,30 @@ import models.User;
 			}
 			else if(((parts[0].equals("take") || parts[0].equals("grab") )&& input.length()>5) || (parts[0].equals("pickup") && input.length()>7)) {
 				pickUp(model, parts[1]);
+				setOutput = "new item";
 			}
 			
 			else if(input.equals("inventory")||input.equals("i")||input.equals("inv")) {
 				inventory(model);
 				setOutput = "inventory";
 			}
-			else if(input.equals("room description") || input.equals("room")) {
-				roomInventory(model);
-				setOutput = "room inventory";
-			}
+			
 			else if(input.equals("talk")) {
 				setOutput = "talk";
 			}
 			
-			else {
+			else if(input == itemRequested) {
+				setOutput = "item description";
+			}
+			
+			else { 
+				
 				
 	
 				model.setInvalidCommand(input);
 			}
 			
-			return getOutput(model, setOutput);
+			return getOutput(model, setOutput, input);
 			
 		}
 		
@@ -120,7 +130,7 @@ import models.User;
 		
 		
 		
-		private String getOutput(GameModel model, String setOutput) {
+		private String getOutput(GameModel model, String setOutput, String originalInput) {
 			String output = "";
 			if(setOutput.equals("move")) {
 				output = model.Rooms.get(model.getUser().getRoomID()).getDescription();
@@ -142,6 +152,14 @@ import models.User;
 			
 			else if(setOutput.equals("talk")) {
 				output = talk(model);
+			}
+			
+			else if(setOutput.equals("item description")) {
+				output = itemDescription(model, originalInput);
+			}
+			
+			else if(setOutput.equals("new item")) {
+				output = "You gained a new item!";
 			}
 			return output;
 			
@@ -254,12 +272,12 @@ import models.User;
 			//NOTE TO SELF FOR KORBIN, take name and value and check size then add sizes and subtract from maax size to be determined
 			//after that populate the space in between with characters-----
 			
-			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p><p>" + "NAME" + "----------" + "VALUE" + "</p>";
+			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p>";
 			
 			for(int i = 0; i<model.Items.size(); i++) {
 				
 				if(model.Items.get(i).getLocation() == -1) {
-					totalItems = totalItems + "<p>" + model.Items.get(i).getName() + "----" + model.Items.get(i).getValue() + "</p>";
+					totalItems = totalItems + "<p>" + model.Items.get(i).getName() + "</p>";
 					//totalItems = totalItems + " " + model.Items.get(i).getName();
 					
 				}
@@ -302,6 +320,24 @@ import models.User;
 				dialogue = "There is nobody to talk to here.";
 			}
 			return dialogue;
+		}
+
+
+
+		@Override
+		public String itemDescription(GameModel model, String input) {
+				String totalItems = "";
+				
+				for(int i = 0; i<model.Items.size(); i++) {
+					if(input.equals(model.Items.get(i).getName())) {
+						totalItems = totalItems + "<p>" + model.Items.get(i).getItemDescription() + "</p>";
+					}
+				}
+			
+				
+				
+			//}
+			return totalItems;
 		}
 
 		
