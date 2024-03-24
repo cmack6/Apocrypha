@@ -25,5 +25,6 @@ public interface Commands {
 	
 	public String help(GameModel model);
 	
+	public String score(GameModel model);
 
 }

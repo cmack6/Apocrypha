@@ -74,6 +74,7 @@ import models.NPC;
 			String setOutput = "";
 			String itemRequested = "";
 			
+			input=input.toLowerCase();
 			String splitInput = input;
 			String parts[] = splitInput.split(" ", 2);
 			
@@ -115,6 +116,10 @@ import models.NPC;
 				setOutput = "help";
 			}
 			
+			else if(input.equals("score")){
+				setOutput = "score";
+			}
+			
 			else if(input == itemRequested) {
 				setOutput = "item description";
 			}
@@ -138,6 +143,12 @@ import models.NPC;
 		private String getOutput(GameModel model, String setOutput, String originalInput) {
 			String output = "";
 			if(setOutput.equals("move")) {
+				if(model.Rooms.get(model.getUser().getRoomID()).getIsEntered()) {
+					model.getUser().incrementScore(-10);
+				}
+				else {
+					model.user.incrementScore(50);
+				}
 				output = model.Rooms.get(model.getUser().getRoomID()).getDescription();
 				for(int i = 0; i<model.Items.size(); i++) {
 					if(model.Items.get(i).getLocation() == model.getUser().getRoomID()) {
@@ -169,6 +180,10 @@ import models.NPC;
 			
 			else if(setOutput.equals("new item")) {
 				output = "You gained a new item!";
+			}
+			
+			else if(setOutput.equals("score")) {
+				output = score(model);
 			}
 			return output;
 			
@@ -331,7 +346,10 @@ import models.NPC;
 			return dialogue;
 		}
 
-
+		@Override
+		public String score(GameModel model) {
+			return "Your score is currently: "+model.getUser().getScore()+"<br>You can increase your score by entering new rooms, and lose score by entering rooms you already entered.";
+		}
 
 		@Override
 		public String itemDescription(GameModel model, String input) {
@@ -363,6 +381,7 @@ import models.NPC;
 			help = help + "<p>" + 	"COMMANDS:" + "</p><p>" + "------------------------------------------------------" + "</p>";
 			help = help + "<p>" + "Move: north, south, east, west" + "</p><p>" + "Grab Item: grab, take, pickup *item*" + "</p>";
 			help = help + "<p>" + "Talk To NPC: talk" + "</p><p>" + "Open Inventory: inventory, i, inv" + "</p>";
+			help = help + "<p>" + "See your score: score" + "</p>";
 			help = help + "<p>" + "------------------------------------------------------" + "</p>";
 			return help;
 		}

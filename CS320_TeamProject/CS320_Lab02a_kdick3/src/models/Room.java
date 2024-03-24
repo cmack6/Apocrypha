@@ -94,6 +94,9 @@ public class Room {
 			return shortDescription;
 		}
 	}
+	public boolean getIsEntered() {
+		return isAlreadyEntered;
+	}
 	
 	/*
 

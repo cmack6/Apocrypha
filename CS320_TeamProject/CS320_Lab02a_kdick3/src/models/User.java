@@ -49,6 +49,10 @@ public class User extends Actor{
 		this.score = score;
 	}
 	
+	public void incrementScore(int add) {
+		score+=add;
+	}
+	
 	public int getScore() {
 		return score;
 	}
