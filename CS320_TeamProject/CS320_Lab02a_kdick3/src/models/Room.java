@@ -13,12 +13,12 @@ public class Room {
 	private String longDescription;
 	private boolean isAlreadyEntered = false;
 	//public Inventory roomInventory;
-	private ArrayList<Item> inventory = new ArrayList<Item>();
+	//private ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	public Room() {
 		
 	}
-	
+	/*
 	public void addToInventory(Item item) {
 		inventory.add(item);
 	}
@@ -26,7 +26,7 @@ public class Room {
 	public void removeFromInventory(Item item) {
 		inventory.remove(item);
 	}
-	
+	*/
 	public boolean getIsAlreadyEntered() {
 		return isAlreadyEntered;
 	}

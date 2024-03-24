@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import models.GameModel;
+import models.Item;
+import models.NPC;
 import models.Room;
 import models.User;
 import controllers.GameEngineController;
@@ -22,53 +24,38 @@ private User user;
 
 @Before
 public void setUp() {
-		model = new GameModel();
-		controller = new GameEngineController(model);
+	 user = new User(4, 0);
+	 model = new GameModel(user, "log");
+	 controller = new GameEngineController(model);
 	
-	//making a makeshift "map" through populating an arraylist with rooms///maybe i could put this as a method in the controller and say like create map just so its moved from the servlet
-	/*
-	 for(int i=0; i<9; i++) {
-		controller.addNewRoom();
-	}
-	*/
+	
 	
 	//populates the RoomID for each room, it corresponds with their index just for now, will change eventually^^ same with that above
-	
-	 for(int i=0; i<9; i++) {
+	for(int i=0; i<9; i++) {
 		controller.setRoomID(i, i);
 	}
 	
+	controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
+	controller.setShortDescription(4, "A small campsite stands in an large open area. A shield lies on the ground.");
 	
 	
-	
-	//for setting up room connections, im going to make them using just one arraylist laid out below
-	// [0][1][2]
-	// [3][4][5]
-	// [6][7][8]
-	//it will kind of resemble this and a using the standard cardinal map
-	//[1] is north of [4] and [5] is east of [4]
-	//while planning each room's room connections, i plan on making [4] the starting point for the User
-	//User RoomID will be 4, and north will put User in [1]
-	//However, around the outside(everywhere but [4]) will have an instruction that brings the user across to the other end
-	//if the User commands north from [0], the User will end up in [6]
-	
-	//in case time doesnt permit im treating all of the rooms as literal rooms, might switch to caves/buildings/etc.
-	for(int i=0; i<9; i++) {
-		controller.setShortDescription(i, "A bare room, the some walls look awfully odd...");
-	}
-	
-	controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths.");
-	controller.setShortDescription(4, "Welcome to Apocrypha!");
-	
-	
-	controller.setLongDescription(0, "The walls to the west and north look as though they can bring you somewhere...");
-	controller.setLongDescription(1, "The wall to the north looks as though it can bring you somewhere...");
-	controller.setLongDescription(2, "The walls to the east and north look as though they can bring you somewhere...");
-	controller.setLongDescription(3, "The wall to the west looks as though it can bring you somewhere...");
-	controller.setLongDescription(5, "The wall to the east looks as though they can bring you somewhere...");
-	controller.setLongDescription(6, "The walls to the south and west look as though they can bring you somewhere...");
-	controller.setLongDescription(7, "The wall to the south looks as though they can bring you somewhere...");
-	controller.setLongDescription(8, "The walls to the east and south look as though they can bring you somewhere...");
+	controller.setShortDescription(0, "You are at a plateau.");
+	controller.setShortDescription(1, "You are at a canyon.");
+	controller.setShortDescription(2, "You are at a desert.");
+	controller.setShortDescription(3, "You are at a forest.");
+	controller.setShortDescription(5, "You are at a glacier.");
+	controller.setShortDescription(6, "You are at a hill.");
+	controller.setShortDescription(7, "You are at a marsh.");
+	controller.setShortDescription(8, "You are at a valley.");
+
+	controller.setLongDescription(0, "You are at a plateau. To the north is a hill. To the west is a desert. To the east is a canyon. To the south is a forest.");
+	controller.setLongDescription(1, "You are at a canyon. To the north is a marsh. To the west is a plateau. To the east is a desert. To the south is a campsite.");
+	controller.setLongDescription(2, "You are at a desert. To the north is a valley. To the west is a canyon. To the east is a plateau. To the south is a glacier.");
+	controller.setLongDescription(3, "You are at a forest. To the north is a plateau. To the west is a glacier. To the east is a campsite. To the south is a hill.");
+	controller.setLongDescription(5, "You are at a glacier. To the north is a desert. To the west is a campsite. To the east is a forest. To the south is a valley.");
+	controller.setLongDescription(6, "You are at a hill. To the north is a forest. To the west is a valley. To the east is a marsh. To the south is a plateau.");
+	controller.setLongDescription(7, "You are at a marsh. To the north is a campsite. To the west is a hill. To the east is a valley. To the south is a canyon.");
+	controller.setLongDescription(8, "You are at a valley. To the north is a glacier. To the west is a marsh. To the east is a hill. To the south is a desert.");
 	
 	controller.setRoomConnections(0, 6, 3, 1, 2);
 	controller.setRoomConnections(1, 7, 4, 2, 0);
@@ -80,8 +67,28 @@ public void setUp() {
 	controller.setRoomConnections(7, 4, 1, 8, 6);
 	controller.setRoomConnections(8, 5, 2, 6, 7);
 	
+	
+	
 	//user set as having roomID 4 and score of 0: see User class for explanation on parameters
-	 user = new User(4, 0);
+	
+	
+	
+	//when the jsp is first created, the first model created will be setModel, getting passed
+	//the user created above and the first long description of the starting room being the first log
+	 
+	
+	Item sword = new Item("Moonveil", -1, 150, 0);
+	Item torch = new Item("Flashlight", -1, 25, 1);
+	Item shield = new Item("Ketheric's Shield", 4, 125, 2);
+	Item potion = new Item("Health Potion", 7, 10, 3);
+	controller.addItem(model,sword);
+	controller.addItem(model, torch);
+	controller.addItem(model, shield);
+	controller.addItem(model, potion);
+	
+	NPC John = new NPC(1,0);
+	controller.addNPC(model, John);
+	
 	
 }
 
@@ -123,6 +130,76 @@ public void testSetShortDescription() {
 	
 }
 
+@Test
+public void testSetItemDescription() {
+	controller.setItemDescription(0, "new description");
+	assertTrue(model.Items.get(0).getItemDescription().equals("new description"));
+}
+
+@Test
+public void testSetRoomDescription() {
+	controller.setRoomDescription(0, "new description");
+	assertTrue(model.Items.get(0).getRoomDescription().equals("new description"));
+}
+
+@Test
+public void testNPCInteraction() {
+	controller.setNPCInteraction(0, "hello");
+	assertTrue(model.NPCs.get(0).NPCInteraction.equals("hello"));
+}
+
+@Test
+public void testSetNPCDialogue() {
+	controller.setNPCDialogue(0, "hello");
+	assertTrue(model.NPCs.get(0).NPCDialogue.equals("hello"));
+}
+
+@Test
+public void testProcessInputMove() {
+	
+}
+
+@Test
+public void testProcessInputTalk() {
+	
+}
+
+@Test
+public void testProcessInputInventory() {
+	
+}
+
+@Test
+public void testProcessInputHelp() {
+	
+}
+
+@Test
+public void testProcessInputTake() {
+	
+}
+
+@Test
+public void testGetOutput() {
+	
+}
+
+@Test
+public void testAddItem() {
+	Item newItem = new Item("newItem", -1, 100, 4);
+	controller.addItem(model, newItem);
+	assertTrue(model.Items.get(4).getName().equals("newItem"));
+}
+
+
+
+@Test
+public void testAddNPC() {
+	NPC newNPC = new NPC(2, 1);
+	controller.addNPC(model, newNPC);
+	controller.setNPCInteraction(1, "dialogue");
+	assertTrue(model.NPCs.get(1).getNPCInteraction().equals("dialogue"));
+}
 }
 		
 	
