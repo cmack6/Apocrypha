@@ -9,7 +9,6 @@ import org.junit.Test;
 import models.GameModel;
 import models.Item;
 import models.NPC;
-import models.Room;
 import models.User;
 import controllers.GameEngineController;
 
@@ -156,26 +155,32 @@ public void testSetNPCDialogue() {
 
 @Test
 public void testProcessInputMove() {
-	
+	controller.processInput(model, "north");
+	assertEquals(model.getUser().getRoomID(), 1);
 }
 
 @Test
 public void testProcessInputTalk() {
+	//odd to test because its an output to the console
+	
 	
 }
 
 @Test
-public void testProcessInputInventory() {
+public void testInventory() {
+	
 	
 }
 
 @Test
 public void testProcessInputHelp() {
-	
+
 }
 
 @Test
 public void testProcessInputTake() {
+	controller.processInput(model, "take Ketheric's Shield");
+	assertTrue(model.Items.get(2).getName().equals("Ketheric's Shield"));
 	
 }
 
