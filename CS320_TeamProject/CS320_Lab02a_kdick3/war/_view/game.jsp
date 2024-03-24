@@ -1,84 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apocrypha</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apocrypha</title>
 
-<style>
-    body {
+    <style>
+      body {
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-    }
-    .container {
+        background-color: black;
+        color: green;
+      }
+      .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 100vh;
-    }
-    .title {
+      }
+      .title {
         font-size: 45px;
         margin-top: 0px;
         margin-bottom: 20px;
-    }
+      }
 
-    .mini_title {
+      .mini_title {
         font-size: 35px;
         text-align: center;
         margin-bottom: 30px;
-    }
-    .scroll-box {
+      }
+      .scroll-box {
         font-size: 20px;
         width: 80%;
         height: 200px;
         overflow-y: auto;
-        border: 1px solid #ccc;
+        border: none;
         padding: 10px;
-    }
-    .textbox {
-        position: fixed;
-        bottom: 10px;
-        left: 10px;
-        width: 200px;
+        background-color: rgba(75, 66, 66, 0.371);
+      }
+      .textbox {
+        width: 80%;
         padding: 10px;
-    }
-    #actionInput{
+        color: green;
+        border: none;
+        margin-top: 20px;
+        background-color: rgba(75, 66, 66, 0.371);
+      }
+      #actionInput {
         padding: 10px;
         width: 200px;
         font-size: 10px;
-    }
-    #actionList{
+      }
+      #actionList {
         text-align: center;
-    }
-
-</style>
-</head>
-<body>
-	<script>
-        let model = 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let model = 0;
     </script>
-<form method="post">
-<input type="hidden" name="model" value="${modelString}"/>
-<div class="container">
-    <h1 class="title">Apocrypha</h1>
+    <form method="post">
+      <input type="hidden" name="model" value="${modelString}" />
+      <div class="container">
+        <h1 class="title">Apocrypha</h1>
         <h2 class="mini_title">Your Adventure.</h2>
         <td></td>
-    <div class="scroll-box" id="scrollBox">
-        <!-- You can add more paragraphs here -->
-       <p> ${model.log}
-         </p>
-    </div>
-</div>
-<!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->
-<input class="textbox" placeholder="What will you do?" type="text" id="input" name="input" /> 
-</form>
-<script>
-    var textarea = document.getElementById('scrollBox');
-    textarea.scrollTop = textarea.scrollHeight;
-</script>
-<!--<script>
+        <div class="scroll-box" id="scrollBox">
+          <!-- You can add more paragraphs here -->
+          <p>${model.log}</p>
+        </div>
+        <!--<textarea class="textbox" placeholder="Enter text here..."></textarea>-->
+        <input
+          class="textbox"
+          placeholder="What will you do?"
+          type="text"
+          id="input"
+          name="input"
+        />
+      </div>
+    </form>
+    <script>
+      var textarea = document.getElementById("scrollBox");
+      textarea.scrollTop = textarea.scrollHeight;
+    </script>
+    <!--<script>
     var inputs = []; // Array to store inputs
     
     function printToBox() {
@@ -108,5 +116,5 @@
         }
     }
 </script>-->
-</body>
+  </body>
 </html>
