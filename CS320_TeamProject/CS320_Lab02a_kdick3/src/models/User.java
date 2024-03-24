@@ -8,6 +8,8 @@ public class User extends Actor{
 	private String password;
 	private String username;
 	private int score;
+	private int health;
+	private int roomID;
 	//public Inventory inventory;
 	//private ArrayList<Item> inventory = new ArrayList<Item>();
 	/* public statistic score */
@@ -55,6 +57,34 @@ public class User extends Actor{
 		//check old cs201 labs
 		
 		
+	}
+
+
+
+
+	public int getHealth() {
+		return health;
+	}
+
+
+
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	
