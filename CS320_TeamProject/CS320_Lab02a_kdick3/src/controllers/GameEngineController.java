@@ -77,13 +77,13 @@ import models.NPC;
 			input=input.toLowerCase();
 			String splitInput = input;
 			String parts[] = splitInput.split(" ", 2);
-			
+			/*
 			for(int i = 0; i<model.Items.size(); i++) {
 				if(input.equals(model.Items.get(i).getName()) && model.Items.get(i).getLocation() == -1) {
 					 itemRequested = model.Items.get(i).getName();
 				}
 			}
-			
+			*/
 			
 			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
 				move(model,input);
@@ -103,7 +103,7 @@ import models.NPC;
 				setOutput = "new item";
 			}
 			
-			else if(input.equals("inventory")||input.equals("i")||input.equals("inv")) {
+			else if(input.equals("inventory")||input.equals("i")) {
 				inventory(model);
 				setOutput = "inventory";
 			}
@@ -116,11 +116,18 @@ import models.NPC;
 				setOutput = "help";
 			}
 			
+
+			else if(parts[0].equals("inv") && input.length()>4){
+				itemRequested = parts[1];
+				setOutput = "item description";
+			}
+
 			else if(input.equals("score")){
 				setOutput = "score";
 			}
 			
 			else if(input == itemRequested) {
+
 				setOutput = "item description";
 			}
 			
@@ -131,7 +138,7 @@ import models.NPC;
 				model.setInvalidCommand(input);
 			}
 			
-			return getOutput(model, setOutput, input);
+			return getOutput(model, setOutput, itemRequested);
 			
 		}
 		
@@ -140,7 +147,7 @@ import models.NPC;
 		
 		
 		
-		private String getOutput(GameModel model, String setOutput, String originalInput) {
+		private String getOutput(GameModel model, String setOutput, String itemName) {
 			String output = "";
 			if(setOutput.equals("move")) {
 				if(model.Rooms.get(model.getUser().getRoomID()).getIsEntered()) {
@@ -175,7 +182,7 @@ import models.NPC;
 			}
 			
 			else if(setOutput.equals("item description")) {
-				output = itemDescription(model, originalInput);
+				output = itemDescription(model, itemName);
 			}
 			
 			else if(setOutput.equals("new item")) {
@@ -352,11 +359,11 @@ import models.NPC;
 		}
 
 		@Override
-		public String itemDescription(GameModel model, String input) {
+		public String itemDescription(GameModel model, String itemName) {
 				String itemDescription = "";
 				
 				for(int i = 0; i<model.Items.size(); i++) {
-					if(input.equals(model.Items.get(i).getName())) {
+					if(itemName.equals(model.Items.get(i).getName())) {
 						itemDescription = itemDescription + "<p>" + model.Items.get(i).getItemDescription() + "</p>";
 					}
 				}
@@ -380,8 +387,10 @@ import models.NPC;
 			help = help + "<p>" + "----------------------------------------------------------------------------------" + "</p>";
 			help = help + "<p>" + 	"COMMANDS:" + "</p><p>" + "------------------------------------------------------" + "</p>";
 			help = help + "<p>" + "Move: north, south, east, west" + "</p><p>" + "Grab Item: grab, take, pickup *item*" + "</p>";
-			help = help + "<p>" + "Talk To NPC: talk" + "</p><p>" + "Open Inventory: inventory, i, inv" + "</p>";
+			help = help + "<p>" + "Display Item Description: inv *item*" + "</p>";
+			help = help + "<p>" + "Talk To NPC: talk" + "</p><p>" + "Open Inventory: inventory, i" + "</p>";
 			help = help + "<p>" + "See your score: score" + "</p>";
+
 			help = help + "<p>" + "------------------------------------------------------" + "</p>";
 			return help;
 		}
