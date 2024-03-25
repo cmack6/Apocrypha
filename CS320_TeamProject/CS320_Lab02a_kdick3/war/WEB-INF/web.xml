@@ -14,6 +14,10 @@
 	<servlet-name>LoginServlet</servlet-name>
 	<servlet-class>servlets.LoginServlet</servlet-class></servlet>
 	<servlet>
+	<servlet>
+	<servlet-name>CreateAccountServlet</servlet-name>
+	<servlet-class>servlets.CreateAccountServler</servlet-class>
+	</servlet>
 		<servlet-name>IndexServlet</servlet-name>
 		<servlet-class>edu.ycp.cs320.lab02.servlet.IndexServlet
 		</servlet-class>
@@ -60,6 +64,10 @@
 	<servlet-mapping>
 	<servlet-name>LoginServlet</servlet-name>
 	<url-pattern>/login</url-pattern></servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>CreateAccountServlet</servlet-name>
+	<url-pattern>/create-account</url-patter>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>IndexServlet</servlet-name>
 		<url-pattern>/index</url-pattern>
