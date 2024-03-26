@@ -73,14 +73,17 @@ import models.NPC;
 		public String processInput(GameModel model, String input) {
 			String setOutput = "";
 			String itemRequested = "";
-			
-			input=input.toLowerCase();
+			//int countForItemDescription = 0;
+			//input=input.toLowerCase();
 			String splitInput = input;
 			String parts[] = splitInput.split(" ", 2);
+			
 			/*
+			
 			for(int i = 0; i<model.Items.size(); i++) {
 				if(input.equals(model.Items.get(i).getName()) && model.Items.get(i).getLocation() == -1) {
 					 itemRequested = model.Items.get(i).getName();
+					 countForItemDescription++;
 				}
 			}
 			*/
@@ -125,12 +128,12 @@ import models.NPC;
 			else if(input.equals("score")){
 				setOutput = "score";
 			}
-			
-			else if(input == itemRequested) {
-
+			/*
+			else if(countForItemDescription>0) {
+				
 				setOutput = "item description";
 			}
-			
+			*/
 			else { 
 				
 				
@@ -361,16 +364,19 @@ import models.NPC;
 		@Override
 		public String itemDescription(GameModel model, String itemName) {
 				String itemDescription = "";
+				int notDoable = 0;
 				
 				for(int i = 0; i<model.Items.size(); i++) {
 					if(itemName.equals(model.Items.get(i).getName())) {
 						itemDescription = itemDescription + "<p>" + model.Items.get(i).getItemDescription() + "</p>";
+					notDoable++;
 					}
 				}
-			
-				
-				
-			//}
+				if(notDoable == 0) {
+					 model.setInvalidObjectInteraction(itemName);
+					 return "";
+				}
+				else
 			return itemDescription;
 		}
 

@@ -55,8 +55,8 @@ public class GameServlet extends HttpServlet {
 		// [hill][marsh][valley]
 		
 		
-		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
-		controller.setShortDescription(4, "A small campsite stands in an large open area. A shield lies on the ground.");
+		controller.setLongDescription(4, "This is Apocrypha! You're goal is to collect to the highest score you can! Use the command *help* to see how to play! You begin at a small campsite, starting with only 25 dollas, you must get your money up.");
+		controller.setShortDescription(4, "A small campsite stands in an large open area.");
 		
 		
 		controller.setShortDescription(0, "You are at a plateau.");
@@ -175,7 +175,7 @@ public class GameServlet extends HttpServlet {
 		
 		
 		
-		controller.setLongDescription(4, "This is just a small starting map, some rooms could be tied together through different paths. You can move through rooms using commands such as north, south, east or west. You are at a small campsite, starting with only 25 dollas, you must get your money up.");
+		controller.setLongDescription(4, "This is Apocrypha! You're goal is to collect to the highest score you can! You begin at a small campsite, starting with only 25 dollas, you must get your money up.");
 		controller.setShortDescription(4, "A small campsite stands in an large open area.");
 		
 		
@@ -207,8 +207,8 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(7, 4, 1, 8, 6);
 		controller.setRoomConnections(8, 5, 2, 6, 7);
 		
-		controller.setItemDescription(0, "The Moonveil. I honestly have no clue what this does but it's like insanely shart.");
-		controller.setItemDescription(1, "A classic. Lights the way so you can see. Batteries? It runs on love...");
+		controller.setItemDescription(0, "The Moonveil. I honestly have no clue what this does but it's like insanely sharp so prolly use with caution or something.");
+		controller.setItemDescription(1, "A classic. Lights the way so you can see. You can use it in dark areas.");
 		controller.setItemDescription(2, "Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterent against projectiles...");
 		controller.setItemDescription(3, "Yet another classic. You drink this thing and it'll restore some of your health, simple.");
 		controller.setRoomDescription(2, "Ketheric's Shield lies on the ground, it wants to be picked up.");
