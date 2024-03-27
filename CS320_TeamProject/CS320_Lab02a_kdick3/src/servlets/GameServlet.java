@@ -55,7 +55,7 @@ public class GameServlet extends HttpServlet {
 		// [hill][marsh][valley]
 		
 		
-		controller.setLongDescription(4, "This is Apocrypha! You're goal is to collect to the highest score you can! Use the command *help* to see how to play! You begin at a small campsite, starting with only 25 dollas, you must get your money up.");
+		controller.setLongDescription(4, "This is Apocrypha! Your goal is to collect to the highest score you can! Use the command *help* to see how to play! You begin at a small campsite, starting with only 25 dollas, you must get your money up.");
 		controller.setShortDescription(4, "A small campsite stands in an large open area.");
 		
 		
