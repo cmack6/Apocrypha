@@ -23,18 +23,18 @@
       .title {
         font-size: 45px;
         margin-top: 0px;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
       }
 
       .mini_title {
         font-size: 35px;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
       }
       .scroll-box {
         font-size: 20px;
         width: 80%;
-        height: 200px;
+        height: 350px;
         overflow-y: auto;
         border: none;
         padding: 10px;
