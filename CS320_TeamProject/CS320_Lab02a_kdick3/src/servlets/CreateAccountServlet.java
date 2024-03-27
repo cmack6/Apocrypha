@@ -101,8 +101,16 @@ public class CreateAccountServlet extends HttpServlet {
 			DBUtil.closeQuietly(resultSet);
 			DBUtil.closeQuietly(stmt);
 			DBUtil.closeQuietly(conn);
+
 		}*/
 	
 	}
+		
+		
+		
 }
+
+
+
+
 
