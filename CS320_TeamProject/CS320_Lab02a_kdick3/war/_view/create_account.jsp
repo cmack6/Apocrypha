@@ -69,29 +69,33 @@
 </head>
 <body>
     <h2>Haven't signed up yet? Create an account below:</h2>
-    <form action=CreateAccountServlet method = doPost>
+    <c:if test="${! empty errorMessage}">
+      <div class="error">${errorMessage}</div>
+    </c:if>
+    <form action="" method = post>
     <table>
     <tr>
         <td>
             <p>Username: </p>
-            <input type="text" class="text-box" placeholder="Username" name="accountName">
+            <input type="text" class="text-box" placeholder="Username" name="accountName" value="${accountName}">
         </td>
      </tr>
      <tr>
         <td>
             <p>Password: </p>
-            <input type="password" class="text-box" placeholder="Password" name="accountPass">
+            <input type="password" class="text-box" placeholder="Password" name="accountPass" value="${accountPass}">
         </td>
      </tr>
      <tr>
         <td>
             <p>Confirm Password: </p>
-            <input type="password" class="text-box" placeholder="Confirm Password" name="confirmPass">
+            <input type="password" class="text-box" placeholder="Confirm Password" name="confirmPass" value="${confirmPass}">
         </td>
      </tr>
      <tr>
         <td>
-             <input type=submit value=CreateAccount>
+             <input type=submit value="Create Account">
+             <a href="http://localhost:8081/lab02/login">Go Back</a>
          </td>
        </tr>
     </table>

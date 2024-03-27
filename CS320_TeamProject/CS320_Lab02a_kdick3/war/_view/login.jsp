@@ -86,7 +86,7 @@
               <input
                 id="username"
                 type="text"
-                name="usr"
+                name="username"
                 size="12"
                 value="${username}"
               />
@@ -97,7 +97,7 @@
             <td>
               <input
                 type="password"
-                name="pwd"
+                name="password"
                 size="12"
                 value="${password}"
               />
@@ -105,6 +105,7 @@
           </tr>
         </table>
         <input id="LoginButton" type="Submit" name="submit" value="Login" />
+        <a href="http://localhost:8081/lab02/create-account">Create Account</a>
       </div>
     </form>
   </body>

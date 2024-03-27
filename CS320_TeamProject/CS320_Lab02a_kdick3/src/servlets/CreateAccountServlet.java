@@ -14,13 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-<<<<<<< HEAD
 import models.LoginModel;
 
 
-=======
->>>>>>> d9db90c0fc76b67f362e20026d2558043a68fa05
 public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +25,7 @@ public class CreateAccountServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		System.out.println("Create Account Servlet: doGet");
-		req.getRequestDispatcher("/view/create_account.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/create_account.jsp").forward(req, resp);
 		
 	}
 	
@@ -39,14 +35,14 @@ public class CreateAccountServlet extends HttpServlet {
 		
 
 		System.out.println("Create Account Servlet: doPost");
-
+		
         LoginModel model = new LoginModel();
 
-        if(req.getParameter("accountPass") == req.getParameter("confirmPass"))
+        if(req.getParameter("accountPass").equals(req.getParameter("confirmPass")))
         {
-            resp.sendRedirect("http://localhost:8081/lab02/login");
             model.setUsername(req.getParameter("accountName"));
 		    model.setPassword(req.getParameter("password"));
+		    resp.sendRedirect("http://localhost:8081/lab02/login");
         }
 		else
         {
@@ -54,6 +50,7 @@ public class CreateAccountServlet extends HttpServlet {
             req.setAttribute("errorMessage", errorMessage);
         }
 	
+        
 		/*try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
@@ -105,15 +102,7 @@ public class CreateAccountServlet extends HttpServlet {
 			DBUtil.closeQuietly(stmt);
 			DBUtil.closeQuietly(conn);
 		}*/
-		
-		
-	}
-}
-
-
-		System.out.println("Account Servlet: doGet");
-		
-		req.getRequestDispatcher("/view/create_account.jsp").forward(req, resp);
+	
 	}
 }
 
