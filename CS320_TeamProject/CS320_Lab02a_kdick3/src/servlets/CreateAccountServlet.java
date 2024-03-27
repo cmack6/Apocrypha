@@ -15,28 +15,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controllers.GameEngineController;
-import models.GameModel;
-import models.LoginModel;
 
-public class LoginServlet extends HttpServlet {
+public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("Login Servlet: doGet");
+		System.out.println("Create Account Servlet: doGet");
+		req.getRequestDispatcher("/view/create_account.jsp").forward(req, resp);
 		
-		req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
 	}
-	
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("Login Servlet: doPost");
-
+		System.out.println("Create Account Servlet: doPost");
+	
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
@@ -44,30 +41,33 @@ public class LoginServlet extends HttpServlet {
 			System.err.println(e.getMessage());
 			System.exit(1);
 		}
-
+		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet resultSet = null;
+		
+		
+            try {
+                conn = DriverManager.getConnection("jdbc:derby:test.db;create=true");
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        
 
-		// connect to the database
+		@SuppressWarnings("resource")
+		Scanner keyboard = new Scanner(System.in);
+
 		try {
-			conn = DriverManager.getConnection("jdbc:derby:test.db;create=true");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+			String u = req.getParameter("accountName");
+			String p = req.getParameter("accountPass");
+			
 
-		try {
-			conn.setAutoCommit(true);
-
-			String u = req.getParameter("usr");
-			String p = req.getParameter("pwd");
 			// a canned query to find book information (including author name) from title
 			stmt = conn.prepareStatement(
-					"select authors.firstname, authors.lastname "
-					+ "  from authors "
-					+ "		where authors.firstname = ? "
-					+ "        and authors.lastname = ? "
+					"insert into authors (firstname, lastname) "
+					+ "  values (?, ?) "
 			);
 
 			// substitute the title entered by the user for the placeholder in the query
@@ -76,38 +76,16 @@ public class LoginServlet extends HttpServlet {
 
 			// execute the query
 			resultSet = stmt.executeQuery();
-		
-			String errorMessage = null;
-
-			LoginModel model = new LoginModel();
 			
-			req.setAttribute("login",model);
-			req.setAttribute("errorMessage", errorMessage);
-			
-
-			if (resultSet.next())
-			{
-				resp.sendRedirect("http://localhost:8081/lab02/account");
-			}
-			else{
-				req.setAttribute("username",model.getUsername());
-				errorMessage = "Invalid credentials.";
-			}
-		
-		
-		
-		
-		req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
-		
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		DBUtil.closeQuietly(resultSet);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+			DBUtil.closeQuietly(resultSet);
 			DBUtil.closeQuietly(stmt);
 			DBUtil.closeQuietly(conn);
+		}
+		
+		
 	}
-
-}
-
 

@@ -84,7 +84,7 @@
               <input
                 id="username"
                 type="text"
-                name="username"
+                name="usr"
                 size="12"
                 value="${username}"
               />
@@ -95,7 +95,7 @@
             <td>
               <input
                 type="password"
-                name="password"
+                name="pwd"
                 size="12"
                 value="${password}"
               />
