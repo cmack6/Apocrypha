@@ -75,7 +75,7 @@
 
     <form action="" method="post">
       <div name="login-info">
-        <div id="loginTitle">login Info</div>
+        <div id="loginTitle">Login Info</div>
         <br />
         <table>
           <tr>
