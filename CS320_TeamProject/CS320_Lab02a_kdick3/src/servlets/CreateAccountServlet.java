@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+import models.LoginModel;
+
+
+=======
+>>>>>>> d9db90c0fc76b67f362e20026d2558043a68fa05
 public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,9 +37,24 @@ public class CreateAccountServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
+
 		System.out.println("Create Account Servlet: doPost");
+
+        LoginModel model = new LoginModel();
+
+        if(req.getParameter("accountPass") == req.getParameter("confirmPass"))
+        {
+            resp.sendRedirect("http://localhost:8081/lab02/login");
+            model.setUsername(req.getParameter("accountName"));
+		    model.setPassword(req.getParameter("password"));
+        }
+		else
+        {
+            String errorMessage = "Password and confirm password do not match.";
+            req.setAttribute("errorMessage", errorMessage);
+        }
 	
-		try {
+		/*try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
 			System.err.println("Could not load Derby JDBC driver");
@@ -83,10 +104,11 @@ public class CreateAccountServlet extends HttpServlet {
 			DBUtil.closeQuietly(resultSet);
 			DBUtil.closeQuietly(stmt);
 			DBUtil.closeQuietly(conn);
-		}
+		}*/
 		
 		
 	}
+}
 
 
 		System.out.println("Account Servlet: doGet");
