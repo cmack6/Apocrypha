@@ -5,6 +5,7 @@
     body {
       background-color: black;
       color: green;
+      font-family: Arial, sans-serif;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -49,7 +50,7 @@
     }
 
     .header {
-      font-size: 50px;
+      font-size: 45px;
       text-align: center;
     }
 
@@ -66,6 +67,7 @@
     }
   </style>
   <head>
+    <title>Login view</title>
     <h1>Apocrypha</h1>
   </head>
   <body>

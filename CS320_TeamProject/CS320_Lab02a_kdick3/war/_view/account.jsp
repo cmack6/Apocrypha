@@ -5,6 +5,7 @@
     body {
       background-color: black;
       color: green;
+      font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -18,6 +19,7 @@
       padding: 10px 20px;
       border-radius: 5px;
       text-align: left;
+      margin-top: 10px;
     }
     #statsTitle {
       text-align: center;
@@ -38,14 +40,13 @@
     }
 
     .header {
-      font-size: 50px;
+      font-size: 45px;
       text-align: center;
-      margin-bottom: 100px;
     }
     .body {
       font-size: 20px;
       text-align: center;
-      margin-bottom: 100px;
+      margin-bottom: 20px;
     }
     .button {
       text-align: center;
@@ -53,9 +54,9 @@
   </style>
   <head>
     <title>Account view</title>
+    <h1>Account Page</h1>
   </head>
 
-  <div class="header">Account Page</div>
   <body>
     <div id="Stats" class="body">
       <div id="statsTitle">Stats</div>
