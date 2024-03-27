@@ -37,7 +37,35 @@ public class LoginServlet extends HttpServlet {
 		
 		System.out.println("Login Servlet: doPost");
 
-		try {
+		
+		
+		
+		LoginModel model = new LoginModel();
+		model.setUsername(req.getParameter("usr"));
+		model.setPassword(req.getParameter("pwd"));
+		String testUsername = "1";
+		
+		String testPassword = "2";
+		
+		String errorMessage = null;
+	
+		if(model.getUsername().equals(testUsername)&&model.getPassword().equals(testPassword)) {
+			resp.sendRedirect("http://localhost:8081/lab02/account");
+		}
+		else {
+			req.setAttribute("username",model.getUsername());
+			errorMessage = "Invalid credentials.";
+		}
+		
+		
+		
+		req.setAttribute("login",model);
+		req.setAttribute("errorMessage", errorMessage);
+		
+		
+		req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+		
+		/*try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
 			System.err.println("Could not load Derby JDBC driver");
@@ -106,8 +134,8 @@ public class LoginServlet extends HttpServlet {
 		DBUtil.closeQuietly(resultSet);
 			DBUtil.closeQuietly(stmt);
 			DBUtil.closeQuietly(conn);
+	} */
+
 	}
 
 }
-
-
