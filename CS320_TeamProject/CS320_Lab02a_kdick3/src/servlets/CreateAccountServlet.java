@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -88,4 +87,11 @@ public class CreateAccountServlet extends HttpServlet {
 		
 		
 	}
+
+
+		System.out.println("Account Servlet: doGet");
+		
+		req.getRequestDispatcher("/view/create_account.jsp").forward(req, resp);
+	}
+}
 
