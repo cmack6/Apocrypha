@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02.servlet.IndexServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>BooksServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02.servlet.BooksServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>AuthorsServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02.servlet.AuthorsServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>AllAuthorsServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02.servlet.AllAuthorsServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>AllBooksServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02.servlet.AllBooksServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>InsertBookServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02.servlet.InsertBookServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab02.servlet.LoginServlet</servlet-class>
+  </servlet>
+  
+  <!-- Servlet mappings -->
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>BooksServlet</servlet-name>
+    <url-pattern>/books</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AuthorsServlet</servlet-name>
+    <url-pattern>/authors</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AllBooksServlet</servlet-name>
+    <url-pattern>/allBooks</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AllAuthorsServlet</servlet-name>
+    <url-pattern>/allAuthors</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>InsertBookServlet</servlet-name>
+    <url-pattern>/insertBook</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
