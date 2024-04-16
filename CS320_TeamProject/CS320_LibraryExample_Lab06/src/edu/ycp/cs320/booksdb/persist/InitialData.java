@@ -5,12 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.BookAuthor;
-import edu.ycp.cs320.booksdb.model.Item;
-import edu.ycp.cs320.booksdb.model.Room;
-import edu.ycp.cs320.booksdb.model.RoomItem;
+import edu.ycp.cs320.booksdb.model.*;
 
 public class InitialData {
 
@@ -204,6 +199,33 @@ public class InitialData {
 				return roomItemList;
 			} finally {
 				readRoomItems.close();
+			}
+		}
+		
+		public static List<User> getUsers() throws IOException{
+			List<User> userList = new ArrayList<User>();
+			ReadCSV readUsers = new ReadCSV("users.csv");
+			try {
+				Integer userID = 1;
+				while (true) {
+					List<String> tuple = readUsers.next();
+					if (tuple == null) {
+						break;
+					}
+					Iterator<String> i = tuple.iterator();
+					User user = new User();
+					
+					
+					user.setUserID(userID++);	
+					
+					user.setUsername(i.next());				
+					user.setPassword(i.next());
+					userList.add(user);
+				}
+				System.out.println("userList loaded from CSV file");			
+				return userList;
+			} finally {
+				readUsers.close();
 			}
 		}
 		

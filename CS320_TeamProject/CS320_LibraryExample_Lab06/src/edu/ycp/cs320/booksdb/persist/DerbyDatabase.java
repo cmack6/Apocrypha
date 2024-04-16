@@ -9,13 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.BookAuthor;
-import edu.ycp.cs320.booksdb.model.Item;
-import edu.ycp.cs320.booksdb.model.Pair;
-import edu.ycp.cs320.booksdb.model.Room;
-import edu.ycp.cs320.booksdb.model.RoomItem;
+import edu.ycp.cs320.booksdb.model.*;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -226,6 +220,48 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	@Override
+	public List<User> findAllUsers() {
+		return executeTransaction(new Transaction<List<User>>() {
+			@Override
+			public List<User> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from users "
+					);
+					
+					List<User> result = new ArrayList<User>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						User user = new User();
+						loadUser(user, resultSet, 1);
+						
+						result.add(user);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No users were found in the database");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 	
 	// transaction that inserts new Book into the Books table
 	// also first inserts new Author into Authors table, if necessary
@@ -638,6 +674,12 @@ public class DerbyDatabase implements IDatabase {
 		bookAuthor.setAuthorId(resultSet.getInt(index++));
 	}
 	
+	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException{
+		user.setUserID(resultSet.getInt(index++));
+		user.setUsername(resultSet.getString(index++));
+		user.setPassword(resultSet.getString(index++));
+	}
+	
 	//  creates the Authors and Books tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -650,6 +692,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt5 = null;	
 				PreparedStatement stmt6 = null;	
 				PreparedStatement stmt7 = null;	
+				PreparedStatement stmt8 = null;
 			
 				try {
 					stmt1 = conn.prepareStatement(
@@ -751,6 +794,18 @@ public class DerbyDatabase implements IDatabase {
 					stmt5.executeUpdate();
 					
 					System.out.println("testBooks table created");	
+					
+					stmt8 = conn.prepareStatement(
+							"create table users (" +
+							"	user_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	username varchar(70)," +
+							"	password varchar(70)" +
+							")"
+					);
+					stmt8.executeUpdate();
+					
+					System.out.println("users table created");
 										
 					return true;
 				} finally {
@@ -777,6 +832,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Book> testBookList;
 				List<Room> roomList;
 				List<RoomItem>  roomItemList;
+				List<User> userList;
 				
 				try {
 					authorList     = InitialData.getAuthors();
@@ -786,6 +842,8 @@ public class DerbyDatabase implements IDatabase {
 					testBookList   = InitialData.getTestBooks();
 					roomList       = InitialData.getRooms();
 					roomItemList   = InitialData.getRoomItems();
+					userList       = InitialData.getUsers();
+					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
@@ -797,6 +855,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertRoom       = null;
 				PreparedStatement insertRoomItem   = null;
 				PreparedStatement insertTestBook   = null;
+				PreparedStatement insertUser       = null;
 				
 
 				try {
@@ -898,6 +957,18 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("BookAuthors table populated");					
 					
+					
+					insertUser = conn.prepareStatement("insert into users (username, password) values (?, ?)");
+					for (User user: userList) {
+						insertUser.setString(1, user.getUsername());
+						insertUser.setString(2, user.getPassword());
+						insertUser.addBatch();
+					}
+					insertUser.executeBatch();	
+					
+					System.out.println("Users table populated");					
+					
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertBook);
@@ -906,6 +977,7 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(insertItem);	
 					DBUtil.closeQuietly(insertRoom);
 					DBUtil.closeQuietly(insertRoomItem);
+					DBUtil.closeQuietly(insertUser);
 				}
 			}
 		});
