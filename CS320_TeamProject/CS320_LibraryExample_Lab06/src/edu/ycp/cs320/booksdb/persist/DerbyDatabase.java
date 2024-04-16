@@ -14,6 +14,8 @@ import edu.ycp.cs320.booksdb.model.Book;
 import edu.ycp.cs320.booksdb.model.BookAuthor;
 import edu.ycp.cs320.booksdb.model.Item;
 import edu.ycp.cs320.booksdb.model.Pair;
+import edu.ycp.cs320.booksdb.model.Room;
+import edu.ycp.cs320.booksdb.model.RoomItem;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -604,7 +606,22 @@ public class DerbyDatabase implements IDatabase {
 			item.setValue(resultSet.getInt(index++));
 			item.setItemDescription(resultSet.getString(index++));
 			item.setRoomDescription(resultSet.getString(index++));
+			item.setGameID(resultSet.getInt(index++));
 		}
+		
+		private void loadRoom(Room room, ResultSet resultSet, int index) throws SQLException {
+			room.setRoomID(resultSet.getInt(index++));
+			room.setLongDescription(resultSet.getString(index++));
+			room.setShortDescription(resultSet.getString(index++));
+			room.setGameID(resultSet.getInt(index++));
+			
+		}
+		
+		private void loadRoomItems(RoomItem roomItem, ResultSet resultSet, int index) throws SQLException {
+			roomItem.setRoomID(resultSet.getInt(index++));
+			roomItem.setItemID(resultSet.getInt(index++));
+		}
+		
 	
 	// retrieves Book information from query result set
 	private void loadBook(Book book, ResultSet resultSet, int index) throws SQLException {
@@ -631,6 +648,8 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt3 = null;			
 				PreparedStatement stmt4 = null;	
 				PreparedStatement stmt5 = null;	
+				PreparedStatement stmt6 = null;	
+				PreparedStatement stmt7 = null;	
 			
 				try {
 					stmt1 = conn.prepareStatement(
@@ -661,7 +680,24 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					
-					stmt4 = conn.prepareStatement(
+					stmt6 = conn.prepareStatement(
+							"create table rooms (" +
+							"	roomID integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	longDescription varchar(200)," +
+							"	shortDescription varchar(200)," +
+							"   gameID integer" +
+							")"
+					);
+					
+					stmt6.executeUpdate();
+					
+					System.out.println("rooms table created");	
+					
+					
+					
+					
+					stmt7 = conn.prepareStatement(
 							"create table items (" +
 							"	itemID integer primary key" +
 							"		generated always as identity (start with 1, increment by 1), " +
@@ -669,13 +705,28 @@ public class DerbyDatabase implements IDatabase {
 							"	location integer," +
 							"   value integer," +
 							"   itemDescription varchar(100)," +
-							"   roomDescription varchar(100)" +
+							"   roomDescription varchar(100)," +
+							"   gameID integer" +
+							")"
+					);
+					
+					stmt7.executeUpdate();
+					
+					System.out.println("Items table created");	
+					
+					
+					stmt4 = conn.prepareStatement(
+							"create table roomItems (" +
+									"	roomID   integer constraint roomID references rooms, " +
+									"	itemID integer constraint itemID references items " +
 							")"
 					);
 					
 					stmt4.executeUpdate();
 					
-					System.out.println("Items table created");	
+					System.out.println("roomItems table created");	
+					
+					
 					
 					stmt3 = conn.prepareStatement(
 							"create table bookAuthors (" +
@@ -707,6 +758,8 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt2);
 					DBUtil.closeQuietly(stmt4);
 					DBUtil.closeQuietly(stmt5);
+					DBUtil.closeQuietly(stmt6);
+					DBUtil.closeQuietly(stmt7);
 				}
 			}
 		});
@@ -722,6 +775,8 @@ public class DerbyDatabase implements IDatabase {
 				List<BookAuthor> bookAuthorList;
 				List<Item> itemList;
 				List<Book> testBookList;
+				List<Room> roomList;
+				List<RoomItem>  roomItemList;
 				
 				try {
 					authorList     = InitialData.getAuthors();
@@ -729,6 +784,8 @@ public class DerbyDatabase implements IDatabase {
 					bookAuthorList = InitialData.getBookAuthors();	
 					itemList       = InitialData.getItems();
 					testBookList   = InitialData.getTestBooks();
+					roomList       = InitialData.getRooms();
+					roomItemList   = InitialData.getRoomItems();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
@@ -737,7 +794,10 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertBook       = null;
 				PreparedStatement insertBookAuthor = null;
 				PreparedStatement insertItem       = null;
-				PreparedStatement insertTestBook  = null;
+				PreparedStatement insertRoom       = null;
+				PreparedStatement insertRoomItem   = null;
+				PreparedStatement insertTestBook   = null;
+				
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
@@ -764,10 +824,22 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertBook.executeBatch();
 					
-					System.out.println("Books table populated");		
+					System.out.println("Books table populated");	
+					
+					insertRoom = conn.prepareStatement("insert into rooms (longDescription, shortDescription, gameID) values (?, ?, ?)");
+					for (Room room : roomList) {
+						insertRoom.setString(1,  room.getLongDescription());
+						insertRoom.setString(2,  room.getShortDescription());
+						insertRoom.setInt(3,  room.getGameID());
+						
+						insertRoom.addBatch();
+					}
+					insertRoom.executeBatch();
+					
+					System.out.println("Rooms table populated");
 					
 					
-					insertItem = conn.prepareStatement("insert into items (name, location, value, itemDescription, roomDescription) values (?, ?, ?, ?, ?)");
+					insertItem = conn.prepareStatement("insert into items (name, location, value, itemDescription, roomDescription, gameID) values (?, ?, ?, ?, ?, ?)");
 					for (Item item : itemList) {
 						//insertItem.setInt(1, item.getItemID());
 						insertItem.setString(1, item.getName());
@@ -775,12 +847,15 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setInt(3, item.getValue());
 						insertItem.setString(4, item.getItemDescription());
 						insertItem.setString(5, item.getRoomDescription());
+						insertItem.setInt(6, item.getGameID());
 					
 						insertItem.addBatch();
 					}
 					insertItem.executeBatch();
 					
 					System.out.println("Items table populated");	
+					
+					
 					
 					/*
 					
@@ -800,6 +875,16 @@ public class DerbyDatabase implements IDatabase {
 					
 					*/
 					
+					insertRoomItem = conn.prepareStatement("insert into roomItems (roomID, itemID) values (?, ?)");
+					for (RoomItem roomItem : roomItemList) {
+						insertRoomItem.setInt(1, roomItem.getRoomID());
+						insertRoomItem.setInt(2, roomItem.getItemID());
+						insertRoomItem.addBatch();
+					}
+					insertRoomItem.executeBatch();	
+					
+					System.out.println("RoomItems table populated");	
+					
 					
 					// must wait until all Books and all Authors are inserted into tables before creating BookAuthor table
 					// since this table consists entirely of foreign keys, with constraints applied
@@ -818,7 +903,9 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(insertBook);
 					DBUtil.closeQuietly(insertAuthor);
 					DBUtil.closeQuietly(insertBookAuthor);					
-					DBUtil.closeQuietly(insertItem);		
+					DBUtil.closeQuietly(insertItem);	
+					DBUtil.closeQuietly(insertRoom);
+					DBUtil.closeQuietly(insertRoomItem);
 				}
 			}
 		});
@@ -925,4 +1012,50 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+
+
+	@Override
+	public List<Room> findAllRooms() {
+		return executeTransaction(new Transaction<List<Room>>() {
+			@Override
+			public List<Room> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from rooms " 
+							
+					);
+					
+					List<Room> result = new ArrayList<Room>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Room room = new Room();
+						loadRoom(room, resultSet, 1);
+						
+						result.add(room);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No rooms were found in the database");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 }
+

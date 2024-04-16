@@ -8,6 +8,7 @@ import edu.ycp.cs320.booksdb.model.Author;
 import edu.ycp.cs320.booksdb.model.Book;
 import edu.ycp.cs320.booksdb.model.Item;
 import edu.ycp.cs320.booksdb.model.Pair;
+import edu.ycp.cs320.booksdb.model.Room;
 
 public class FakeDatabase implements IDatabase {
 	
@@ -173,6 +174,12 @@ public class FakeDatabase implements IDatabase {
 
 	@Override
 	public List<Book> findAllTestBooks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Room> findAllRooms() {
 		// TODO Auto-generated method stub
 		return null;
 	}

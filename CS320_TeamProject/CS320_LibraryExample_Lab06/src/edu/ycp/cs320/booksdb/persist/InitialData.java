@@ -9,6 +9,8 @@ import edu.ycp.cs320.booksdb.model.Author;
 import edu.ycp.cs320.booksdb.model.Book;
 import edu.ycp.cs320.booksdb.model.BookAuthor;
 import edu.ycp.cs320.booksdb.model.Item;
+import edu.ycp.cs320.booksdb.model.Room;
+import edu.ycp.cs320.booksdb.model.RoomItem;
 
 public class InitialData {
 
@@ -113,10 +115,10 @@ public class InitialData {
 		}
 	}
 	
-	// reads initial Book data from CSV file and returns a List of Books
+	
 		public static List<Item> getItems() throws IOException {
 			List<Item> itemList = new ArrayList<Item>();
-			ReadCSV readItems = new ReadCSV("test.csv");
+			ReadCSV readItems = new ReadCSV("items.csv");
 			try {
 				// auto-generated primary key for table items
 				Integer itemID = 1;
@@ -138,6 +140,7 @@ public class InitialData {
 					item.setValue(Integer.parseInt(i.next()));
 					item.setItemDescription(i.next());
 					item.setRoomDescription(i.next());
+					item.setGameID(Integer.parseInt(i.next()));
 					
 					itemList.add(item);
 				}
@@ -148,6 +151,65 @@ public class InitialData {
 			}
 		}
 	
+		
+		public static List<Room> getRooms() throws IOException {
+			List<Room> roomList = new ArrayList<Room>();
+			ReadCSV readRooms = new ReadCSV("rooms.csv");
+			try {
+				// auto-generated primary key for table items
+				Integer roomID = 1;
+				while (true) {
+					List<String> tuple = readRooms.next();
+					if (tuple == null) {
+						break;
+					}
+					Iterator<String> i = tuple.iterator();
+					Room room = new Room();
+					
+					Integer.parseInt(i.next());
+					
+				
+					room.setRoomID(roomID++);	
+					
+					room.setLongDescription(i.next());
+					room.setShortDescription(i.next());
+					room.setGameID(Integer.parseInt(i.next()));
+					
+					roomList.add(room);
+				}
+				System.out.println("roomList loaded from CSV file");			
+				return roomList;
+			} finally {
+				readRooms.close();
+			}
+		}
+		
+		
+		public static List<RoomItem> getRoomItems() throws IOException {
+			List<RoomItem> roomItemList = new ArrayList<RoomItem>();
+			ReadCSV readRoomItems = new ReadCSV("roomItems.csv");
+			try {
+				while (true) {
+					List<String> tuple = readRoomItems.next();
+					if (tuple == null) {
+						break;
+					}
+					Iterator<String> i = tuple.iterator();
+					RoomItem roomItem = new RoomItem();
+					roomItem.setRoomID(Integer.parseInt(i.next()));				
+					roomItem.setItemID(Integer.parseInt(i.next()));
+					roomItemList.add(roomItem);
+				}
+				System.out.println("roomItemList loaded from CSV file");			
+				return roomItemList;
+			} finally {
+				readRoomItems.close();
+			}
+		}
+		
+		
+		
+		
 	// reads initial BookAuthor data from CSV file and returns a List of BookAuthors
 	public static List<BookAuthor> getBookAuthors() throws IOException {
 		List<BookAuthor> bookAuthorList = new ArrayList<BookAuthor>();
