@@ -15,4 +15,5 @@ public interface IDatabase {
 	public List<Room> findAllRooms();
 	public List<Book> findAllTestBooks();
 	public List<User> findAllUsers();
+	public List<Player> findAllPlayers();
 }

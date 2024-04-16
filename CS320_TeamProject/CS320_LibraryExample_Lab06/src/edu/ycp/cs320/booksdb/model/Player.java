@@ -11,6 +11,7 @@ public class Player{
 	private int gameID;
 	private int userID;
 	private String log;
+	private int playerID;
 	
 	//public Inventory inventory;
 	//private ArrayList<Item> inventory = new ArrayList<Item>();
@@ -26,6 +27,10 @@ public class Player{
 		this.roomID = roomID;
 		this.score = score;
 		
+		
+	}
+	
+	public Player() {
 		
 	}
 	
@@ -74,7 +79,30 @@ public class Player{
 		this.log=log;
 	}
 	
+	public void setPlayerID(int playerID) {
+		this.playerID=playerID;
+	}
 	
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public void setGameID(int gameID) {
+		// TODO Auto-generated method stub
+		this.gameID = gameID;
+	}
 	
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setUserID(int userID) {
+		// TODO Auto-generated method stub
+		this.userID = userID;
+	}
+	
+	public int getUserID() {
+		return userID;
+	}
 	
 }

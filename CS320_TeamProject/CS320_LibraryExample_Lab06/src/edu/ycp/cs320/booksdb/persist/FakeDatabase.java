@@ -184,4 +184,9 @@ public class FakeDatabase implements IDatabase {
 	public List<User> findAllUsers(){
 		return null;
 	}
+	
+	@Override
+	public List<Player> findAllPlayers(){
+		return null;
+	}
 }

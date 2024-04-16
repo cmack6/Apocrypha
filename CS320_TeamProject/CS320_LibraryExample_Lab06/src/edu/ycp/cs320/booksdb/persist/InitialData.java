@@ -229,6 +229,37 @@ public class InitialData {
 			}
 		}
 		
+		public static List<Player> getPlayers() throws IOException{
+			List<Player> playerList = new ArrayList<Player>();
+			ReadCSV readPlayers = new ReadCSV("players.csv");
+			try {
+				Integer playerID = 1;
+				while (true) {
+					List<String> tuple = readPlayers.next();
+					if (tuple == null) {
+						break;
+					}
+					Iterator<String> i = tuple.iterator();
+					Player player = new Player();
+					
+					
+					player.setPlayerID(playerID++);	
+					
+					player.setScore(Integer.parseInt(i.next()));				
+					player.setHealth(Integer.parseInt(i.next()));
+					player.setRoomID(Integer.parseInt(i.next()));
+					player.setGameID(Integer.parseInt(i.next()));
+					player.setUserID(Integer.parseInt(i.next()));
+					player.setLog(i.next());
+					playerList.add(player);
+				}
+				System.out.println("playerList loaded from CSV file");			
+				return playerList;
+			} finally {
+				readPlayers.close();
+			}
+		}
+		
 		
 		
 		

@@ -1,6 +1,10 @@
 package edu.ycp.cs320.booksdb.persist;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -252,6 +256,49 @@ public class DerbyDatabase implements IDatabase {
 					// check if any authors were found
 					if (!found) {
 						System.out.println("No users were found in the database");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	@Override
+	public List<Player> findAllPlayers() {
+		return executeTransaction(new Transaction<List<Player>>() {
+			@Override
+			public List<Player> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from players "
+					);
+					
+					List<Player> result = new ArrayList<Player>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Player player = new Player();
+						loadPlayer(player, resultSet, 1);
+						
+						result.add(player);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No players were found in the database");
 					}
 					
 					return result;
@@ -658,6 +705,29 @@ public class DerbyDatabase implements IDatabase {
 			roomItem.setItemID(resultSet.getInt(index++));
 		}
 		
+		private void loadPlayer(Player player, ResultSet resultSet, int index) throws SQLException {
+			player.setPlayerID(resultSet.getInt(index++));
+			player.setScore(resultSet.getInt(index++));
+			player.setHealth(resultSet.getInt(index++));
+			player.setRoomID(resultSet.getInt(index++));
+			player.setGameID(resultSet.getInt(index++));
+			player.setUserID(resultSet.getInt(index++));
+			Clob clob = resultSet.getClob(index++);
+			Reader r = clob.getCharacterStream();
+			StringBuffer buffer = new StringBuffer();
+			int ch;
+			try {
+				while ((ch = r.read())>0) {
+				   buffer.append(""+(char)ch);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String clobAsString = buffer.toString();
+			player.setLog(clobAsString);
+
+		}
+		
 	
 	// retrieves Book information from query result set
 	private void loadBook(Book book, ResultSet resultSet, int index) throws SQLException {
@@ -693,6 +763,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt6 = null;	
 				PreparedStatement stmt7 = null;	
 				PreparedStatement stmt8 = null;
+				PreparedStatement stmt9 = null;
 			
 				try {
 					stmt1 = conn.prepareStatement(
@@ -806,6 +877,24 @@ public class DerbyDatabase implements IDatabase {
 					stmt8.executeUpdate();
 					
 					System.out.println("users table created");
+					
+					
+					stmt9 = conn.prepareStatement(
+							"create table players (" +
+							"	player_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	score integer," +
+							"	health integer," +
+							"	roomID integer," +
+							"	gameID integer," +
+							"	userID integer," +
+							"	log clob" +
+							")"
+					);
+					stmt9.executeUpdate();
+					
+					System.out.println("players table created");
+									
 										
 					return true;
 				} finally {
@@ -833,6 +922,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Room> roomList;
 				List<RoomItem>  roomItemList;
 				List<User> userList;
+				List<Player> playerList;
 				
 				try {
 					authorList     = InitialData.getAuthors();
@@ -843,6 +933,7 @@ public class DerbyDatabase implements IDatabase {
 					roomList       = InitialData.getRooms();
 					roomItemList   = InitialData.getRoomItems();
 					userList       = InitialData.getUsers();
+					playerList     = InitialData.getPlayers();
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
@@ -856,6 +947,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertRoomItem   = null;
 				PreparedStatement insertTestBook   = null;
 				PreparedStatement insertUser       = null;
+				PreparedStatement insertPlayer     = null;
 				
 
 				try {
@@ -966,7 +1058,26 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertUser.executeBatch();	
 					
-					System.out.println("Users table populated");					
+					System.out.println("Users table populated");	
+					
+					
+					
+					insertPlayer = conn.prepareStatement("insert into players (score, health, roomID, gameID, userID, log) values (?, ?, ?, ?, ?, ?)");
+					for (Player player: playerList) {
+						insertPlayer.setInt(1, player.getScore());
+						insertPlayer.setInt(2, player.getHealth());
+						insertPlayer.setInt(3, player.getRoomID());
+						insertPlayer.setInt(4, player.getGameID());
+						insertPlayer.setInt(5, player.getUserID());
+						Clob myClob = new javax.sql.rowset.serial.SerialClob(player.getLog().toCharArray());
+						insertPlayer.setClob(6, myClob);
+						insertPlayer.addBatch();
+					}
+					insertPlayer.executeBatch();	
+					
+					System.out.println("Players table populated");	
+					
+					
 					
 					
 					return true;
