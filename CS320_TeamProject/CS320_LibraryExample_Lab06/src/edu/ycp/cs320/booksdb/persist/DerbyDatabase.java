@@ -310,6 +310,49 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	@Override
+	public List<NPC> findAllNPCs() {
+		return executeTransaction(new Transaction<List<NPC>>() {
+			@Override
+			public List<NPC> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from NPCs "
+					);
+					
+					List<NPC> result = new ArrayList<NPC>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						NPC npc = new NPC();
+						loadNPC(npc, resultSet, 1);
+						
+						result.add(npc);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No NPCs were found in the database");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
 	// transaction that inserts new Book into the Books table
 	// also first inserts new Author into Authors table, if necessary
 	// and then inserts entry into BookAuthors junction table
@@ -756,6 +799,15 @@ public class DerbyDatabase implements IDatabase {
 		roomConnection.setCommand(resultSet.getString(index++));
 		roomConnection.setDestinationRoomID(resultSet.getInt(index++));
 	}
+	
+	private void loadNPC(NPC npc, ResultSet resultSet, int index) throws SQLException{
+		npc.setNPCID(resultSet.getInt(index++));
+		npc.setRoomDialogue(resultSet.getString(index++));
+		npc.setSpeakDialogue(resultSet.getString(index++));
+		npc.setRoomID(resultSet.getInt(index++));
+		npc.setHealth(resultSet.getInt(index++));
+		npc.setGameID(resultSet.getInt(index++));
+	}
 		
 	
 	
@@ -774,6 +826,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt8 = null;
 				PreparedStatement stmt9 = null;
 				PreparedStatement stmt10 = null;
+				PreparedStatement stmt11 = null;
 			
 				try {
 					stmt1 = conn.prepareStatement(
@@ -919,6 +972,22 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("roomConnections table created");
 					
+					
+					stmt11 = conn.prepareStatement(
+							"create table NPCs (" +
+							"	npc_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	roomDialogue varchar(250)," +
+							"	speakDialogue varchar(250)," +
+							"   roomID integer, " +
+							"   health integer, " +
+							"   gameID integer " +
+							")"
+					);
+					stmt11.executeUpdate();
+					
+					System.out.println("NPC table created");
+					
 										
 					return true;
 				} finally {
@@ -951,6 +1020,7 @@ public class DerbyDatabase implements IDatabase {
 				List<User> userList;
 				List<Player> playerList;
 				List<RoomConnection> roomConnectionList;
+				List<NPC> NPCList;
 				
 				try {
 					authorList         = InitialData.getAuthors();
@@ -963,6 +1033,7 @@ public class DerbyDatabase implements IDatabase {
 					userList           = InitialData.getUsers();
 					playerList         = InitialData.getPlayers();
 					roomConnectionList = InitialData.getRoomConnections();
+					NPCList            = InitialData.getNPCs();
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
@@ -978,6 +1049,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertUser           = null;
 				PreparedStatement insertPlayer         = null;
 				PreparedStatement insertRoomConnection = null;
+				PreparedStatement insertNPC            = null;
 				
 
 				try {
@@ -1119,6 +1191,19 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Players table populated");	
 					
+					
+					insertNPC = conn.prepareStatement("insert into NPCs (roomDialogue, speakDialogue, roomID, health, gameID) values (?, ?, ?, ?, ?)");
+					for (NPC npc: NPCList) {
+						insertNPC.setString(1, npc.getRoomDialogue());
+						insertNPC.setString(2, npc.getSpeakDialogue());
+						insertNPC.setInt(3, npc.getRoomID());
+						insertNPC.setInt(4, npc.getHealth());
+						insertNPC.setInt(5, npc.getGameID());
+						insertNPC.addBatch();
+					}
+					insertNPC.executeBatch();	
+					
+					System.out.println("NPCs table populated");	
 					
 					
 					

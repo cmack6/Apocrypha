@@ -284,7 +284,38 @@ public class InitialData {
 			}
 		}
 		
-		
+		public static List<NPC> getNPCs() throws IOException {
+			List<NPC> NPCList = new ArrayList<NPC>();
+			ReadCSV readNPCs = new ReadCSV("npcs.csv");
+			try {
+				// auto-generated primary key for table items
+				Integer NPCID = 1;
+				while (true) {
+					List<String> tuple = readNPCs.next();
+					if (tuple == null) {
+						break;
+					}
+					Iterator<String> i = tuple.iterator();
+					NPC npc = new NPC();
+					
+					Integer.parseInt(i.next());
+					
+				
+					npc.setNPCID(NPCID++);	
+					
+					npc.setRoomDialogue(i.next());
+					npc.setSpeakDialogue(i.next());
+					npc.setRoomID(Integer.parseInt(i.next()));
+					npc.setHealth(Integer.parseInt(i.next()));
+					npc.setGameID(Integer.parseInt(i.next()));
+					NPCList.add(npc);
+				}
+				System.out.println("NPCList loaded from CSV file");			
+				return NPCList;
+			} finally {
+				readNPCs.close();
+			}
+		}
 		
 		
 	// reads initial BookAuthor data from CSV file and returns a List of BookAuthors
