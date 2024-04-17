@@ -744,8 +744,8 @@ public class DerbyDatabase implements IDatabase {
 		}
 		
 		private void loadRoomItems(RoomItem roomItem, ResultSet resultSet, int index) throws SQLException {
-			roomItem.setRoomID(resultSet.getInt(index++));
 			roomItem.setItemID(resultSet.getInt(index++));
+			roomItem.setRoomID(resultSet.getInt(index++));
 			roomItem.setGameID(resultSet.getInt(index++));
 		}
 		
@@ -894,8 +894,8 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt4 = conn.prepareStatement(
 							"create table roomItems (" +
-									"	roomID integer constraint roomID references rooms, " +
-									"	itemID integer," +
+									"	itemID integer, " +
+									"	roomID integer," +
 									"	gameID integer" +
 							")"
 					);
@@ -1128,10 +1128,11 @@ public class DerbyDatabase implements IDatabase {
 					
 					*/
 					
-					insertRoomItem = conn.prepareStatement("insert into roomItems (roomID, itemID, gameID) values (?, ?, ?)");
+					insertRoomItem = conn.prepareStatement("insert into roomItems (itemID, roomID, gameID) values (?, ?, ?)");
 					for (RoomItem roomItem : roomItemList) {
-						insertRoomItem.setInt(1, roomItem.getRoomID());
-						insertRoomItem.setInt(2, roomItem.getItemID());
+						
+						insertRoomItem.setInt(1, roomItem.getItemID());
+						insertRoomItem.setInt(2, roomItem.getRoomID());
 						insertRoomItem.setInt(3, roomItem.getGameID());
 						insertRoomItem.addBatch();
 					}

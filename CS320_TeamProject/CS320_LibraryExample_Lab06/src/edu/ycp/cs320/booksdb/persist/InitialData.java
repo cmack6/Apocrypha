@@ -191,8 +191,9 @@ public class InitialData {
 					}
 					Iterator<String> i = tuple.iterator();
 					RoomItem roomItem = new RoomItem();
-					roomItem.setRoomID(Integer.parseInt(i.next()));				
+					
 					roomItem.setItemID(Integer.parseInt(i.next()));
+					roomItem.setRoomID(Integer.parseInt(i.next()));				
 					roomItem.setGameID(Integer.parseInt(i.next()));
 					roomItemList.add(roomItem);
 				}
