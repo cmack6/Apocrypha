@@ -703,6 +703,7 @@ public class DerbyDatabase implements IDatabase {
 		private void loadRoomItems(RoomItem roomItem, ResultSet resultSet, int index) throws SQLException {
 			roomItem.setRoomID(resultSet.getInt(index++));
 			roomItem.setItemID(resultSet.getInt(index++));
+			roomItem.setGameID(resultSet.getInt(index++));
 		}
 		
 		private void loadPlayer(Player player, ResultSet resultSet, int index) throws SQLException {
@@ -840,14 +841,15 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt4 = conn.prepareStatement(
 							"create table roomItems (" +
-									"	roomID   integer constraint roomID references rooms, " +
-									"	itemID integer constraint itemID references items " +
+									"	roomID integer constraint roomID references rooms, " +
+									"	itemID integer," +
+									"	gameID integer" +
 							")"
 					);
 					
 					stmt4.executeUpdate();
 					
-					System.out.println("roomItems table created");	
+					System.out.println("roomItems table created");		
 					
 					
 					
@@ -1054,15 +1056,16 @@ public class DerbyDatabase implements IDatabase {
 					
 					*/
 					
-					insertRoomItem = conn.prepareStatement("insert into roomItems (roomID, itemID) values (?, ?)");
+					insertRoomItem = conn.prepareStatement("insert into roomItems (roomID, itemID, gameID) values (?, ?, ?)");
 					for (RoomItem roomItem : roomItemList) {
 						insertRoomItem.setInt(1, roomItem.getRoomID());
 						insertRoomItem.setInt(2, roomItem.getItemID());
+						insertRoomItem.setInt(3, roomItem.getGameID());
 						insertRoomItem.addBatch();
 					}
 					insertRoomItem.executeBatch();	
 					
-					System.out.println("RoomItems table populated");	
+					System.out.println("RoomItems table populated");
 					
 					
 					// must wait until all Books and all Authors are inserted into tables before creating BookAuthor table

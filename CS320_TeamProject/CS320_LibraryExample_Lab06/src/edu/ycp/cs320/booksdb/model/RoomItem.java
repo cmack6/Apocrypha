@@ -4,6 +4,7 @@ public class RoomItem {
 
 	private int roomID;
 	private int itemID;
+	private int gameID;
 	
 	public RoomItem() {
 		
@@ -23,6 +24,14 @@ public class RoomItem {
 
 	public void setItemID(int itemID) {
 		this.itemID = itemID;
+	}
+
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
 	}
 
 }

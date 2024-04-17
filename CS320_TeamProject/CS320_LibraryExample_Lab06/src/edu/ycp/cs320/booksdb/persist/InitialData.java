@@ -193,6 +193,7 @@ public class InitialData {
 					RoomItem roomItem = new RoomItem();
 					roomItem.setRoomID(Integer.parseInt(i.next()));				
 					roomItem.setItemID(Integer.parseInt(i.next()));
+					roomItem.setGameID(Integer.parseInt(i.next()));
 					roomItemList.add(roomItem);
 				}
 				System.out.println("roomItemList loaded from CSV file");			
