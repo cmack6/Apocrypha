@@ -202,6 +202,29 @@ public class InitialData {
 			}
 		}
 		
+		public static List<RoomConnection> getRoomConnections() throws IOException {
+			List<RoomConnection> roomConnectionList = new ArrayList<RoomConnection>();
+			ReadCSV readRoomConnections = new ReadCSV("roomConnections.csv");
+			try {
+				while (true) {
+					List<String> tuple = readRoomConnections.next();
+					if (tuple == null) {
+						break;
+					}
+					Iterator<String> i = tuple.iterator();
+					RoomConnection roomConnection = new RoomConnection();
+					roomConnection.setStartingRoomID(Integer.parseInt(i.next()));				
+					roomConnection.setCommand(i.next());
+					roomConnection.setDestinationRoomID(Integer.parseInt(i.next()));
+					roomConnectionList.add(roomConnection);
+				}
+				System.out.println("roomConnectionList loaded from CSV file");			
+				return roomConnectionList;
+			} finally {
+				readRoomConnections.close();
+			}
+		}
+		
 		public static List<User> getUsers() throws IOException{
 			List<User> userList = new ArrayList<User>();
 			ReadCSV readUsers = new ReadCSV("users.csv");

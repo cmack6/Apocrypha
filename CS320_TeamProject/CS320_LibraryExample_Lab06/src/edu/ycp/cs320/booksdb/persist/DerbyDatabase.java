@@ -750,6 +750,14 @@ public class DerbyDatabase implements IDatabase {
 		user.setPassword(resultSet.getString(index++));
 	}
 	
+	private void loadRoomConnection(RoomConnection roomConnection, ResultSet resultSet, int index) throws SQLException{
+		roomConnection.setStartingRoomID(resultSet.getInt(index++));
+		roomConnection.setCommand(resultSet.getString(index++));
+		roomConnection.setDestinationRoomID(resultSet.getInt(index++));
+	}
+		
+	
+	
 	//  creates the Authors and Books tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -764,6 +772,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt7 = null;	
 				PreparedStatement stmt8 = null;
 				PreparedStatement stmt9 = null;
+				PreparedStatement stmt10 = null;
 			
 				try {
 					stmt1 = conn.prepareStatement(
@@ -894,7 +903,20 @@ public class DerbyDatabase implements IDatabase {
 					stmt9.executeUpdate();
 					
 					System.out.println("players table created");
+					
+					stmt10 = conn.prepareStatement(
+							
+							"create table roomConnections (" +
+							"    startingRoomID integer, " +
+							"    command varchar(70), " +
+							"    destinationRoomID integer" +
+							")"
+							);
 									
+					stmt10.executeUpdate();
+					
+					System.out.println("roomConnections table created");
+					
 										
 					return true;
 				} finally {
@@ -904,6 +926,9 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt5);
 					DBUtil.closeQuietly(stmt6);
 					DBUtil.closeQuietly(stmt7);
+					DBUtil.closeQuietly(stmt8);
+					DBUtil.closeQuietly(stmt9);
+					DBUtil.closeQuietly(stmt10);
 				}
 			}
 		});
@@ -923,31 +948,34 @@ public class DerbyDatabase implements IDatabase {
 				List<RoomItem>  roomItemList;
 				List<User> userList;
 				List<Player> playerList;
+				List<RoomConnection> roomConnectionList;
 				
 				try {
-					authorList     = InitialData.getAuthors();
-					bookList       = InitialData.getBooks();
-					bookAuthorList = InitialData.getBookAuthors();	
-					itemList       = InitialData.getItems();
-					testBookList   = InitialData.getTestBooks();
-					roomList       = InitialData.getRooms();
-					roomItemList   = InitialData.getRoomItems();
-					userList       = InitialData.getUsers();
-					playerList     = InitialData.getPlayers();
+					authorList         = InitialData.getAuthors();
+					bookList           = InitialData.getBooks();
+					bookAuthorList     = InitialData.getBookAuthors();	
+					itemList           = InitialData.getItems();
+					testBookList       = InitialData.getTestBooks();
+					roomList           = InitialData.getRooms();
+					roomItemList       = InitialData.getRoomItems();
+					userList           = InitialData.getUsers();
+					playerList         = InitialData.getPlayers();
+					roomConnectionList = InitialData.getRoomConnections();
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
-				PreparedStatement insertAuthor     = null;
-				PreparedStatement insertBook       = null;
-				PreparedStatement insertBookAuthor = null;
-				PreparedStatement insertItem       = null;
-				PreparedStatement insertRoom       = null;
-				PreparedStatement insertRoomItem   = null;
-				PreparedStatement insertTestBook   = null;
-				PreparedStatement insertUser       = null;
-				PreparedStatement insertPlayer     = null;
+				PreparedStatement insertAuthor         = null;
+				PreparedStatement insertBook           = null;
+				PreparedStatement insertBookAuthor     = null;
+				PreparedStatement insertItem           = null;
+				PreparedStatement insertRoom           = null;
+				PreparedStatement insertRoomItem       = null;
+				PreparedStatement insertTestBook       = null;
+				PreparedStatement insertUser           = null;
+				PreparedStatement insertPlayer         = null;
+				PreparedStatement insertRoomConnection = null;
 				
 
 				try {
@@ -1058,7 +1086,18 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertUser.executeBatch();	
 					
-					System.out.println("Users table populated");	
+					System.out.println("Users table populated");
+					
+					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID) values (?, ?, ?)");
+					for (RoomConnection roomConnection: roomConnectionList) {
+						insertRoomConnection.setInt(1, roomConnection.getStartingRoomID());
+						insertRoomConnection.setString(2, roomConnection.getCommand());
+						insertRoomConnection.setInt(3, roomConnection.getDestinationRoomID());
+						insertRoomConnection.addBatch();
+					}
+					insertRoomConnection.executeBatch();	
+					
+					System.out.println("roomConnections table populated");	
 					
 					
 					
@@ -1089,6 +1128,8 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(insertRoom);
 					DBUtil.closeQuietly(insertRoomItem);
 					DBUtil.closeQuietly(insertUser);
+					DBUtil.closeQuietly(insertPlayer);
+					DBUtil.closeQuietly(insertRoomConnection);
 				}
 			}
 		});
