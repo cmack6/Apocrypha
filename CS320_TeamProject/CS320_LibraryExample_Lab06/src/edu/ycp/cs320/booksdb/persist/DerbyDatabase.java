@@ -369,6 +369,142 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	
+	
+	@Override
+	public Player updatePlayer(Player player) {
+		return executeTransaction(new Transaction<Player>() {
+			@Override
+			public Player execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				try {
+					stmt1 = conn.prepareStatement(
+							"update players  " +
+							"  set score = ?, health = ?, roomID = ?, log = ?  " +
+							"  where player_id = ? "
+					);
+					
+					
+					/*stmt9 = conn.prepareStatement(
+							"create table players (" +
+							"	player_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	score integer," +
+							"	health integer," +
+							"	roomID integer," +
+							"	gameID integer," +
+							"	userID integer," +
+							"	log clob" +
+							")"
+					);
+						*/	
+					stmt1.setInt(1, player.getScore());
+					stmt1.setInt(2, player.getHealth());
+					stmt1.setInt(3, player.getRoomID());
+					Clob myClob = new javax.sql.rowset.serial.SerialClob(player.getLog().toCharArray());
+					stmt1.setClob(4, myClob);
+					stmt1.setInt(5, player.getPlayerID());
+
+					
+					Player result = new Player();
+					
+					stmt1.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"select * from players  " +
+							"  where player_id = ?"
+					);
+					stmt2.setInt(1, player.getPlayerID());
+					
+					
+					resultSet = stmt2.executeQuery();
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						loadPlayer(result,resultSet,1);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No players were found in the database for the specified playerID");
+						result = null;
+					}
+					else {
+						System.out.println("Player updated with ID "+result.getPlayerID());
+					}
+					return result;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+	
+	@Override
+	public List<RoomConnection> getRoomConnectionsByRoomID(int roomID) {
+
+		return executeTransaction(new Transaction<List<RoomConnection>>() {
+			@Override
+			public List<RoomConnection> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from roomConnections " +
+							" where startingRoomID = ? "
+					);
+					
+					
+					/*"create table roomConnections (" +
+					"    startingRoomID integer, " +
+					"    command varchar(70), " +
+					"    destinationRoomID integer" +
+					")"
+					);
+						*/	
+					stmt.setInt(1, roomID);
+
+					
+					List<RoomConnection> result = new ArrayList<RoomConnection>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						RoomConnection roomConnection = new RoomConnection();
+						loadRoomConnection(roomConnection, resultSet, 1);
+						
+						result.add(roomConnection);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No RoomConnections were found in the database for the specified room");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	
 	// transaction that inserts new Book into the Books table
 	// also first inserts new Author into Authors table, if necessary
 	// and then inserts entry into BookAuthors junction table
@@ -1437,6 +1573,8 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+
+
 
 }
 
