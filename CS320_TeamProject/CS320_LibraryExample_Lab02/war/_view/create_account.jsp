@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-
 <html>
-  <style>
+    <style>
     body {
       background-color: black;
       color: green;
-      font-family: Arial, sans-serif;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -50,7 +48,7 @@
     }
 
     .header {
-      font-size: 45px;
+      font-size: 50px;
       text-align: center;
     }
 
@@ -65,48 +63,43 @@
     .error {
       color: red;
     }
-  </style>
-  <head>
-    <title>Login view</title>
-    <h1>Apocrypha</h1>
-  </head>
-  <body>
+    </style>
+<head>
+    <title>Create Account</title>
+</head>
+<body>
+    <h2>Haven't signed up yet? Create an account below:</h2>
     <c:if test="${! empty errorMessage}">
       <div class="error">${errorMessage}</div>
     </c:if>
-
-    <form action="" method="post">
-      <div name="login-info">
-        <div id="loginTitle">Login Info</div>
-        <br />
-        <table>
-          <tr>
-            <td>Username:</td>
-            <td>
-              <input
-                id="username"
-                type="text"
-                name="username"
-                size="12"
-                value="${username}"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Password:</td>
-            <td>
-              <input
-                type="password"
-                name="password"
-                size="12"
-                value="${password}"
-              />
-            </td>
-          </tr>
-        </table>
-        <input id="LoginButton" type="Submit" name="submit" value="Login" />
-        <a href="http://localhost:8081/lab02/create-account">Create Account</a>
-      </div>
-    </form>
-  </body>
+    <form action="" method = post>
+    <table>
+    <tr>
+        <td>
+            <p>Username: </p>
+            <input type="text" class="text-box" placeholder="Username" name="accountName" value="${accountName}">
+        </td>
+     </tr>
+     <tr>
+        <td>
+            <p>Password: </p>
+            <input type="password" class="text-box" placeholder="Password" name="accountPass" value="${accountPass}">
+        </td>
+     </tr>
+     <tr>
+        <td>
+            <p>Confirm Password: </p>
+            <input type="password" class="text-box" placeholder="Confirm Password" name="confirmPass" value="${confirmPass}">
+        </td>
+     </tr>
+     <tr>
+        <td>
+             <input type=submit value="Create Account">
+             <a href="http://localhost:8081/lab02/login">Go Back</a>
+         </td>
+       </tr>
+    </table>
+   </form>
+</body>
+    </body>
 </html>

@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
 
 		System.out.println("\nLoginServlet: doGet");
 
-		req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/givenExampleLogin.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
-		System.out.println("   Invalid login - returning to /Login");
+		System.out.println("   Invalid login - returning to /givenExampleLogin");
 
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
