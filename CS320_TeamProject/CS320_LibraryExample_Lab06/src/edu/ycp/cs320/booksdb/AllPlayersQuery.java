@@ -30,5 +30,9 @@ public class AllPlayersQuery {
 			
 			}
 		}
+		System.out.println("what gameid?");
+		int gameID = keyboard.nextInt();
+		Player player = db.getPlayerFromGameID(gameID);
+		System.out.println(player.getGameID() + " is the gameID, and " + player.getHealth() + " is their health.");
 	}
 }

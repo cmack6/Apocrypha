@@ -268,6 +268,22 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
+	public Player getPlayerFromGameID(int gameID) {
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		List<Player> playerList = db.findAllPlayers();
+		Player player = new Player();
+		for(int i=0;i<playerList.size();i++) {
+			if(playerList.get(i).getGameID()==gameID) {
+				player=playerList.get(i);
+				i+=playerList.size();
+			}
+		}
+		return player;
+	}
+	
+	
+	@Override
 	public List<Player> findAllPlayers() {
 		return executeTransaction(new Transaction<List<Player>>() {
 			@Override

@@ -18,4 +18,5 @@ public interface IDatabase {
 	public List<Player> findAllPlayers();
 	public List<NPC> findAllNPCs();
 	public List<Item> findInventory();
+	public Player getPlayerFromGameID(int gameID);
 }

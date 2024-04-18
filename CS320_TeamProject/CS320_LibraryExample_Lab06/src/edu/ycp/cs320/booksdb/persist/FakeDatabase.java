@@ -175,6 +175,13 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	@Override
+	public Player getPlayerFromGameID(int gameID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	@Override
 	public List<Room> findAllRooms() {
 		// TODO Auto-generated method stub
 		return null;
