@@ -194,4 +194,10 @@ public class FakeDatabase implements IDatabase {
 	public List<NPC> findAllNPCs(){
 		return null;
 	}
+
+	@Override
+	public List<Item> findInventory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

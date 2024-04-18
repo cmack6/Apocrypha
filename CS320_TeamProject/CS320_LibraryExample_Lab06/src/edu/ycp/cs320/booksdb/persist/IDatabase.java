@@ -17,4 +17,5 @@ public interface IDatabase {
 	public List<User> findAllUsers();
 	public List<Player> findAllPlayers();
 	public List<NPC> findAllNPCs();
+	public List<Item> findInventory();
 }

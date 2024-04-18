@@ -1370,5 +1370,57 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	
+	@Override
+	public List<Item> findInventory() {
+		return executeTransaction(new Transaction<List<Item>>() {
+			@Override
+			public List<Item> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select *" +
+							"from items, roomItems" +
+							"  where roomItems.roomID = -1" +
+							"  and items.itemID = roomItems.itemID" 
+							
+					);
+					
+					//stmt.setString(1, title);
+					
+					List<Item> result = new ArrayList<Item>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Item item = new Item();
+						loadItem(item, resultSet, 1);
+						
+						
+						result.add(item);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("nothing was not found in the items table");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
 }
 
