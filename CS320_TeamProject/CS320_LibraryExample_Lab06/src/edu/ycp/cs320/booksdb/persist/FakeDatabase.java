@@ -207,4 +207,16 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<RoomConnection> getRoomConnectionsByRoomID(int roomID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Player updatePlayer(Player player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
