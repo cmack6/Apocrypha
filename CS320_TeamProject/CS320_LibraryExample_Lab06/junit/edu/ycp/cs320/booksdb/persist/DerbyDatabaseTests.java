@@ -13,7 +13,12 @@ import org.junit.Test;
 
 import edu.ycp.cs320.booksdb.model.Author;
 import edu.ycp.cs320.booksdb.model.Book;
+import edu.ycp.cs320.booksdb.model.Item;
+import edu.ycp.cs320.booksdb.model.NPC;
 import edu.ycp.cs320.booksdb.model.Pair;
+import edu.ycp.cs320.booksdb.model.Player;
+import edu.ycp.cs320.booksdb.model.Room;
+import edu.ycp.cs320.booksdb.model.User;
 
 public class DerbyDatabaseTests {
 
@@ -21,6 +26,12 @@ public class DerbyDatabaseTests {
 	
 	ArrayList<Author> authors = null;
 	ArrayList<Book>   books   = null;
+	ArrayList<Item>   items = null;
+	ArrayList<Item>   inventory = null;
+	ArrayList<Room>   rooms = null;
+	ArrayList<User>   users = null;
+	ArrayList<Player> players = null;
+	ArrayList<NPC>    npcs = null;
 	List<Pair<Author, Book>> bookAuthorList = null;
 	List<Pair<Author, Book>> authorBookList = null;	
 	
@@ -124,25 +135,145 @@ public class DerbyDatabaseTests {
 	}
 
 	@Test
-	public void testFindAllAuthors() {
+	public void testFindAllItems() {
 
-		System.out.println("\n*** Testing findAllAuthors ***");
+		System.out.println("\n*** Testing findAllItems ***");
 
 		// get the list of (Author, Book) pairs from DB
-		List<Author> authorList = db.findAllAuthors();
+		List<Item> itemList = db.findAllItems();
 
 		// NOTE: this is a simple test to check if no results were found in the DB
-		if (authorList.isEmpty()) {
-			System.out.println("No authors found in library");
-			fail("No authors returned from Library DB");
+		if (itemList.isEmpty()) {
+			System.out.println("No items found in library");
+			fail("No items returned from Library DB");
 		}
 		// NOTE: assembling the results into Author and Book lists so that they could be
 		//       inspected for correct content - well-formed objects with correct content
 		else {
-			authors = new ArrayList<Author>();
-			for (Author author : authorList) {
-				authors.add(author);
-				System.out.println(author.getLastname() + ", " + author.getFirstname());
+			items = new ArrayList<Item>();
+			for (Item item : itemList) {
+				items.add(item);
+				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
+			}			
+		}
+	}
+	
+	@Test
+	public void testFindAllRooms() {
+
+		System.out.println("\n*** Testing findAllRooms ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<Room> roomList = db.findAllRooms();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (roomList.isEmpty()) {
+			System.out.println("No rooms found in library");
+			fail("No rooms returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			rooms = new ArrayList<Room>();
+			for (Room room : roomList) {
+				rooms.add(room);
+				System.out.println(room.getRoomID() + ", " + room.getLongDescription() + ", " + room.getShortDescription() + ", " + room.getGameID());
+			}			
+		}
+	}
+	
+	@Test
+	public void testFindAllUsers() {
+
+		System.out.println("\n*** Testing findAllUsers ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<User> userList = db.findAllUsers();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (userList.isEmpty()) {
+			System.out.println("No users found in library");
+			fail("No users returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			users = new ArrayList<User>();
+			for (User user : userList) {
+				users.add(user);
+				System.out.println(user.getUserID() + ", " + user.getUsername() + ", " + user.getPassword());
+			}			
+		}
+	}
+	
+	@Test
+	public void testFindAllPlayers() {
+
+		System.out.println("\n*** Testing findAllPlayers ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<Player> playerList = db.findAllPlayers();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (playerList.isEmpty()) {
+			System.out.println("No players found in library");
+			fail("No players returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			players = new ArrayList<Player>();
+			for (Player player : playerList) {
+				players.add(player);
+				System.out.println(player.getPlayerID() + ", " + player.getScore() + ", " + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
+			}			
+		}
+	}
+	
+	@Test
+	public void testFindAllNPCs() {
+
+		System.out.println("\n*** Testing findAllNPCs ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<NPC> npcList = db.findAllNPCs();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (npcList.isEmpty()) {
+			System.out.println("No NPCs found in library");
+			fail("No NPCs returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			npcs = new ArrayList<NPC>();
+			for (NPC npc : npcList) {
+				npcs.add(npc);
+				System.out.println(npc.getNPCID() + ", " + npc.getRoomDialogue() + ", " + npc.getSpeakDialogue() + ", " + npc.getRoomID() + ", " + npc.getHealth() + ", " + npc.getGameID());
+			}			
+		}
+	}
+	
+	@Test
+	public void testFindInventory() {
+
+		System.out.println("\n*** Testing findInventory ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<Item> inventoryList = db.findInventory();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (inventoryList.isEmpty()) {
+			System.out.println("No items found in library");
+			fail("No items returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			inventory = new ArrayList<Item>();
+			for (Item item : inventoryList) {
+				inventory.add(item);
+				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
 			}			
 		}
 	}
