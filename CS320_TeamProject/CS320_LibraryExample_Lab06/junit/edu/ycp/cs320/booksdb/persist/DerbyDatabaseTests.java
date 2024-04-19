@@ -11,14 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.Item;
-import edu.ycp.cs320.booksdb.model.NPC;
-import edu.ycp.cs320.booksdb.model.Pair;
-import edu.ycp.cs320.booksdb.model.Player;
-import edu.ycp.cs320.booksdb.model.Room;
-import edu.ycp.cs320.booksdb.model.User;
+import edu.ycp.cs320.booksdb.model.*;
 
 public class DerbyDatabaseTests {
 
@@ -32,6 +25,7 @@ public class DerbyDatabaseTests {
 	ArrayList<User>   users = null;
 	ArrayList<Player> players = null;
 	ArrayList<NPC>    npcs = null;
+	ArrayList<RoomConnection> roomConnections = null;
 	List<Pair<Author, Book>> bookAuthorList = null;
 	List<Pair<Author, Book>> authorBookList = null;	
 	
@@ -274,6 +268,30 @@ public class DerbyDatabaseTests {
 			for (Item item : inventoryList) {
 				inventory.add(item);
 				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
+			}			
+		}
+	}
+	
+	@Test
+	public void testGetRoomConnectionsByRoomID() {
+		System.out.println("\n*** Testing GetRoomConnectionsByRoomID ***");
+
+		int roomID = 1;
+		
+		List<RoomConnection> roomConnectionList = db.getRoomConnectionsByRoomID(roomID);
+		
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (roomConnectionList.isEmpty()) {
+			System.out.println("No room connection found for ID <" + roomID + ">");
+			fail("No room connections for ID <" + roomID + "> returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			roomConnections = new ArrayList<RoomConnection>();
+			for (RoomConnection connection : roomConnectionList) {
+				roomConnections.add(connection);
+				System.out.println(connection.getStartingRoomID() + "," + connection.getCommand() + "," + connection.getDestinationRoomID());
 			}			
 		}
 	}
