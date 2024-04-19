@@ -450,7 +450,7 @@ public class DerbyDatabase implements IDatabase {
 	
 	@Override
 	public List<RoomConnection> getRoomConnectionsByRoomID(int roomID) {
-
+		
 		return executeTransaction(new Transaction<List<RoomConnection>>() {
 			@Override
 			public List<RoomConnection> execute(Connection conn) throws SQLException {
@@ -1563,6 +1563,119 @@ public class DerbyDatabase implements IDatabase {
 					// check if the title was found
 					if (!found) {
 						System.out.println("nothing was not found in the items table");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+
+	@Override
+	public List<Room> getRoomListByGameID(int gameID) {
+		return executeTransaction(new Transaction<List<Room>>() {
+			@Override
+			public List<Room> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from rooms " +
+							" where gameID = ? "
+					);
+					
+					
+					/*"create table roomConnections (" +
+					"    startingRoomID integer, " +
+					"    command varchar(70), " +
+					"    destinationRoomID integer" +
+					")"
+					);
+						*/	
+					stmt.setInt(1, gameID);
+
+					
+					List<Room> result = new ArrayList<Room>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Room room = new Room();
+						loadRoom(room, resultSet, 1);
+						
+						result.add(room);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No Rooms were found in the database for the specified room");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+
+	@Override
+	public List<RoomConnection> findRoomConnections() {
+
+		return executeTransaction(new Transaction<List<RoomConnection>>() {
+			@Override
+			public List<RoomConnection> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from roomConnections "
+							
+					);
+					
+					
+					/*"create table roomConnections (" +
+					"    startingRoomID integer, " +
+					"    command varchar(70), " +
+					"    destinationRoomID integer" +
+					")"
+					);
+						*/	
+					//stmt.setInt(1, roomID);
+
+					
+					List<RoomConnection> result = new ArrayList<RoomConnection>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						RoomConnection roomConnection = new RoomConnection();
+						loadRoomConnection(roomConnection, resultSet, 1);
+						
+						result.add(roomConnection);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No RoomConnections were found in the database for the specified room");
 					}
 					
 					return result;

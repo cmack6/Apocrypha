@@ -1,8 +1,15 @@
 ----------------------------------------------------------------
+<<<<<<< Updated upstream
 Fri Apr 19 13:52:40 EDT 2024:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-018e-f77d-30e5-00000dd54588 
 on database directory C:\apps\laptopDBTEST\library.db with class loader sun.misc.Launcher$AppClassLoader@14ae5a5 
 Loaded from file:/C:/Users/jonat/OneDrive/Documents/GitHub/Apocrypha/CS320_TeamProject/CS320_Derby/lib/derby.jar
+=======
+Fri Apr 19 13:56:44 EDT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-018e-f780-ea39-000015963288 
+on database directory C:\apps\laptopDBTEST\library.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/Korbi/OneDrive/Documents/GitHub/Apocrypha/CS320_TeamProject/CS320_Derby/lib/derby.jar
+>>>>>>> Stashed changes
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_301-b09
 user.dir=C:\Users\jonat\OneDrive\Documents\GitHub\Apocrypha\CS320_TeamProject\CS320_LibraryExample_Lab06
