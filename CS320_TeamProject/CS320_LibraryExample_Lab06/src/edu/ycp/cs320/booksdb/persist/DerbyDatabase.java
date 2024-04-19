@@ -1718,6 +1718,7 @@ public class DerbyDatabase implements IDatabase {
 					);
 						*/	
 					stmt1.setInt(1, npc.getHealth());
+					stmt1.setInt(2, npc.getNPCID());
 					
 
 					
