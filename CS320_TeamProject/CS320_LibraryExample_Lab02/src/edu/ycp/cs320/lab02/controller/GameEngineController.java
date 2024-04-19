@@ -62,11 +62,11 @@ import edu.ycp.cs320.booksdb.model.*;
 		}
 		
 		public void setNPCInteraction(int NPCID, String interaction) {
-			model.NPCs.get(NPCID).setNPCInteraction(interaction);
+			model.NPCs.get(NPCID).setRoomDialogue(interaction);
 		}
 		
 		public void setNPCDialogue(int NPCID, String dialogue) {
-			model.NPCs.get(NPCID).setNPCDialogue(dialogue);
+			model.NPCs.get(NPCID).setSpeakDialogue(dialogue);
 		}
 		
 		
@@ -153,21 +153,21 @@ import edu.ycp.cs320.booksdb.model.*;
 		private String getOutput(GameModel model, String setOutput, String itemName) {
 			String output = "";
 			if(setOutput.equals("move")) {
-				if(model.Rooms.get(model.getUser().getRoomID()).getIsEntered()) {
-					model.getUser().incrementScore(-10);
+				if(model.Rooms.get(model.getPlayer().getRoomID()).getIsEntered()) {
+					model.getPlayer().setScore(model.getPlayer().getScore()-10);
 				}
 				else {
-					model.user.incrementScore(50);
+					model.getPlayer().setScore(model.getPlayer().getScore()+50);
 				}
-				output = model.Rooms.get(model.getUser().getRoomID()).getDescription();
+				output = model.Rooms.get(model.getPlayer().getRoomID()).getDescription();
 				for(int i = 0; i<model.Items.size(); i++) {
-					if(model.Items.get(i).getLocation() == model.getUser().getRoomID()) {
+					if(model.Items.get(i).getLocation() == model.getPlayer().getRoomID()) {
 						output += " " + model.Items.get(i).getRoomDescription();
 					}
 				}
 				for(int i=0;i<model.NPCs.size();i++) {
-					if(model.NPCs.get(i).getRoomID()==model.getUser().getRoomID()) {
-						output += "<br><br>"+model.NPCs.get(i).getNPCInteraction();
+					if(model.NPCs.get(i).getRoomID()==model.getPlayer().getRoomID()) {
+						output += "<br><br>"+model.NPCs.get(i).getRoomDialogue();
 					}
 				}
 			}
@@ -230,25 +230,14 @@ import edu.ycp.cs320.booksdb.model.*;
 			//there might be a better way to do this without having to pass the model 
 			//back and forth 
 			int temp = 0;
-			if(direction.equals("north")||direction.equals("n")) {
-			temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionNorth();
-			model.getUser().setRoomID(temp);
+			for(RoomConnection roomConnection: model.RoomConnections) {
+				if(roomConnection.getCommand().equals(direction)&&roomConnection.getStartingRoomID()==model.getPlayer().getRoomID()) {
+					temp=roomConnection.getDestinationRoomID();
+				}
 			}
-			
-			else if(direction.equals("south")||direction.equals("s")) {
-				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionSouth();
-				model.getUser().setRoomID(temp);
-				}
-			
-			else if(direction.equals("east")||direction.equals("e")) {
-				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionEast();
-				model.getUser().setRoomID(temp);
-				}
-			
-			else
-				temp = model.Rooms.get(model.getUser().getRoomID()).getRoomConnectionWest();
-				model.getUser().setRoomID(temp);
-				
+			if(temp!=-1) {
+			model.getPlayer().setRoomID(temp);
+			}
 		}
 
 
@@ -285,7 +274,7 @@ import edu.ycp.cs320.booksdb.model.*;
 		public void pickUp(GameModel model, String nameOfItem) {
 		int notDoable = 0;
 			for(int i = 0; i<model.Items.size(); i++) {
-				if((model.Items.get(i).getName().equals(nameOfItem)) && (model.Items.get(i).getLocation() == model.getUser().getRoomID())) {
+				if((model.Items.get(i).getName().equals(nameOfItem)) && (model.Items.get(i).getLocation() == model.getPlayer().getRoomID())) {
 					model.Items.get(i).setLocation(-1);
 					notDoable ++;
 				}
@@ -346,8 +335,8 @@ import edu.ycp.cs320.booksdb.model.*;
 		public String talk(GameModel model) {
 			String dialogue = "";
 			for(int i=0;i<model.NPCs.size();i++) {
-				if(model.NPCs.get(i).getRoomID()==model.getUser().getRoomID()) {
-					dialogue = model.NPCs.get(i).getNPCDialogue();
+				if(model.NPCs.get(i).getRoomID()==model.getPlayer().getRoomID()) {
+					dialogue = model.NPCs.get(i).getSpeakDialogue();
 				}
 			}
 			if(dialogue.length()==0) {
@@ -358,7 +347,7 @@ import edu.ycp.cs320.booksdb.model.*;
 
 		@Override
 		public String score(GameModel model) {
-			return "Your score is currently: "+model.getUser().getScore()+"<br>You can increase your score by entering new rooms, and lose score by entering rooms you already entered.";
+			return "Your score is currently: "+model.getPlayer().getScore()+"<br>You can increase your score by entering new rooms, and lose score by entering rooms you already entered.";
 		}
 
 		@Override

@@ -2,6 +2,7 @@ package edu.ycp.cs320.lab02.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 //import models.User;
 
 import edu.ycp.cs320.booksdb.model.*;
+import edu.ycp.cs320.booksdb.persist.DatabaseProvider;
+import edu.ycp.cs320.booksdb.persist.DerbyDatabase;
+import edu.ycp.cs320.booksdb.persist.IDatabase;
 import edu.ycp.cs320.lab02.controller.GameEngineController;
 import edu.ycp.cs320.lab02.model.GameModel;
 //import edu.yc
@@ -33,34 +37,23 @@ public class GameServlet extends HttpServlet {
 		// call JSP to generate empty form
 		/////////////////////////////////////////////////////////////////////////////////////
 		
-		GameModel model = new GameModel();
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		List<Room> roomList = db.findAllRooms();
+		List<RoomConnection> roomConnections = db.findRoomConnections();
+		List<Item> itemList = db.findAllItems();
+		List<NPC> NPCList = db.findAllNPCs();
+		Player player = db.getPlayerFromGameID(1);//ATTENTION!!:!!::!:! CHANGE 1 TO THE GAMEID WHEN IT GETS PASSED!
+		GameModel model = new GameModel(player,roomList,itemList,NPCList,roomConnections);
 		
 		GameEngineController controller = new GameEngineController(model);
 		
 		
 		
-		//populates the RoomID for each room, it corresponds with their index just for now, will change eventually^^ same with that above
-		for(int i=0; i<9; i++) {
-			controller.setRoomID(i, i);
-		}
-		
-		//for setting up room connections, im going to make them using just one arraylist laid out below
-		// [0][1][2]
-		// [3][4][5]
-		// [6][7][8]
-		//it will kind of resemble this and a using the standard cardinal map
-		//[1] is north of [4] and [5] is east of [4]
-		//while planning each room's room connections, i plan on making [4] the starting point for the User
-		//User RoomID will be 4, and north will put User in [1]
-		//However, around the outside(everywhere but [4]) will have an instruction that brings the user across to the other end
-		//if the User commands north from [0], the User will end up in [6]
-		
-		// [plateau][canyon][desert]
-		// [forest][campsite][glacier]
-		// [hill][marsh][valley]
+	
 		
 		
-		controller.setLongDescription(4, "This is Apocrypha! Your goal is to collect to the highest score you can! Use the command *help* to see how to play! You begin at a small campsite, starting with only 25 dollas, you must get your money up.");
+		/*controller.setLongDescription(4, "This is Apocrypha! Your goal is to collect to the highest score you can! Use the command *help* to see how to play! You begin at a small campsite, starting with only 25 dollas, you must get your money up.");
 		controller.setShortDescription(4, "A small campsite stands in an large open area.");
 		
 		
@@ -90,18 +83,16 @@ public class GameServlet extends HttpServlet {
 		controller.setRoomConnections(5, 2, 8, 3, 4);
 		controller.setRoomConnections(6, 3, 0, 7, 8);
 		controller.setRoomConnections(7, 4, 1, 8, 6);
-		controller.setRoomConnections(8, 5, 2, 6, 7);
+		controller.setRoomConnections(8, 5, 2, 6, 7);*/
 		
 		
 		
 		//user set as having roomID 4 and score of 0: see User class for explanation on parameters
-		User user = new User(4, 0);
 		
 		
 		//when the jsp is first created, the first model created will be setModel, getting passed
 		//the user created above and the first long description of the starting room being the first log
-		GameModel setModel = new GameModel(user,model.Rooms.get(4).getLongDescription());
-		
+/*		
 		Item sword = new Item("Moonveil", -1, 150, 0);
 		Item torch = new Item("Flashlight", -1, 25, 1);
 		Item shield = new Item("Ketheric's Shield", 4, 125, 2);
@@ -109,13 +100,13 @@ public class GameServlet extends HttpServlet {
 		controller.addItem(setModel,sword);
 		controller.addItem(setModel, torch);
 		controller.addItem(setModel, shield);
-		controller.addItem(setModel, potion);
+		controller.addItem(setModel, potion);*/
 		
-		NPC John = new NPC(1,0);
-		controller.addNPC(setModel, John);
+		/*NPC John = new NPC(1,0);
+		controller.addNPC(setModel, John);*/
 		
 		//sets what log is to display in the jsp model.log
-		req.setAttribute("model", setModel);
+		req.setAttribute("model", model);
 		
 		//sets input for loading the page for the first time to nothing
 		String input = "";
@@ -125,7 +116,7 @@ public class GameServlet extends HttpServlet {
 		
 		//prints description of the room the user is in depending if the user has entered already or not
 		//if first time = long description. if second time = short description
-		setModel.Rooms.get(setModel.getUser().getRoomID()).getDescription();
+		model.Rooms.get(model.getPlayer().getRoomID()).getDescription();
 		
 		//universally unique identifier = UUID, this gets a random string of 36 characters, this
 		//basically sets the modelString as this unique string
@@ -137,7 +128,7 @@ public class GameServlet extends HttpServlet {
 		
 		
 		//?
-		req.getSession().setAttribute("modelString", setModel);
+		req.getSession().setAttribute("modelString", model);
 		
 		
 		
@@ -147,7 +138,7 @@ public class GameServlet extends HttpServlet {
 		
 		//
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
-		System.out.println(setModel.getUser().getRoomID());
+		System.out.println(model.getPlayer().getRoomID());
 		
 		
 		
@@ -168,13 +159,13 @@ public class GameServlet extends HttpServlet {
 		req.getSession().removeAttribute("modelString");
 	//	GameModel model = new GameModel();
 	//	model = (GameModel)req.getAttribute("model");
-		System.out.println("before move:" + model.getUser().getRoomID());
+		System.out.println("before move:" + model.getPlayer().getRoomID());
 		System.out.println();
 		String input = req.getParameter("input");
 	//	System.out.println(input);
 		GameEngineController controller = new GameEngineController(model);
 		
-		for(int i=0; i<9; i++) {
+		/*for(int i=0; i<9; i++) {
 			controller.setRoomID(i, i);
 		}
 		
@@ -222,13 +213,13 @@ public class GameServlet extends HttpServlet {
 		controller.setNPCInteraction(0,"You see a decrepit old man. He grumbles nothing but the words, \"Get your money up.\"");
 		controller.setNPCDialogue(0, "\"I'm Old Man John, and... you disgust me. You and your foul torch and stupid looking sword. The only thing that has value in this world is... money! And you got none of that, do ya? Broke boy, lil baby guy. Get ya money up sonny!\"");
 		
-		
+		*/
 		
 		
 		
 		String output = controller.processInput(model,input); 
 		
-		System.out.println("after move:" + model.getUser().getRoomID());
+		System.out.println("after move:" + model.getPlayer().getRoomID());
 		String newLog;
 		if(model.getError().equals("working")) {
 			newLog = model.getLog() + "<p>" + input + "</p><p>" + output + "</p>";
