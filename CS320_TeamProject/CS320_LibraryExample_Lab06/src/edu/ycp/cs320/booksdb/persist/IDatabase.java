@@ -23,4 +23,6 @@ public interface IDatabase {
 	public Player updatePlayer(Player player);
 	public List<Room> getRoomListByGameID(int gameID);
 	public List<RoomConnection> findRoomConnections();
+	public NPC updateNPC(NPC npc);
+	public Item updateItem(Item item);
 }

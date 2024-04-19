@@ -231,4 +231,16 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public NPC updateNPC(NPC npc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Item updateItem(Item item) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

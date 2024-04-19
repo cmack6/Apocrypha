@@ -1688,6 +1688,155 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 
+	@Override
+	public NPC updateNPC(NPC npc) {
+		return executeTransaction(new Transaction<NPC>() {
+			@Override
+			public NPC execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				try {
+					stmt1 = conn.prepareStatement(
+							"update npcs  " +
+							"  health = ?  " +
+							"  where npc_id = ? "
+					);
+					
+					
+					/*stmt9 = conn.prepareStatement(
+							"create table players (" +
+							"	player_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	score integer," +
+							"	health integer," +
+							"	roomID integer," +
+							"	gameID integer," +
+							"	userID integer," +
+							"	log clob" +
+							")"
+					);
+						*/	
+					stmt1.setInt(1, npc.getHealth());
+					
+
+					
+					NPC result = new NPC();
+					
+					stmt1.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"select * from npcs  " +
+							"  where npc_id = ?"
+					);
+					stmt2.setInt(1, npc.getNPCID());
+					
+					
+					resultSet = stmt2.executeQuery();
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						loadNPC(result,resultSet,1);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No npcs were found in the database for the specified npcID");
+						result = null;
+					}
+					else {
+						System.out.println("NPC updated with ID "+result.getNPCID());
+					}
+					return result;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+
+
+	@Override
+	public Item updateItem(Item item) {
+		return executeTransaction(new Transaction<Item>() {
+			@Override
+			public Item execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				try {
+					stmt1 = conn.prepareStatement(
+							"update items  " +
+							"  set roomID = ?, " +
+							"  where itemID = ? "
+					);
+					
+					
+					/*stmt9 = conn.prepareStatement(
+							"create table players (" +
+							"	player_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	score integer," +
+							"	health integer," +
+							"	roomID integer," +
+							"	gameID integer," +
+							"	userID integer," +
+							"	log clob" +
+							")"
+					);
+						*/	
+					stmt1.setInt(1, item.getLocation());
+					stmt1.setInt(2, item.getItemID());
+					
+
+					
+					Item result = new Item();
+					
+					stmt1.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"select * from items  " +
+							"  where itemID = ?"
+					);
+					stmt2.setInt(1, item.getItemID());
+					
+					
+					resultSet = stmt2.executeQuery();
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						loadItem(result,resultSet,1);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No items were found in the database for the specified itemID");
+						result = null;
+					}
+					else {
+						System.out.println("Item updated with ID "+result.getItemID());
+					}
+					return result;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+
+
 
 }
 
