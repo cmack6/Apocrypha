@@ -1699,7 +1699,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					stmt1 = conn.prepareStatement(
 							"update npcs  " +
-							"  health = ?  " +
+							"  set health = ?  " +
 							"  where npc_id = ? "
 					);
 					
@@ -1774,7 +1774,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					stmt1 = conn.prepareStatement(
 							"update items  " +
-							"  set roomID = ?, " +
+							"  set location = ? " +
 							"  where itemID = ? "
 					);
 					

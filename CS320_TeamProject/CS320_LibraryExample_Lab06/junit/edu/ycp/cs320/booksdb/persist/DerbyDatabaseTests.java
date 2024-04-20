@@ -273,6 +273,26 @@ public class DerbyDatabaseTests {
 	}
 	
 	@Test
+	public void testgetPlayerFromGameID() {
+		System.out.println("\n*** Testing getPlayerFromGameID ***");
+
+		int gameID = 2;
+		
+		Player player = db.getPlayerFromGameID(gameID);
+		
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (player.equals(null)) {
+			System.out.println("No player found for ID <" + gameID + ">");
+			fail("No player for ID <" + gameID + "> returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+				System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
+		}			
+	}
+	
+	@Test
 	public void testGetRoomConnectionsByRoomID() {
 		System.out.println("\n*** Testing GetRoomConnectionsByRoomID ***");
 
@@ -294,6 +314,108 @@ public class DerbyDatabaseTests {
 				System.out.println(connection.getStartingRoomID() + "," + connection.getCommand() + "," + connection.getDestinationRoomID());
 			}			
 		}
+	}
+	
+	@Test
+	public void testupdatePlayer() {
+		System.out.println("\n*** Testing updatePlayer ***");
+		
+		Player testPlayer = new Player();
+		testPlayer.setScore(90);
+		testPlayer.setHealth(60);
+		testPlayer.setRoomID(5);
+		testPlayer.setLog("Testing");
+		testPlayer.setPlayerID(3);
+		
+		Player player = db.updatePlayer(testPlayer);
+		
+		assertEquals(90, player.getScore());
+		assertEquals(60, player.getHealth());
+		assertEquals(5, player.getRoomID());
+		assertEquals("Testing", player.getLog());
+		assertEquals(3, player.getPlayerID());
+		
+		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
+	}
+	
+	@Test
+	public void testGetRoomListByGameID() {
+		System.out.println("\n*** Testing getRoomListByGameID ***");
+
+		int gameID = 1;
+		
+		List<Room> roomList = db.getRoomListByGameID(gameID);
+		
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (roomList.isEmpty()) {
+			System.out.println("No room connection found for ID <" + gameID + ">");
+			fail("No room connections for ID <" + gameID + "> returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			rooms = new ArrayList<Room>();
+			for (Room room : roomList) {
+				rooms.add(room);
+				System.out.println(room.getRoomID() + "," + room.getLongDescription() + "," + room.getShortDescription() + ", " + room.getGameID());
+			}			
+		}
+	}
+	
+	@Test
+	public void testFindRoomConnections() {
+
+		System.out.println("\n*** Testing findRoomConnections ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<RoomConnection> roomConnectionList = db.findRoomConnections();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (roomConnectionList.isEmpty()) {
+			System.out.println("No room connections found in library");
+			fail("No room connections returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			roomConnections = new ArrayList<RoomConnection>();
+			for (RoomConnection connection : roomConnectionList) {
+				roomConnections.add(connection);
+				System.out.println(connection.getStartingRoomID() + ", " + connection.getCommand() + ", " + connection.getDestinationRoomID());
+			}			
+		}
+	}
+	
+	@Test
+	public void testupdateNPC() {
+		System.out.println("\n*** Testing updateNPC ***");
+		
+		NPC testNPC = new NPC();
+		testNPC.setHealth(45);
+		testNPC.setNPCID(2);
+		
+		NPC npc = db.updateNPC(testNPC);
+		
+		assertEquals(45, npc.getHealth());
+		assertEquals(2, npc.getNPCID());
+		
+		System.out.println(npc.getNPCID() + "," + npc.getRoomDialogue() + "," + npc.getSpeakDialogue() + ", " + npc.getRoomID() + ", " + npc.getHealth()+ ", " + npc.getGameID());
+	}
+	
+	@Test
+	public void testupdateItem() {
+		System.out.println("\n*** Testing updateItem ***");
+		
+		Item testItem = new Item();
+		testItem.setLocation(-1);
+		testItem.setItemID(4);
+		
+		Item item = db.updateItem(testItem);
+		
+		assertEquals(-1, item.getLocation());
+		assertEquals(4, item.getItemID());
+		
+		System.out.println(item.getItemID() + "," + item.getName() + "," + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
 	}
 
 	@Test
@@ -337,7 +459,6 @@ public class DerbyDatabaseTests {
 			fail("Failed to insert new book <" + title + "> into Library DB");
 		}
 	}
-	
 
 	@Test
 	public void testRemoveBookByTitle() {
