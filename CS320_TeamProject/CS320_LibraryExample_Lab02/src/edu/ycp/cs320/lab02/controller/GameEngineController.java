@@ -3,12 +3,13 @@ package edu.ycp.cs320.lab02.controller;
 import edu.ycp.cs320.lab02.model.*;
 import edu.ycp.cs320.booksdb.model.*;
 
-
+	
 
 
 
 	public class GameEngineController implements Commands {
 
+		//int isAbletoMove = 0;
 
 		private GameModel model;
 		
@@ -153,6 +154,7 @@ import edu.ycp.cs320.booksdb.model.*;
 		private String getOutput(GameModel model, String setOutput, String itemName) {
 			String output = "";
 			if(setOutput.equals("move")) {
+				//if(isAbletoMove != -1) {
 				if(model.Rooms.get(model.getPlayer().getRoomID()).getIsEntered()) {
 					model.getPlayer().setScore(model.getPlayer().getScore()-10);
 				}
@@ -168,9 +170,13 @@ import edu.ycp.cs320.booksdb.model.*;
 				for(int i=0;i<model.NPCs.size();i++) {
 					if(model.NPCs.get(i).getRoomID()==model.getPlayer().getRoomID()) {
 						output += "<br><br>"+model.NPCs.get(i).getRoomDialogue();
+						}
 					}
 				}
-			}
+				//else {
+				//	output += " " + "You cannot move that way!";
+				//}
+			//}
 			
 			else if(setOutput.equals("inventory")) {
 				output = inventory(model);
@@ -230,7 +236,7 @@ import edu.ycp.cs320.booksdb.model.*;
 			//there might be a better way to do this without having to pass the model 
 			//back and forth 
 			int temp = 0;
-			for(RoomConnection roomConnection: model.RoomConnections) {
+			for(RoomConnection roomConnection : model.RoomConnections) {
 				if(roomConnection.getCommand().equals(direction)&&roomConnection.getStartingRoomID()==model.getPlayer().getRoomID()) {
 					temp=roomConnection.getDestinationRoomID();
 				}
@@ -238,6 +244,10 @@ import edu.ycp.cs320.booksdb.model.*;
 			if(temp!=-1) {
 			model.getPlayer().setRoomID(temp);
 			}
+			//else {
+			//	isAbletoMove = -1;
+			//}
+			
 		}
 
 
