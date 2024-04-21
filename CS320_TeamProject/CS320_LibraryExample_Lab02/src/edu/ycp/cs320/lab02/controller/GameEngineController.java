@@ -9,7 +9,7 @@ import edu.ycp.cs320.booksdb.model.*;
 
 	public class GameEngineController implements Commands {
 
-		//int isAbletoMove = 0;
+		int isAbletoMove = 0;
 
 		private GameModel model;
 		
@@ -154,7 +154,7 @@ import edu.ycp.cs320.booksdb.model.*;
 		private String getOutput(GameModel model, String setOutput, String itemName) {
 			String output = "";
 			if(setOutput.equals("move")) {
-				//if(isAbletoMove != -1) {
+				if(isAbletoMove != -1) {
 				if(model.Rooms.get(model.getPlayer().getRoomID()).getIsEntered()) {
 					model.getPlayer().setScore(model.getPlayer().getScore()-10);
 				}
@@ -173,10 +173,10 @@ import edu.ycp.cs320.booksdb.model.*;
 						}
 					}
 				}
-				//else {
-				//	output += " " + "You cannot move that way!";
-				//}
-			//}
+				else {
+					output += " " + "You cannot move that way! Try moving a different direction...";
+				}
+			}
 			
 			else if(setOutput.equals("inventory")) {
 				output = inventory(model);
@@ -244,9 +244,9 @@ import edu.ycp.cs320.booksdb.model.*;
 			if(temp!=-1) {
 			model.getPlayer().setRoomID(temp);
 			}
-			//else {
-			//	isAbletoMove = -1;
-			//}
+			else {
+				isAbletoMove = -1;
+			}
 			
 		}
 
