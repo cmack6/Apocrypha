@@ -1161,8 +1161,8 @@ public class DerbyDatabase implements IDatabase {
 							"create table rooms (" +
 							"	roomID integer primary key" +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	longDescription varchar(200)," +
-							"	shortDescription varchar(200)," +
+							"	longDescription varchar(800)," +
+							"	shortDescription varchar(800)," +
 							"   gameID integer" +
 							")"
 					);
