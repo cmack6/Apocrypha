@@ -1181,8 +1181,8 @@ public class DerbyDatabase implements IDatabase {
 							"	name varchar(70)," +
 							"	location integer," +
 							"   value integer," +
-							"   itemDescription varchar(100)," +
-							"   roomDescription varchar(100)," +
+							"   itemDescription varchar(800)," +
+							"   roomDescription varchar(800)," +
 							"   gameID integer" +
 							")"
 					);

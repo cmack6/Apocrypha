@@ -61,15 +61,12 @@
     <div id="Stats" class="body">
       <div id="statsTitle">Stats</div>
       <br />
-      <div>Score:</div>
+      <div>Score: ${player.score}</div>
       <br />
-      <div>Health:</div>
+      <div>Health: ${player.health}</div>
       <br />
-      <div>Items:</div>
+      <div>Items: ${items}</div>
       <br />
-      <div>Previous action:</div>
-      <br />
-      <div>Additional:</div>
     </div>
   </body>
 
