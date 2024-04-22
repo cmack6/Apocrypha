@@ -2,6 +2,9 @@ package edu.ycp.cs320.lab02.controller;
 
 import edu.ycp.cs320.lab02.model.*;
 import edu.ycp.cs320.booksdb.model.*;
+import edu.ycp.cs320.booksdb.persist.DatabaseProvider;
+import edu.ycp.cs320.booksdb.persist.DerbyDatabase;
+import edu.ycp.cs320.booksdb.persist.IDatabase;
 
 	
 
@@ -90,8 +93,13 @@ import edu.ycp.cs320.booksdb.model.*;
 			*/
 			
 			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
-				move(model,input);
+				Boolean isMoved = move(model,input);
+				if(isMoved) {
 				setOutput = "move";
+				}
+				else {
+				setOutput = "invalidMove";
+				}
 			}
 			else if(input.equals("jump")||input.equals("j")) {
 				jump();
@@ -128,6 +136,11 @@ import edu.ycp.cs320.booksdb.model.*;
 
 			else if(input.equals("score")){
 				setOutput = "score";
+			}
+			
+			else if(input.equals("save")) {
+				save(model);
+				setOutput = "save";
 			}
 			/*
 			else if(countForItemDescription>0) {
@@ -178,6 +191,10 @@ import edu.ycp.cs320.booksdb.model.*;
 				}
 			}
 			
+			else if(setOutput.equals("invalidMove")) {
+				output = "There is no place to go in that direction.";
+			}
+			
 			else if(setOutput.equals("inventory")) {
 				output = inventory(model);
 			}
@@ -200,6 +217,10 @@ import edu.ycp.cs320.booksdb.model.*;
 			
 			else if(setOutput.equals("score")) {
 				output = score(model);
+			}
+			
+			else if(setOutput.equals("save")) {
+				output = "Game saved successfully.";
 			}
 			return output;
 			
@@ -232,22 +253,22 @@ import edu.ycp.cs320.booksdb.model.*;
 
 
 		@Override
-		public void move(GameModel model, String direction) {
+		public Boolean move(GameModel model, String direction) {
 			//there might be a better way to do this without having to pass the model 
 			//back and forth 
 			int temp = 0;
-			for(RoomConnection roomConnection : model.RoomConnections) {
+
+			Boolean isMoved = false;
+			for(RoomConnection roomConnection: model.RoomConnections) {
 				if(roomConnection.getCommand().equals(direction)&&roomConnection.getStartingRoomID()==model.getPlayer().getRoomID()) {
 					temp=roomConnection.getDestinationRoomID();
 				}
 			}
 			if(temp!=-1) {
 			model.getPlayer().setRoomID(temp);
+			isMoved = true;
 			}
-			else {
-				isAbletoMove = -1;
-			}
-			
+			return isMoved;
 		}
 
 
@@ -398,6 +419,24 @@ import edu.ycp.cs320.booksdb.model.*;
 
 			help = help + "<p>" + "------------------------------------------------------" + "</p>";
 			return help;
+		}
+		
+		
+		@Override
+		public void save(GameModel model) {
+			DatabaseProvider.setInstance(new DerbyDatabase());
+			IDatabase db = DatabaseProvider.getInstance();
+			for(Item item: model.Items) {
+				if(item.getGameID()==model.getPlayer().getGameID()) {
+					db.updateItem(item);
+				}
+			}
+			for(NPC npc: model.NPCs) {
+				if(npc.getGameID()==model.getPlayer().getGameID()) {
+					db.updateNPC(npc);
+				}
+			}
+			db.updatePlayer(model.getPlayer());
 		}
 		
 

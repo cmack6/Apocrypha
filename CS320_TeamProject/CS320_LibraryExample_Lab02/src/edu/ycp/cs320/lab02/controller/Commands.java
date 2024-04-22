@@ -7,7 +7,7 @@ import edu.ycp.cs320.lab02.model.GameModel;
 
 public interface Commands {
 	
-	public void move(GameModel model, String direction);
+	public Boolean move(GameModel model, String direction);
 	
 	public void jump();
 	
@@ -28,5 +28,7 @@ public interface Commands {
 	public String help(GameModel model);
 	
 	public String score(GameModel model);
+	
+	public void save(GameModel model);
 
 }

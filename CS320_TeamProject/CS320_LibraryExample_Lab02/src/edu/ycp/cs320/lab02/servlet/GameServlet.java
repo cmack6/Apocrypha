@@ -43,7 +43,8 @@ public class GameServlet extends HttpServlet {
 		List<RoomConnection> roomConnections = db.findRoomConnections();
 		List<Item> itemList = db.findAllItems();
 		List<NPC> NPCList = db.findAllNPCs();
-		Player player = db.getPlayerFromGameID(1);//ATTENTION!!:!!::!:! CHANGE 1 TO THE GAMEID WHEN IT GETS PASSED!
+		Player player = db.getPlayerFromGameID(1);
+		System.out.println(player.getLog());//ATTENTION!!:!!::!:! CHANGE 1 TO THE GAMEID WHEN IT GETS PASSED!
 		GameModel model = new GameModel(player,roomList,itemList,NPCList,roomConnections);
 		
 		GameEngineController controller = new GameEngineController(model);
@@ -229,6 +230,7 @@ public class GameServlet extends HttpServlet {
 			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.getError() + "</p>";
 			model.setError("working");
 		}
+		model.getPlayer().setLog(newLog);
 		model.setLog(newLog);
 		System.out.println(newLog);
 		req.setAttribute("log",newLog);
