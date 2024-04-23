@@ -135,6 +135,19 @@ public class InitialData {
 					item.setValue(Integer.parseInt(i.next()));
 					item.setItemDescription(i.next());
 					item.setRoomDescription(i.next());
+					
+					item.setLowestPiercingDamage(Integer.parseInt(i.next()));
+					item.setHighestPiercingDamage(Integer.parseInt(i.next()));
+					
+					item.setLowestSlashingDamage(Integer.parseInt(i.next()));
+					item.setHighestSlashingDamage(Integer.parseInt(i.next()));
+					
+					item.setLowestBludgeoningDamage(Integer.parseInt(i.next()));
+					item.setHighestBludgeoningDamage(Integer.parseInt(i.next()));
+					
+					item.setLowestThrownDamage(Integer.parseInt(i.next()));
+					item.setHighestThrownDamage(Integer.parseInt(i.next()));
+					
 					item.setGameID(Integer.parseInt(i.next()));
 					
 					itemList.add(item);
@@ -275,6 +288,7 @@ public class InitialData {
 					player.setRoomID(Integer.parseInt(i.next()));
 					player.setGameID(Integer.parseInt(i.next()));
 					player.setUserID(Integer.parseInt(i.next()));
+					player.setInCombat(Boolean.parseBoolean(i.next()));
 					player.setLog(i.next());
 					playerList.add(player);
 				}
@@ -308,6 +322,7 @@ public class InitialData {
 					npc.setSpeakDialogue(i.next());
 					npc.setRoomID(Integer.parseInt(i.next()));
 					npc.setHealth(Integer.parseInt(i.next()));
+					npc.setName(i.next());
 					npc.setGameID(Integer.parseInt(i.next()));
 					NPCList.add(npc);
 				}

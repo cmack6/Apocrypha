@@ -13,7 +13,7 @@ public interface Commands {
 	
 	public void crawl();
 	
-	public void fight();
+	public String fight(GameModel model);
 	
 	public void pickUp(GameModel model, String nameOfItem);
 	

@@ -30,7 +30,8 @@ public class AllItemsQuery {
 			for (Item item : itemList) {
 				
 				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue()
-					+ ", " + item.getItemDescription() + ", " + item.getRoomDescription());
+					+ ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getLowestPiercingDamage() + ", " + item.getHighestPiercingDamage() + ", " + item.getLowestSlashingDamage() 
+                    + ", " + item.getHighestSlashingDamage() + ", " + item.getLowestBludgeoningDamage() + ", " + item.getHighestBludgeoningDamage() + ", " + item.getLowestThrownDamage() + ", " + item.getHighestThrownDamage() + ", " + item.getGameID());
 			
 			}
 		}

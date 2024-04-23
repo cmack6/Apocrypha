@@ -12,6 +12,7 @@ public class Player{
 	private int userID;
 	private String log;
 	private int playerID;
+	private boolean isInCombat;
 	
 	//public Inventory inventory;
 	//private ArrayList<Item> inventory = new ArrayList<Item>();
@@ -104,5 +105,15 @@ public class Player{
 	public int getUserID() {
 		return userID;
 	}
+
+	public boolean isInCombat() {
+		return isInCombat;
+	}
+
+	public void setInCombat(boolean isInCombat) {
+		this.isInCombat = isInCombat;
+	}
+
+	
 	
 }

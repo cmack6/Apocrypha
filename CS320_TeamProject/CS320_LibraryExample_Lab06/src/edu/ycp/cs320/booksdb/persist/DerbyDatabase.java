@@ -382,7 +382,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					stmt1 = conn.prepareStatement(
 							"update players  " +
-							"  set score = ?, health = ?, roomID = ?, log = ?  " +
+							"  set score = ?, health = ?, roomID = ?, log = ?, isInCombat = ?  " +
 							"  where player_id = ? "
 					);
 					
@@ -403,10 +403,14 @@ public class DerbyDatabase implements IDatabase {
 					stmt1.setInt(1, player.getScore());
 					stmt1.setInt(2, player.getHealth());
 					stmt1.setInt(3, player.getRoomID());
+					
 					System.out.println(player.getLog());
 					Clob myClob = new javax.sql.rowset.serial.SerialClob(player.getLog().toCharArray());
 					stmt1.setClob(4, myClob);
-					stmt1.setInt(5, player.getPlayerID());
+					
+					stmt1.setBoolean(5, player.isInCombat());
+					
+					stmt1.setInt(6, player.getPlayerID());
 
 					
 					Player result = new Player();
@@ -1032,6 +1036,19 @@ public class DerbyDatabase implements IDatabase {
 			item.setValue(resultSet.getInt(index++));
 			item.setItemDescription(resultSet.getString(index++));
 			item.setRoomDescription(resultSet.getString(index++));
+			
+			item.setLowestPiercingDamage(resultSet.getInt(index++));
+			item.setHighestPiercingDamage(resultSet.getInt(index++));
+			
+			item.setLowestSlashingDamage(resultSet.getInt(index++));
+			item.setHighestSlashingDamage(resultSet.getInt(index++));
+			
+			item.setLowestBludgeoningDamage(resultSet.getInt(index++));
+			item.setHighestBludgeoningDamage(resultSet.getInt(index++));
+			
+			item.setLowestThrownDamage(resultSet.getInt(index++));
+			item.setHighestThrownDamage(resultSet.getInt(index++));
+			
 			item.setGameID(resultSet.getInt(index++));
 		}
 		
@@ -1056,6 +1073,7 @@ public class DerbyDatabase implements IDatabase {
 			player.setRoomID(resultSet.getInt(index++));
 			player.setGameID(resultSet.getInt(index++));
 			player.setUserID(resultSet.getInt(index++));
+			player.setInCombat(resultSet.getBoolean(index++));
 			Clob clob = resultSet.getClob(index++);
 			Reader r = clob.getCharacterStream();
 			StringBuffer buffer = new StringBuffer();
@@ -1106,6 +1124,9 @@ public class DerbyDatabase implements IDatabase {
 		npc.setSpeakDialogue(resultSet.getString(index++));
 		npc.setRoomID(resultSet.getInt(index++));
 		npc.setHealth(resultSet.getInt(index++));
+		
+		npc.setName(resultSet.getString(index++));
+		
 		npc.setGameID(resultSet.getInt(index++));
 	}
 		
@@ -1182,7 +1203,20 @@ public class DerbyDatabase implements IDatabase {
 							"	location integer," +
 							"   value integer," +
 							"   itemDescription varchar(800)," +
-							"   roomDescription varchar(800)," +
+							"   inRoomDescription varchar(800)," +
+							
+							"   lowestPiercingDamage integer," +
+							"   highestPiercingDamage integer," +
+							
+							"   lowestSlashingDamage integer," +
+							"   highestSlashingDamage integer," +
+							
+							"   lowestBludgeoningDamage integer," +
+							"   highestBludgeoningDamage integer," +
+							
+							"   lowestThrownDamage integer," +
+							"   highestThrownDamage integer," +
+							
 							"   gameID integer" +
 							")"
 					);
@@ -1252,6 +1286,7 @@ public class DerbyDatabase implements IDatabase {
 							"	roomID integer," +
 							"	gameID integer," +
 							"	userID integer," +
+							"	isInCombat boolean," +
 							"	log clob" +
 							")"
 					);
@@ -1281,6 +1316,7 @@ public class DerbyDatabase implements IDatabase {
 							"	speakDialogue varchar(250)," +
 							"   roomID integer, " +
 							"   health integer, " +
+							"   name varchar(50), " +
 							"   gameID integer " +
 							")"
 					);
@@ -1392,7 +1428,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Rooms table populated");
 					
 					
-					insertItem = conn.prepareStatement("insert into items (name, location, value, itemDescription, roomDescription, gameID) values (?, ?, ?, ?, ?, ?)");
+					insertItem = conn.prepareStatement("insert into items (name, location, value, itemDescription, inRoomDescription, lowestPiercingDamage, highestPiercingDamage, lowestSlashingDamage, highestSlashingDamage, lowestBludgeoningDamage, highestBludgeoningDamage, lowestThrownDamage, highestThrownDamage, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : itemList) {
 						//insertItem.setInt(1, item.getItemID());
 						insertItem.setString(1, item.getName());
@@ -1400,7 +1436,20 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setInt(3, item.getValue());
 						insertItem.setString(4, item.getItemDescription());
 						insertItem.setString(5, item.getRoomDescription());
-						insertItem.setInt(6, item.getGameID());
+						
+						insertItem.setInt(6, item.getLowestPiercingDamage());
+						insertItem.setInt(7, item.getHighestPiercingDamage());
+						
+						insertItem.setInt(8, item.getLowestSlashingDamage());
+						insertItem.setInt(9, item.getHighestSlashingDamage());
+						
+						insertItem.setInt(10, item.getLowestBludgeoningDamage());
+						insertItem.setInt(11, item.getHighestBludgeoningDamage());
+						
+						insertItem.setInt(12, item.getLowestThrownDamage());
+						insertItem.setInt(13, item.getHighestThrownDamage());
+						
+						insertItem.setInt(14, item.getGameID());
 					
 						insertItem.addBatch();
 					}
@@ -1477,15 +1526,16 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					
-					insertPlayer = conn.prepareStatement("insert into players (score, health, roomID, gameID, userID, log) values (?, ?, ?, ?, ?, ?)");
+					insertPlayer = conn.prepareStatement("insert into players (score, health, roomID, gameID, userID, isInCombat, log) values (?, ?, ?, ?, ?, ?, ?)");
 					for (Player player: playerList) {
 						insertPlayer.setInt(1, player.getScore());
 						insertPlayer.setInt(2, player.getHealth());
 						insertPlayer.setInt(3, player.getRoomID());
 						insertPlayer.setInt(4, player.getGameID());
 						insertPlayer.setInt(5, player.getUserID());
+						insertPlayer.setBoolean(6, player.isInCombat());
 						Clob myClob = new javax.sql.rowset.serial.SerialClob(player.getLog().toCharArray());
-						insertPlayer.setClob(6, myClob);
+						insertPlayer.setClob(7, myClob);
 						insertPlayer.addBatch();
 					}
 					insertPlayer.executeBatch();	
@@ -1493,13 +1543,17 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Players table populated");	
 					
 					
-					insertNPC = conn.prepareStatement("insert into NPCs (roomDialogue, speakDialogue, roomID, health, gameID) values (?, ?, ?, ?, ?)");
+					insertNPC = conn.prepareStatement("insert into NPCs (roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?)");
 					for (NPC npc: NPCList) {
 						insertNPC.setString(1, npc.getRoomDialogue());
 						insertNPC.setString(2, npc.getSpeakDialogue());
 						insertNPC.setInt(3, npc.getRoomID());
 						insertNPC.setInt(4, npc.getHealth());
-						insertNPC.setInt(5, npc.getGameID());
+						
+						insertNPC.setString(5, npc.getName());
+						
+						insertNPC.setInt(6, npc.getGameID());
+						
 						insertNPC.addBatch();
 					}
 					insertNPC.executeBatch();	

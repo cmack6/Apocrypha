@@ -108,7 +108,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				crawl();
 			}
 			else if(input.equals("fight")||input.equals("f")) {
-				fight();
+				
+				setOutput = "fight";
 			}
 			else if(((parts[0].equals("take") || parts[0].equals("grab") )&& input.length()>5) || (parts[0].equals("pickup") && input.length()>7)) {
 				pickUp(model, parts[1]);
@@ -166,8 +167,16 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		
 		private String getOutput(GameModel model, String setOutput, String itemName) {
 			String output = "";
-			if(setOutput.equals("move")) {
-				if(isAbletoMove != -1) {
+			boolean currentlyInCombat = model.getPlayer().isInCombat();
+			
+			 if(currentlyInCombat == true) {
+				output += " " + "You are currently engaged in a fight!";
+			}
+			
+			
+			 else if(setOutput.equals("move")) {
+				if((isAbletoMove != -1)) {
+					
 				if(model.Rooms.get(model.getPlayer().getRoomID()).getIsEntered()) {
 					model.getPlayer().setScore(model.getPlayer().getScore()-10);
 				}
@@ -187,9 +196,12 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					}
 				}
 				else {
+					
 					output += " " + "You cannot move that way! Try moving a different direction...";
 				}
 			}
+			
+			
 			
 			else if(setOutput.equals("invalidMove")) {
 				output = "There is no place to go in that direction.";
@@ -205,6 +217,10 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			else if(setOutput.equals("talk")) {
 				output = talk(model);
+			}
+			
+			else if(setOutput.equals("fight")) {
+				output = fight(model);
 			}
 			
 			else if(setOutput.equals("item description")) {
@@ -293,8 +309,31 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 
 
 		@Override
-		public void fight() {
-			// TODO Auto-generated method stub
+		public String fight(GameModel model) {
+			
+			
+				String fightLog = "";
+				
+				for(int i=0;i<model.NPCs.size();i++) {
+					
+				
+					if((model.NPCs.get(i).getGameID() == model.getPlayer().getGameID()) && (model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID())) {
+						fightLog = "You have initiated combat with " + model.NPCs.get(i).getName() + "!";
+						model.getPlayer().setInCombat(true);
+					}
+				}
+				
+			
+				if(fightLog.length()==0) {
+					fightLog = "There is no one to fight at your current location.";
+				}
+				
+				
+			
+			
+			
+			
+			return fightLog;
 			
 		}
 
@@ -338,6 +377,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				
 				
 			}
+			
+			
 			
 			
 			

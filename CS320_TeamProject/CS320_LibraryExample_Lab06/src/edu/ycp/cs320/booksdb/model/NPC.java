@@ -8,6 +8,7 @@ public class NPC {
 	public int NPCID;
 	public int roomID;
 	public int health;
+	public String name;
 	public int gameID;
 	public NPC(int roomID, int NPCID) {
 		this.roomID = roomID;
@@ -64,5 +65,14 @@ public class NPC {
 	
 	public int getGameID() {
 		return gameID;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;	
+	
 	}
 }

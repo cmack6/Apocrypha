@@ -26,7 +26,7 @@ public class AllPlayersQuery {
 		else {
 			for (Player player: playerList) {
 				
-				System.out.println(player.getPlayerID() + ", " + player.getScore() + ", " + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID() + ", " + player.getLog());
+				System.out.println(player.getPlayerID() + ", " + player.getScore() + ", " + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID() + ", " + player.isInCombat() + ", " +  player.getLog());
 			
 			}
 		}
