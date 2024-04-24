@@ -1,11 +1,17 @@
 package edu.ycp.cs320.lab02.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import edu.ycp.cs320.booksdb.model.*;
+import edu.ycp.cs320.booksdb.persist.DatabaseProvider;
+import edu.ycp.cs320.booksdb.persist.DerbyDatabase;
+import edu.ycp.cs320.booksdb.persist.IDatabase;
 
 //import controllers.GameEngineController;
 
@@ -28,30 +34,33 @@ public class GameLoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.println("Login Servlet: doPost");
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
 
+		List<User> userList = db.findAllUsers();
+		
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
 
-		LoginModel model = new LoginModel();
-		model.setUsername(req.getParameter("username"));
-		model.setPassword(req.getParameter("password"));
-		String testUsername = "spencer";
-		String testUsername2 = "demo";
-
-		String testPassword = "hayes";
-		String testPassword2 = "123";
 
 		String errorMessage = null;
-
-		if((model.getUsername().equals(testUsername)&&(model.getPassword().equals(testPassword)))||(model.getUsername().equals(testUsername2)&&model.getPassword().equals(testPassword2))) {
-			resp.sendRedirect("http://localhost:8081/lab02/account");
+		Boolean isLoggedIn = false;
+		System.out.println(username + " " + password);
+		for(User user: userList) {
+			System.out.println(user.getUsername() + " " + user.getPassword());
+			if(user.getUsername().equals(username)&&user.getPassword().equals(password)) {
+				isLoggedIn = true;
+				req.getSession().setAttribute("userID", user.getUserID());
+				resp.sendRedirect("http://localhost:8081/lab02/account");
+			}
 		}
-		else {
-			req.setAttribute("username",model.getUsername());
+		if(!isLoggedIn) {
+			req.setAttribute("username",username);
 			errorMessage = "Invalid credentials.";
 		}
 
 
 
-		req.setAttribute("login",model);
 		req.setAttribute("errorMessage", errorMessage);
 
 
