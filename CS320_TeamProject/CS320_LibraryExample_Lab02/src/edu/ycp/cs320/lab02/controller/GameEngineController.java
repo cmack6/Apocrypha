@@ -389,6 +389,19 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			}
 			
 			
+			for(int i = 0; i<model.Items.size(); i++) {
+				String helmetEquipped = "";
+				/*
+				if(model.Items.get(i).getLocation() == -1 && model.Items.get(i).isHelmet && model.Items.get(i).isEquipped) {
+					helmetEquipped = model.Items.get(i).getName();
+					
+				}
+				*/
+				
+				
+			}
+			
+			
 			
 			
 			
