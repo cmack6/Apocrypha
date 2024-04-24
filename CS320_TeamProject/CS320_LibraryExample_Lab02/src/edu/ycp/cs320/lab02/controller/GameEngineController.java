@@ -169,7 +169,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			String output = "";
 			boolean currentlyInCombat = model.getPlayer().isInCombat();
 			
-			 if(currentlyInCombat == true) {
+			 if(currentlyInCombat == true && setOutput != "run") {
 				output += " " + "You are currently engaged in a fight!";
 			}
 			
