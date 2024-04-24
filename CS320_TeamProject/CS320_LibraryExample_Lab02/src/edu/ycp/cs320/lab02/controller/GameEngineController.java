@@ -1,6 +1,9 @@
 package edu.ycp.cs320.lab02.controller;
 
 import edu.ycp.cs320.lab02.model.*;
+
+import java.util.Random;
+
 import edu.ycp.cs320.booksdb.model.*;
 import edu.ycp.cs320.booksdb.persist.DatabaseProvider;
 import edu.ycp.cs320.booksdb.persist.DerbyDatabase;
@@ -103,6 +106,9 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			}
 			else if(input.equals("jump")||input.equals("j")) {
 				jump();
+			}
+			else if(input.equals("run")||input.equals("flee")||input.equals("escape")) {
+				setOutput = "run";
 			}
 			else if(input.equals("crawl")||input.equals("c")) {
 				crawl();
@@ -213,6 +219,10 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			else if(setOutput.equals("help")) {
 				output = help(model);
+			}
+			 
+			else if(setOutput.equals("run")) {
+				output = run(model);
 			}
 			
 			else if(setOutput.equals("talk")) {
@@ -478,6 +488,33 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				}
 			}
 			db.updatePlayer(model.getPlayer());
+		}
+
+
+
+		@Override
+		public String run(GameModel model) {
+			
+			String runAway = "";
+			
+			if(model.getPlayer().isInCombat() != false) {
+				
+				Random rand= new Random();
+				
+				int ran = rand.nextInt(100)+1;
+				
+				if(ran > 0 && ran < 25) {
+					runAway = "You got away safely!";
+					model.getPlayer().setInCombat(false);
+				}
+				else {
+					runAway = "You cannot escape from combat right now! Either try again or stand your ground!";
+				}
+				
+				
+			}
+			return runAway;
+			
 		}
 		
 
