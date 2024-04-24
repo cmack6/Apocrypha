@@ -25,5 +25,5 @@ public interface IDatabase {
 	public List<RoomConnection> findRoomConnections();
 	public Item updateItem(Item item);
 	public NPC updateNPC(NPC NPC);
-
+	public User insertNewUser(String username, String password);
 }

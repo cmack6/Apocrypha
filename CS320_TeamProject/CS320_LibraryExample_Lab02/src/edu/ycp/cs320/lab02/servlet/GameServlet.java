@@ -43,7 +43,29 @@ public class GameServlet extends HttpServlet {
 		List<RoomConnection> roomConnections = db.findRoomConnections();
 		List<Item> itemList = db.findAllItems();
 		List<NPC> NPCList = db.findAllNPCs();
-		Player player = db.getPlayerFromGameID(1);
+		Player player = db.getPlayerFromGameID(1);//uncomment next line for cool awesome shenanigans (the game doesnt work lol)
+		//Player player = db.getPlayerFromGameID((Integer)req.getSession().getAttribute("userID"));
+		/*List<Room> transferRooms = new ArrayList<Room>();
+		for(Room room: roomList) {
+			if(room.getGameID()==player.getGameID()) {
+				transferRooms.add(room);
+			}
+		}
+		roomList=transferRooms;
+		List<Item> transferItems = new ArrayList<Item>();
+		for(Item item: itemList) {
+			if(item.getGameID()==player.getGameID()) {
+				transferItems.add(item);
+			}
+		}
+		itemList = transferItems;
+		List<NPC> transferNPCs = new ArrayList<NPC>();
+		for(NPC npc: NPCList) {
+			if(npc.getGameID()==player.getGameID()) {
+				transferNPCs.add(npc);
+			}
+		}
+		NPCList = transferNPCs;*/
 		System.out.println(player.getLog());//ATTENTION!!:!!::!:! CHANGE 1 TO THE GAMEID WHEN IT GETS PASSED!
 		GameModel model = new GameModel(player,roomList,itemList,NPCList,roomConnections);
 		

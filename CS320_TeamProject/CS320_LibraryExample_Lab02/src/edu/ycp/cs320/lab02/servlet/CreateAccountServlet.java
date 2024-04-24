@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 import edu.ycp.cs320.sqldemo.*;
 
@@ -14,6 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import edu.ycp.cs320.booksdb.model.*;
+import edu.ycp.cs320.booksdb.persist.DatabaseProvider;
+import edu.ycp.cs320.booksdb.persist.DerbyDatabase;
+import edu.ycp.cs320.booksdb.persist.IDatabase;
 import edu.ycp.cs320.lab02.model.LoginModel;
 
 
@@ -32,22 +38,37 @@ public class CreateAccountServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		List<User> userList = db.findAllUsers();
 		
-
 		System.out.println("Create Account Servlet: doPost");
-		
+		String username = req.getParameter("accountName");
+		String password = req.getParameter("accountPass");
+		String confirmPassword = req.getParameter("confirmPass");
         LoginModel model = new LoginModel();
-
-        if(req.getParameter("accountPass").equals(req.getParameter("confirmPass")))
+        Boolean isUnused = true;
+        for(User user: userList) {
+        	if(user.getUsername().equals(username)) {
+        		isUnused=false;
+        	}
+        }
+        if(!isUnused) {
+        	String errorMessage = "User already exists with that username";
+        	req.setAttribute("errorMessage", errorMessage);
+        	req.getRequestDispatcher("/_view/create_account.jsp").forward(req, resp);
+        }
+        else if(password.equals(confirmPassword))
         {
-            model.setUsername(req.getParameter("accountName"));
-		    model.setPassword(req.getParameter("password"));
-		    resp.sendRedirect("http://localhost:8081/lab02/login");
+            User newUser = db.insertNewUser(username, password);
+            req.getSession().setAttribute("userID", newUser.getUserID());
+		    resp.sendRedirect("http://localhost:8081/lab02/account");
         }
 		else
         {
             String errorMessage = "Password and confirm password do not match.";
             req.setAttribute("errorMessage", errorMessage);
+    		req.getRequestDispatcher("/_view/create_account.jsp").forward(req, resp);
         }
 	
         

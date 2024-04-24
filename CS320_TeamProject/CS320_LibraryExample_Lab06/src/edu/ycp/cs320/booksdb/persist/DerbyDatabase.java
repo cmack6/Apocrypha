@@ -453,6 +453,71 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	
+
+	
+	@Override
+	public User insertNewUser(String username, String password) {
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				try {
+					stmt1 = conn.prepareStatement(
+							"insert into users (username, password)  " +
+							"  values (?,?)  "
+					);
+					
+					
+				
+					stmt1.setString(1, username);
+					stmt1.setString(2, password);
+					
+					
+
+					
+					User result = new User();
+					
+					stmt1.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"select * from users  " +
+							"  where username = ?"
+					);
+					stmt2.setString(1, username);
+					
+					
+					resultSet = stmt2.executeQuery();
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						loadUser(result,resultSet,1);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No users were found in the database for the specified userID");
+						result = null;
+					}
+					else {
+						System.out.println("User inserted with ID "+result.getUserID());
+					}
+					return result;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+	
 
 	@Override
 	public Item updateItem(Item item) {
@@ -1449,11 +1514,37 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setInt(12, item.getLowestThrownDamage());
 						insertItem.setInt(13, item.getHighestThrownDamage());
 						
+						insertItem.setInt(14, 0);
+					
+						insertItem.addBatch();
+					}
+					for (Item item : itemList) {
+						//insertItem.setInt(1, item.getItemID());
+						insertItem.setString(1, item.getName());
+						insertItem.setInt(2, item.getLocation());
+						insertItem.setInt(3, item.getValue());
+						insertItem.setString(4, item.getItemDescription());
+						insertItem.setString(5, item.getRoomDescription());
+						
+						insertItem.setInt(6, item.getLowestPiercingDamage());
+						insertItem.setInt(7, item.getHighestPiercingDamage());
+						
+						insertItem.setInt(8, item.getLowestSlashingDamage());
+						insertItem.setInt(9, item.getHighestSlashingDamage());
+						
+						insertItem.setInt(10, item.getLowestBludgeoningDamage());
+						insertItem.setInt(11, item.getHighestBludgeoningDamage());
+						
+						insertItem.setInt(12, item.getLowestThrownDamage());
+						insertItem.setInt(13, item.getHighestThrownDamage());
+						
 						insertItem.setInt(14, item.getGameID());
 					
 						insertItem.addBatch();
 					}
 					insertItem.executeBatch();
+					
+					
 					
 					System.out.println("Items table populated");	
 					
@@ -1544,6 +1635,18 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					insertNPC = conn.prepareStatement("insert into NPCs (roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?)");
+					for (NPC npc: NPCList) {
+						insertNPC.setString(1, npc.getRoomDialogue());
+						insertNPC.setString(2, npc.getSpeakDialogue());
+						insertNPC.setInt(3, npc.getRoomID());
+						insertNPC.setInt(4, npc.getHealth());
+						
+						insertNPC.setString(5, npc.getName());
+						
+						insertNPC.setInt(6, 0);
+						
+						insertNPC.addBatch();
+					}
 					for (NPC npc: NPCList) {
 						insertNPC.setString(1, npc.getRoomDialogue());
 						insertNPC.setString(2, npc.getSpeakDialogue());
