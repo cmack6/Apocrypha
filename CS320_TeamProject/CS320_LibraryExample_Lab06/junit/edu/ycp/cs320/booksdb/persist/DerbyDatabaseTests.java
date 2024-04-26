@@ -28,6 +28,7 @@ public class DerbyDatabaseTests {
 	ArrayList<RoomConnection> roomConnections = null;
 	List<Pair<Author, Book>> bookAuthorList = null;
 	List<Pair<Author, Book>> authorBookList = null;	
+	List<User> userList = null;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -47,85 +48,6 @@ public class DerbyDatabaseTests {
 
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void testFindAuthorAndBookByTitle() {
-		System.out.println("\n*** Testing findAuthorAndBookByTitle ***");
-		
-		String title = "A Briefer History of Time";
-
-		// get the list of (Author, Book) pairs from DB
-		authorBookList = db.findAuthorAndBookByTitle(title);
-		
-		// NOTE: this is a simple test to check if no results were found in the DB
-		if (authorBookList.isEmpty()) {
-			System.out.println("No book found in library with title <" + title + ">");
-			fail("No book with title <" + title + "> returned from Library DB");
-		}
-		// NOTE: assembling the results into Author and Book lists so that they could be
-		//       inspected for correct content - well-formed objects with correct content
-		else {			
-			authors = new ArrayList<Author>();
-			for (Pair<Author, Book> authorBook : authorBookList) {
-				Author author = authorBook.getLeft();
-				Book   book   = authorBook.getRight();
-				authors.add(author);
-				System.out.println(author.getLastname() + "," + author.getFirstname() + ", " + book.getTitle() + "," + book.getIsbn());
-			}			
-		}
-	}
-
-	@Test
-	public void testFindAuthorAndBookByAuthorLastName() {
-		System.out.println("\n*** Testing findAuthorAndBooksByAuthorLastName ***");
-
-		String lastName = "Hawking";
-		
-		// get the list of (Author, Book) pairs from DB
-		authorBookList = db.findAuthorAndBookByAuthorLastName(lastName);
-		
-		// NOTE: this is a simple test to check if no results were found in the DB
-		if (authorBookList.isEmpty()) {
-			System.out.println("No books found for author <" + lastName + ">");
-			fail("No books for author <" + lastName + "> returned from Library DB");
-		}
-		// NOTE: assembling the results into Author and Book lists so that they could be
-		//       inspected for correct content - well-formed objects with correct content
-		else {
-			books = new ArrayList<Book>();
-			for (Pair<Author, Book> authorBook : authorBookList) {
-				Author author = authorBook.getLeft();
-				Book book = authorBook.getRight();
-				books.add(book);
-				System.out.println(author.getLastname() + "," + author.getFirstname() + "," + book.getTitle() + "," + book.getIsbn());
-			}			
-		}
-	}
-
-	@Test
-	public void testFindAllBooksWithAuthors() {
-		System.out.println("\n*** Testing findAllBooksWithAuthors ***");
-
-		// get the list of (Author, Book) pairs from DB
-		bookAuthorList = db.findAllBooksWithAuthors();
-		
-		// NOTE: this is a simple test to check if no results were found in the DB
-		if (bookAuthorList.isEmpty()) {
-			System.out.println("No books in database");
-			fail("No books returned from Library DB");
-		}
-		// NOTE: assembling the results into Author and Book lists so that they could be
-		//       inspected for correct content - well-formed objects with correct content
-		else {
-			books = new ArrayList<Book>();
-			for (Pair<Author, Book> authorBook : bookAuthorList) {
-				Author author = authorBook.getLeft();
-				Book book = authorBook.getRight();
-				books.add(book);
-				System.out.println(book.getTitle() + ", " + book.getIsbn() + ", " + author.getLastname() + ", " + author.getFirstname());
-			}			
-		}
 	}
 
 	@Test
@@ -172,30 +94,6 @@ public class DerbyDatabaseTests {
 			for (Room room : roomList) {
 				rooms.add(room);
 				System.out.println(room.getRoomID() + ", " + room.getLongDescription() + ", " + room.getShortDescription() + ", " + room.getGameID());
-			}			
-		}
-	}
-	
-	@Test
-	public void testFindAllUsers() {
-
-		System.out.println("\n*** Testing findAllUsers ***");
-
-		// get the list of (Author, Book) pairs from DB
-		List<User> userList = db.findAllUsers();
-
-		// NOTE: this is a simple test to check if no results were found in the DB
-		if (userList.isEmpty()) {
-			System.out.println("No users found in library");
-			fail("No users returned from Library DB");
-		}
-		// NOTE: assembling the results into Author and Book lists so that they could be
-		//       inspected for correct content - well-formed objects with correct content
-		else {
-			users = new ArrayList<User>();
-			for (User user : userList) {
-				users.add(user);
-				System.out.println(user.getUserID() + ", " + user.getUsername() + ", " + user.getPassword());
 			}			
 		}
 	}
@@ -416,6 +314,57 @@ public class DerbyDatabaseTests {
 		assertEquals(4, item.getItemID());
 		
 		System.out.println(item.getItemID() + "," + item.getName() + "," + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
+	}
+	
+	@Test
+	public void testInsertNewUser() {
+		System.out.println("\n*** Testing insertNewUser ***");
+
+		String username     = "Jwaight";
+		String password      = "321";
+  
+		User testUser = new User();
+				
+		testUser = db.insertNewUser(username, password);
+
+		assertEquals("Jwaight", testUser.getUsername());
+		assertEquals("321", testUser.getPassword());
+		
+		System.out.println(testUser.getUserID() + ", " + testUser.getUsername() + ", " + testUser.getPassword());
+		
+		// Removing new user
+		List<User> removeNewUser = new ArrayList<User>();
+		removeNewUser = db.removeUserByUserId(testUser.getUserID());
+		
+		userList = new ArrayList<User>();
+		for (User user : removeNewUser) {
+			userList.add(user);
+			System.out.println(user.getUserID() + ", " + user.getUsername() + ", " + user.getPassword());
+		}
+	}
+	
+	@Test
+	public void testFindAllUsers() {
+
+		System.out.println("\n*** Testing findAllUsers ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<User> userList = db.findAllUsers();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (userList.isEmpty()) {
+			System.out.println("No users found in library");
+			fail("No users returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			users = new ArrayList<User>();
+			for (User user : userList) {
+				users.add(user);
+				System.out.println(user.getUserID() + ", " + user.getUsername() + ", " + user.getPassword());
+			}			
+		}
 	}
 
 	@Test

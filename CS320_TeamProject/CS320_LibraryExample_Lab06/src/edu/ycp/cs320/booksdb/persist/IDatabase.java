@@ -26,4 +26,5 @@ public interface IDatabase {
 	public Item updateItem(Item item);
 	public NPC updateNPC(NPC NPC);
 	public User insertNewUser(String username, String password);
+	public List<User> removeUserByUserId(int ID);
 }

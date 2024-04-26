@@ -518,6 +518,45 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	@Override
+	public List<User> removeUserByUserId(int ID) {
+		return executeTransaction(new Transaction<List<User>>() {
+			@Override
+			public List<User> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet1 = null;
+				try {
+					stmt1 = conn.prepareStatement(
+							"delete from users" +
+							"  where user_Id = ? "
+					);
+					
+					stmt1.setInt(1, ID);
+					stmt1.executeUpdate();
+					
+					stmt2 = conn.prepareStatement("select * from users");
+					resultSet1 = stmt2.executeQuery();
+					
+					List<User> userList = new ArrayList<User>();
+					
+					while (resultSet1.next()) {
+						User user = new User();
+						loadUser(user,resultSet1,1);
+						userList.add(user);
+					}
+					
+					return userList;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+	
 
 	@Override
 	public Item updateItem(Item item) {
