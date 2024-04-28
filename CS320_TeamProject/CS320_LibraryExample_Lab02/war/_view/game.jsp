@@ -34,7 +34,7 @@
       .scroll-box {
         font-size: 20px;
         width: 80%;
-        height: 350px;
+        height: 400px;
         overflow-y: auto;
         border: none;
         padding: 10px;
