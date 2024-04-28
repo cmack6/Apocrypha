@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
 			req.getSession().setAttribute("user", name);
 
 			// redirect to /index page
-			resp.sendRedirect(req.getContextPath() + "/index");
+			resp.sendRedirect(req.getContextPath() + "/file-select");
 
 			return;
 		}
