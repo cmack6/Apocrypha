@@ -32,7 +32,8 @@ public class AccountServlet extends HttpServlet {
 		req.setAttribute("playerString", player);
 		List<Item> itemList = db.findAllItems();
 		String items = "";
-		for(Item item: itemList) {
+		//FIX ITEM LIST WHEN TALKING TO KORBIN
+		/*for(Item item: itemList) { 
 			if(item.getLocation()==-1&&item.getGameID()==player.getGameID()) {
 				if(items.equals("")) {
 				items = item.getName();
@@ -41,7 +42,7 @@ public class AccountServlet extends HttpServlet {
 					items = items + ", " + item.getName();
 				}
 			}
-		}
+		}*/
 		req.setAttribute("items", items);
 		
 		req.getRequestDispatcher("/_view/account.jsp").forward(req, resp);

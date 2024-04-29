@@ -51,7 +51,7 @@ public class GameLoginServlet extends HttpServlet {
 			if(user.getUsername().equals(username)&&user.getPassword().equals(password)) {
 				isLoggedIn = true;
 				req.getSession().setAttribute("userID", user.getUserID());
-				resp.sendRedirect("http://localhost:8081/lab02/account");
+				resp.sendRedirect("http://localhost:8081/lab02/file-select");
 			}
 		}
 		if(!isLoggedIn) {

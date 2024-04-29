@@ -62,7 +62,7 @@ public class CreateAccountServlet extends HttpServlet {
         {
             User newUser = db.insertNewUser(username, password);
             req.getSession().setAttribute("userID", newUser.getUserID());
-		    resp.sendRedirect("http://localhost:8081/lab02/account");
+		    resp.sendRedirect("http://localhost:8081/lab02/file-select");
         }
 		else
         {

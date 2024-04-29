@@ -98,7 +98,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			*/
 			Boolean move = false;
 			for(RoomConnection roomConnection: model.RoomConnections) {
-				System.out.println(model.getPlayer().getGameID()+ "" + roomConnection.getGameID() + "" + model.getPlayer().getRoomID() + "" + roomConnection.getStartingRoomID() + "" + input + "" + roomConnection.getCommand()); 
+				//System.out.println(model.getPlayer().getGameID()+ "" + roomConnection.getGameID() + "" + model.getPlayer().getRoomID() + "" + roomConnection.getStartingRoomID() + "" + input + "" + roomConnection.getCommand()); 
 
 				if(model.getPlayer().getGameID()==roomConnection.getGameID()&&model.getPlayer().getRoomID()==roomConnection.getStartingRoomID()&&input.equals(roomConnection.getCommand())) {
 					move = true;

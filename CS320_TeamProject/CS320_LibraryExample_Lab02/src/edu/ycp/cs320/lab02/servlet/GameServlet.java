@@ -45,7 +45,7 @@ public class GameServlet extends HttpServlet {
 		List<NPC> NPCList = db.findAllNPCs();
 		List<Container> containerList = db.findAllContainers();
 		Player player = db.getPlayerFromGameID(1);//uncomment next line for cool awesome shenanigans (the game doesnt work lol)
-		//Player player = db.getPlayerFromGameID((Integer)req.getSession().getAttribute("userID"));
+		//Player player = db.getPlayerFromGameID((Integer)req.getSession().getAttribute("gameID"));
 		/*for (Room room: roomList) {
 			if(room.getGameID()!=player.getGameID()) {
 				roomList.remove(room);
