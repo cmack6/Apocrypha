@@ -273,7 +273,19 @@ public class GameServlet extends HttpServlet {
 		modelString = UUID.randomUUID().toString();
 		req.getSession().setAttribute("modelString", model);
 		req.setAttribute("modelString", modelString);
-		
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		for(Item item: model.Items) {
+			if(item.getGameID()==model.getPlayer().getGameID()) {
+				db.updateItem(item);
+			}
+		}
+		for(NPC npc: model.NPCs) {
+			if(npc.getGameID()==model.getPlayer().getGameID()) {
+				db.updateNPC(npc);
+			}
+		}
+		db.updatePlayer(model.getPlayer());
 		
 		
 		/*String output = null;
