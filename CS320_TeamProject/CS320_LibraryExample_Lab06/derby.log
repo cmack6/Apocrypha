@@ -1,6 +1,11 @@
 ----------------------------------------------------------------
+<<<<<<< Updated upstream
 Mon Apr 29 13:48:49 EDT 2024:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-018f-2af9-3f94-00000e615700 
+=======
+Mon Apr 29 13:40:39 EDT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-018f-2af1-c570-00001595cea0 
+>>>>>>> Stashed changes
 on database directory C:\apps\laptopDBTEST\library.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/wolfm/OneDrive/Documents/GitHub/Apocrypha/CS320_TeamProject/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
