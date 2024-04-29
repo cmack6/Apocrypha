@@ -5,6 +5,7 @@ public class RoomConnection {
 private int startingRoomID;
 private String command;
 private int destinationRoomID;
+private int gameID;
 
 public RoomConnection() {
 
@@ -32,6 +33,15 @@ return destinationRoomID;
 
 public void setDestinationRoomID(int destinationRoomID) {
 this.destinationRoomID = destinationRoomID;
+}
+
+public int getGameID() {
+	// TODO Auto-generated method stub
+	return gameID;
+}
+
+public void setGameID(int gameID) {
+	this.gameID = gameID;
 }
 
 

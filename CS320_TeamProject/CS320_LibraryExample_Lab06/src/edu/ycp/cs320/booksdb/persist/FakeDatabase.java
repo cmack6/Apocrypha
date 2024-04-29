@@ -252,6 +252,11 @@ public class FakeDatabase implements IDatabase {
 
 	@Override
 	public List<User> removeUserByUserId(int ID) {
+		return null;
+	}
+	
+	@Override
+	public Player createNewGame(int userID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

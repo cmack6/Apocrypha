@@ -454,6 +454,110 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	
+	@Override
+	public Player createNewGame(int gameID) {
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		return executeTransaction(new Transaction<Player>() {
+			@Override
+			
+			public Player execute(Connection conn) throws SQLException {
+				List<Item> itemList;
+				List<Room> roomList;
+				List<RoomItem> roomItemList;
+				List<Player> playerList;
+				List<RoomConnection> roomConnectionList;
+				List<NPC> NPCList;
+				try {
+				itemList           = InitialData.getItems();
+				roomList           = InitialData.getRooms();
+				roomItemList       = InitialData.getRoomItems();
+				playerList         = InitialData.getPlayers();
+				roomConnectionList = InitialData.getRoomConnections();
+				NPCList            = InitialData.getNPCs();
+					
+				} catch (IOException e) {
+					throw new SQLException("Couldn't read CSV data", e);
+				}
+				
+				PreparedStatement insertItem           = null;
+				PreparedStatement insertRoom           = null;
+				PreparedStatement insertRoomItem       = null;
+				PreparedStatement insertPlayer         = null;
+				PreparedStatement insertRoomConnection = null;
+				PreparedStatement insertNPC            = null;
+				
+				
+				try { 
+					Player player = playerList.get(0);
+					insertPlayer = conn.prepareStatement("insert into players (score, health, roomID, gameID, userID, isInCombat, log) values (?, ?, ?, ?, ?, ?, ?)");
+					insertPlayer.setInt(1, player.getScore());
+					insertPlayer.setInt(2, player.getHealth());
+					insertPlayer.setInt(3, player.getRoomID());
+					insertPlayer.setInt(4, playerList.size()+1);
+					insertPlayer.setInt(5, player.getUserID());
+					insertPlayer.setBoolean(6, player.isInCombat());
+					Clob myClob = new javax.sql.rowset.serial.SerialClob(player.getLog().toCharArray());
+					insertPlayer.setClob(7, myClob);
+					insertPlayer.executeUpdate();
+					player = db.getPlayerFromGameID(playerList.size()+1);
+					System.out.println("new player inserted");	
+					
+					insertRoom = conn.prepareStatement("insert into rooms (roomID, longDescription, shortDescription, gameID) values (?, ?, ?, ?)");
+					for (Room room : roomList) {
+						insertRoom.setInt(1,  room.getRoomID());
+						insertRoom.setString(2,  room.getLongDescription());
+						insertRoom.setString(3,  room.getShortDescription());
+						insertRoom.setInt(4,  player.getGameID());
+						
+						insertRoom.addBatch();
+					}
+					insertRoom.executeBatch();
+					
+					System.out.println("Rooms table updated");
+					
+					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID) values (?, ?, ?)");
+					for (RoomConnection roomConnection: roomConnectionList) {
+						insertRoomConnection.setInt(1, roomConnection.getStartingRoomID());
+						insertRoomConnection.setString(2, roomConnection.getCommand());
+						insertRoomConnection.setInt(3, roomConnection.getDestinationRoomID());
+					//this line should add the gameid, ill add it when i change the table	
+						insertRoomConnection.addBatch();
+					}
+					insertRoomConnection.executeBatch();	
+					
+					System.out.println("roomConnections table updated");	
+					
+					
+					insertNPC = conn.prepareStatement("insert into NPCs (npc_id, roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?, ?)");
+					for (NPC npc: NPCList) {
+						insertNPC.setInt(1,npc.getNPCID());
+						insertNPC.setString(2, npc.getRoomDialogue());
+						insertNPC.setString(3, npc.getSpeakDialogue());
+						insertNPC.setInt(4, npc.getRoomID());
+						insertNPC.setInt(5, npc.getHealth());
+						
+						insertNPC.setString(6, npc.getName());
+						
+						insertNPC.setInt(7, player.getGameID());
+						insertNPC.addBatch();
+					}
+					insertNPC.executeBatch();	
+					
+					System.out.println("NPCs table updated");	
+					return player;
+				} finally {					
+					DBUtil.closeQuietly(insertItem);	
+					DBUtil.closeQuietly(insertRoom);
+					DBUtil.closeQuietly(insertRoomItem);
+					DBUtil.closeQuietly(insertPlayer);
+					DBUtil.closeQuietly(insertRoomConnection);
+				}
+			}
+		});
+	}
+	
+	
 
 	
 	@Override
@@ -1284,8 +1388,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt6 = conn.prepareStatement(
 							"create table rooms (" +
-							"	roomID integer primary key" +
-							"		generated always as identity (start with 1, increment by 1), " +
+							"	roomID integer, " +
 							"	longDescription varchar(800)," +
 							"	shortDescription varchar(800)," +
 							"   gameID integer" +
@@ -1403,7 +1506,8 @@ public class DerbyDatabase implements IDatabase {
 							"create table roomConnections (" +
 							"    startingRoomID integer, " +
 							"    command varchar(70), " +
-							"    destinationRoomID integer" +
+							"    destinationRoomID integer, " +
+							"    gameID integer" +
 							")"
 							);
 									
@@ -1414,8 +1518,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt11 = conn.prepareStatement(
 							"create table NPCs (" +
-							"	npc_id integer primary key" +
-							"		generated always as identity (start with 1, increment by 1), " +
+							"	npc_id integer, " +
 							"	roomDialogue varchar(250)," +
 							"	speakDialogue varchar(250)," +
 							"   roomID integer, " +
@@ -1519,11 +1622,12 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Books table populated");	
 					
-					insertRoom = conn.prepareStatement("insert into rooms (longDescription, shortDescription, gameID) values (?, ?, ?)");
+					insertRoom = conn.prepareStatement("insert into rooms (roomID, longDescription, shortDescription, gameID) values (?, ?, ?, ?)");
 					for (Room room : roomList) {
-						insertRoom.setString(1,  room.getLongDescription());
-						insertRoom.setString(2,  room.getShortDescription());
-						insertRoom.setInt(3,  room.getGameID());
+						insertRoom.setInt(1,  room.getRoomID());
+						insertRoom.setString(2,  room.getLongDescription());
+						insertRoom.setString(3,  room.getShortDescription());
+						insertRoom.setInt(4,  room.getGameID());
 						
 						insertRoom.addBatch();
 					}
@@ -1553,34 +1657,11 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setInt(12, item.getLowestThrownDamage());
 						insertItem.setInt(13, item.getHighestThrownDamage());
 						
-						insertItem.setInt(14, 0);
-					
-						insertItem.addBatch();
-					}
-					for (Item item : itemList) {
-						//insertItem.setInt(1, item.getItemID());
-						insertItem.setString(1, item.getName());
-						insertItem.setInt(2, item.getLocation());
-						insertItem.setInt(3, item.getValue());
-						insertItem.setString(4, item.getItemDescription());
-						insertItem.setString(5, item.getRoomDescription());
-						
-						insertItem.setInt(6, item.getLowestPiercingDamage());
-						insertItem.setInt(7, item.getHighestPiercingDamage());
-						
-						insertItem.setInt(8, item.getLowestSlashingDamage());
-						insertItem.setInt(9, item.getHighestSlashingDamage());
-						
-						insertItem.setInt(10, item.getLowestBludgeoningDamage());
-						insertItem.setInt(11, item.getHighestBludgeoningDamage());
-						
-						insertItem.setInt(12, item.getLowestThrownDamage());
-						insertItem.setInt(13, item.getHighestThrownDamage());
-						
 						insertItem.setInt(14, item.getGameID());
 					
 						insertItem.addBatch();
 					}
+					
 					insertItem.executeBatch();
 					
 					
@@ -1643,11 +1724,12 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Users table populated");
 					
-					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID) values (?, ?, ?)");
+					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID, gameID) values (?, ?, ?, ?)");
 					for (RoomConnection roomConnection: roomConnectionList) {
 						insertRoomConnection.setInt(1, roomConnection.getStartingRoomID());
 						insertRoomConnection.setString(2, roomConnection.getCommand());
 						insertRoomConnection.setInt(3, roomConnection.getDestinationRoomID());
+						insertRoomConnection.setInt(4, roomConnection.getGameID());
 						insertRoomConnection.addBatch();
 					}
 					insertRoomConnection.executeBatch();	
@@ -1673,29 +1755,17 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Players table populated");	
 					
 					
-					insertNPC = conn.prepareStatement("insert into NPCs (roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?)");
+					insertNPC = conn.prepareStatement("insert into NPCs (npc_id, roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?, ?)");
 					for (NPC npc: NPCList) {
-						insertNPC.setString(1, npc.getRoomDialogue());
-						insertNPC.setString(2, npc.getSpeakDialogue());
-						insertNPC.setInt(3, npc.getRoomID());
-						insertNPC.setInt(4, npc.getHealth());
+						insertNPC.setInt(1,npc.getNPCID());
+						insertNPC.setString(2, npc.getRoomDialogue());
+						insertNPC.setString(3, npc.getSpeakDialogue());
+						insertNPC.setInt(4, npc.getRoomID());
+						insertNPC.setInt(5, npc.getHealth());
 						
-						insertNPC.setString(5, npc.getName());
+						insertNPC.setString(6, npc.getName());
 						
-						insertNPC.setInt(6, 0);
-						
-						insertNPC.addBatch();
-					}
-					for (NPC npc: NPCList) {
-						insertNPC.setString(1, npc.getRoomDialogue());
-						insertNPC.setString(2, npc.getSpeakDialogue());
-						insertNPC.setInt(3, npc.getRoomID());
-						insertNPC.setInt(4, npc.getHealth());
-						
-						insertNPC.setString(5, npc.getName());
-						
-						insertNPC.setInt(6, npc.getGameID());
-						
+						insertNPC.setInt(7, npc.getGameID());
 						insertNPC.addBatch();
 					}
 					insertNPC.executeBatch();	

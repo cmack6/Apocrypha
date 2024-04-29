@@ -165,7 +165,6 @@ public class InitialData {
 			ReadCSV readRooms = new ReadCSV("rooms.csv");
 			try {
 				// auto-generated primary key for table items
-				Integer roomID = 1;
 				while (true) {
 					List<String> tuple = readRooms.next();
 					if (tuple == null) {
@@ -173,12 +172,9 @@ public class InitialData {
 					}
 					Iterator<String> i = tuple.iterator();
 					Room room = new Room();
-					
-					Integer.parseInt(i.next());
-					
+										
 				
-					room.setRoomID(roomID++);	
-					
+					room.setRoomID(Integer.parseInt(i.next()));
 					room.setLongDescription(i.next());
 					room.setShortDescription(i.next());
 					room.setGameID(Integer.parseInt(i.next()));
@@ -231,6 +227,7 @@ public class InitialData {
 					roomConnection.setStartingRoomID(Integer.parseInt(i.next()));				
 					roomConnection.setCommand(i.next());
 					roomConnection.setDestinationRoomID(Integer.parseInt(i.next()));
+					roomConnection.setGameID(Integer.parseInt(i.next()));
 					roomConnectionList.add(roomConnection);
 				}
 				System.out.println("roomConnectionList loaded from CSV file");			
@@ -304,7 +301,6 @@ public class InitialData {
 			ReadCSV readNPCs = new ReadCSV("npcs.csv");
 			try {
 				// auto-generated primary key for table items
-				Integer NPCID = 1;
 				while (true) {
 					List<String> tuple = readNPCs.next();
 					if (tuple == null) {
@@ -313,10 +309,9 @@ public class InitialData {
 					Iterator<String> i = tuple.iterator();
 					NPC npc = new NPC();
 					
-					Integer.parseInt(i.next());
+					npc.setNPCID(Integer.parseInt(i.next()));
 					
 				
-					npc.setNPCID(NPCID++);	
 					
 					npc.setRoomDialogue(i.next());
 					npc.setSpeakDialogue(i.next());
