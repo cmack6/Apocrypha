@@ -96,8 +96,15 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				}
 			}
 			*/
-			
-			if(input.equals("north")||input.equals("west")||input.equals("east")||input.equals("south")||input.equals("n")||input.equals("s")||input.equals("e")||input.equals("w")) {
+			Boolean move = false;
+			for(RoomConnection roomConnection: model.RoomConnections) {
+				System.out.println(model.getPlayer().getGameID()+ "" + roomConnection.getGameID() + "" + model.getPlayer().getRoomID() + "" + roomConnection.getStartingRoomID() + "" + input + "" + roomConnection.getCommand()); 
+
+				if(model.getPlayer().getGameID()==roomConnection.getGameID()&&model.getPlayer().getRoomID()==roomConnection.getStartingRoomID()&&input.equals(roomConnection.getCommand())) {
+					move = true;
+				}
+			}
+			if(move) {
 				Boolean isMoved = move(model,input);
 				if(isMoved) {
 				setOutput = "move";

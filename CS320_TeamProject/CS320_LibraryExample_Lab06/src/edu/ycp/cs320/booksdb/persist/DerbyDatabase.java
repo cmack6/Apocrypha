@@ -1339,6 +1339,7 @@ public class DerbyDatabase implements IDatabase {
 		roomConnection.setStartingRoomID(resultSet.getInt(index++));
 		roomConnection.setCommand(resultSet.getString(index++));
 		roomConnection.setDestinationRoomID(resultSet.getInt(index++));
+		roomConnection.setGameID(resultSet.getInt(index++));
 	}
 	
 	private void loadNPC(NPC npc, ResultSet resultSet, int index) throws SQLException{
