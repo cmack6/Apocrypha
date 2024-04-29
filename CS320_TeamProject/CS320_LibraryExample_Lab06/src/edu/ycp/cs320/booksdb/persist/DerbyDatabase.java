@@ -455,7 +455,7 @@ public class DerbyDatabase implements IDatabase {
 	
 	
 	@Override
-	public Player createNewGame(int gameID) {
+	public Player createNewGame(int userID) {
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
 		return executeTransaction(new Transaction<Player>() {
@@ -466,6 +466,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Room> roomList;
 				List<RoomItem> roomItemList;
 				List<Player> playerList;
+				List<Player> newPlayerList;
 				List<RoomConnection> roomConnectionList;
 				List<NPC> NPCList;
 				try {
@@ -490,17 +491,20 @@ public class DerbyDatabase implements IDatabase {
 				
 				try { 
 					Player player = playerList.get(0);
+					newPlayerList = db.findAllPlayers();
+					player.setGameID(newPlayerList.size()+1);
+					player.setUserID(userID);
 					insertPlayer = conn.prepareStatement("insert into players (score, health, roomID, gameID, userID, isInCombat, log) values (?, ?, ?, ?, ?, ?, ?)");
+					System.out.println(player.getScore() + "" + player.getHealth() + "" + player.getRoomID() + "" + (playerList.size()+1) + "" + player.getUserID() + "" + player.isInCombat() + "" + player.getLog());
 					insertPlayer.setInt(1, player.getScore());
 					insertPlayer.setInt(2, player.getHealth());
 					insertPlayer.setInt(3, player.getRoomID());
-					insertPlayer.setInt(4, playerList.size()+1);
+					insertPlayer.setInt(4, player.getGameID());
 					insertPlayer.setInt(5, player.getUserID());
 					insertPlayer.setBoolean(6, player.isInCombat());
 					Clob myClob = new javax.sql.rowset.serial.SerialClob(player.getLog().toCharArray());
 					insertPlayer.setClob(7, myClob);
 					insertPlayer.executeUpdate();
-					player = db.getPlayerFromGameID(playerList.size()+1);
 					System.out.println("new player inserted");	
 					
 					insertRoom = conn.prepareStatement("insert into rooms (roomID, longDescription, shortDescription, gameID) values (?, ?, ?, ?)");
@@ -516,12 +520,12 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Rooms table updated");
 					
-					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID) values (?, ?, ?)");
+					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID, gameID) values (?, ?, ?, ?)");
 					for (RoomConnection roomConnection: roomConnectionList) {
 						insertRoomConnection.setInt(1, roomConnection.getStartingRoomID());
 						insertRoomConnection.setString(2, roomConnection.getCommand());
 						insertRoomConnection.setInt(3, roomConnection.getDestinationRoomID());
-					//this line should add the gameid, ill add it when i change the table	
+						insertRoomConnection.setInt(4, player.getGameID());
 						insertRoomConnection.addBatch();
 					}
 					insertRoomConnection.executeBatch();	
@@ -529,7 +533,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("roomConnections table updated");	
 					
 					
-					insertNPC = conn.prepareStatement("insert into NPCs (npc_id, roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?, ?)");
+					insertNPC = conn.prepareStatement("insert into NPCs (npcID, roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?, ?)");
 					for (NPC npc: NPCList) {
 						insertNPC.setInt(1,npc.getNPCID());
 						insertNPC.setString(2, npc.getRoomDialogue());

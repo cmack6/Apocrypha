@@ -44,8 +44,18 @@ public class GameServlet extends HttpServlet {
 		List<Item> itemList = db.findAllItems();
 		List<NPC> NPCList = db.findAllNPCs();
 		List<Container> containerList = db.findAllContainers();
-		Player player = db.getPlayerFromGameID(1);//uncomment next line for cool awesome shenanigans (the game doesnt work lol)
-		//Player player = db.getPlayerFromGameID((Integer)req.getSession().getAttribute("gameID"));
+		int gameID;
+		if(req.getSession().getAttribute("gameID")!=null) {
+			gameID = (Integer)req.getSession().getAttribute("gameID");
+			System.out.println("GameID is "+gameID);
+		}
+		else {
+			gameID = 1;
+			req.getSession().setAttribute("gameID", gameID);
+			System.out.println("GameID not detected, defaulted to 1");
+		}
+		//Player player = db.getPlayerFromGameID(1);//uncomment next line for cool awesome shenanigans (the game doesnt work lol)
+		Player player = db.getPlayerFromGameID(gameID);
 		/*for (Room room: roomList) {
 			if(room.getGameID()!=player.getGameID()) {
 				roomList.remove(room);

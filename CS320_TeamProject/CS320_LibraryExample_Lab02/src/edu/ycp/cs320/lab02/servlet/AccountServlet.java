@@ -24,7 +24,7 @@ public class AccountServlet extends HttpServlet {
 		System.out.println("Account Servlet: doGet");
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
-		Player player = db.getPlayerFromGameID((Integer)req.getSession().getAttribute("userID"));//CHANGE THIS WHEN GAMEID GETS PASSED!!!!!! ! ! !!
+		Player player = db.getPlayerFromGameID((Integer)req.getSession().getAttribute("gameID"));//CHANGE THIS WHEN GAMEID GETS PASSED!!!!!! ! ! !!
 		req.setAttribute("player", player);
 		System.out.println("Player ID is "+player.getPlayerID());
 		String playerString = UUID.randomUUID().toString();

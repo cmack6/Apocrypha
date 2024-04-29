@@ -232,7 +232,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					}
 				}
 				for(int i=0;i<model.NPCs.size();i++) {
-					if(model.NPCs.get(i).getRoomID()==model.getPlayer().getRoomID()) {
+					if(model.NPCs.get(i).getRoomID()==model.getPlayer().getRoomID()&&model.NPCs.get(i).getGameID()==model.getPlayer().getGameID()) {
 						output += "<br><br>"+model.NPCs.get(i).getRoomDialogue();
 						}
 					}

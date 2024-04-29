@@ -29,10 +29,12 @@ public class FileSelectServlet extends HttpServlet {
 		int userID;
 		if(req.getSession().getAttribute("userID")!=null) {
 			userID = (Integer)req.getSession().getAttribute("userID");
+			System.out.println("UserID is "+userID);
 		}
 		else {
 			userID = 1;
 			req.getSession().setAttribute("userID", userID);
+			System.out.println("UserID not detected, defaulted to 1");
 		}
 		System.out.println(userID);
 		DatabaseProvider.setInstance(new DerbyDatabase());
@@ -66,16 +68,25 @@ public class FileSelectServlet extends HttpServlet {
 			}
 		}
 		System.out.println(req.getParameter("submit"));
-		int gameID = Integer.valueOf(req.getParameter("submit"));
+		int gameID;
+		String saveID = req.getParameter("submit");
+		if(saveID.equals("New Game")) {
+			gameID = 0;
+		}
+		else {
+			gameID = Character.getNumericValue(saveID.charAt(5));
+		}
+		System.out.println(gameID);
 		if(gameID == 0) {
 			Player newPlayer = db.createNewGame(userID);
 			req.getSession().setAttribute("gameID", newPlayer.getGameID());
+			System.out.println(newPlayer.getGameID() + "IS THE NEW GAMEID");
 		}
 		else {
-			gameID = userGames.get(gameID+1).getGameID();
+			gameID = userGames.get(gameID-1).getGameID();
 			req.getSession().setAttribute("gameID", gameID);
 		}
-		resp.sendRedirect("http://localhost:8081/lab02/game");
+		resp.sendRedirect("http://localhost:8081/lab02/account");
 
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/file-select.jsp").forward(req, resp);
