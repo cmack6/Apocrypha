@@ -2,208 +2,320 @@ package edu.ycp.cs320.booksdb.model;
 
 public class Item{
 
+
+
 private int itemID;
 private String name;
-private int location;
+private String type;
+private int containerID;
 private int value;
 private String itemDescription;
-private String roomDescription;
-private int lowestPiercingDamage;
-private int highestPiercingDamage;
-private int lowestSlashingDamage;
-private int highestSlashingDamage;
-private int lowestBludgeoningDamage;
-private int highestBludgeoningDamage;
-private int lowestThrownDamage;
-private int highestThrownDamage;
+private String useDescription;
+private String combatDescription;
+private boolean isEquipped;
+private String category;
+private String armorType;
+private int defenseNumber;
+private String effectType;
+private int effectLow;
+private int effectHigh;
 private int gameID;
 
 
 
-public Item(String name, int location, int value, int itemID) {
-
-this.name = name;
-this.location = location;
-this.value = value;
-this.setItemID(itemID);
-
-
-}
 
 
 
 public Item() {
-// TODO Auto-generated constructor stub
+
 }
 
 
 
-public void setName(String name) {
-this.name = name;
-}
-
-public String getName() {
-return name;
-}
-
-
-public int getValue() {
-return value;
-}
-
-
-
-public void setValue(int value) {
-this.value = value;
-}
-
-public int getLocation() {
-return location;
-}
-
-
-
-public void setLocation(int location) {
-this.location = location;
-}
-
-
-
-public String getItemDescription() {
-return itemDescription;
-}
-
-public void setItemDescription(String itemDescription) {
-this.itemDescription = itemDescription;
-}
 
 
 
 public int getItemID() {
-return itemID;
+	return itemID;
 }
+
+
+
 
 
 
 public void setItemID(int itemID) {
-this.itemID = itemID;
+	this.itemID = itemID;
 }
 
 
 
-public String getRoomDescription() {
-return roomDescription;
+
+
+
+public String getName() {
+	return name;
 }
 
 
 
-public void setRoomDescription(String roomDescription) {
-this.roomDescription = roomDescription;
+
+
+
+public void setName(String name) {
+	this.name = name;
 }
+
+
+
+
+
+
+public String getType() {
+	return type;
+}
+
+
+
+
+
+
+public void setType(String type) {
+	this.type = type;
+}
+
+
+
+
+
+
+public int getContainerID() {
+	return containerID;
+}
+
+
+
+
+
+
+public void setContainerID(int containerID) {
+	this.containerID = containerID;
+}
+
+
+
+
+
+
+public int getValue() {
+	return value;
+}
+
+
+
+
+
+
+public void setValue(int value) {
+	this.value = value;
+}
+
+
+
+
+
+
+public String getItemDescription() {
+	return itemDescription;
+}
+
+
+
+
+
+
+public void setItemDescription(String itemDescription) {
+	this.itemDescription = itemDescription;
+}
+
+
+
+
+
+
+public String getUseDescription() {
+	return useDescription;
+}
+
+
+
+
+
+
+public void setUseDescription(String useDescription) {
+	this.useDescription = useDescription;
+}
+
+
+
+
+
+
+public boolean isEquipped() {
+	return isEquipped;
+}
+
+
+
+
+
+
+public void setEquipped(boolean isEquipped) {
+	this.isEquipped = isEquipped;
+}
+
+
+
+
+
+
+public String getCategory() {
+	return category;
+}
+
+
+
+
+
+
+public void setCategory(String category) {
+	this.category = category;
+}
+
+
+
+
+
+
+public String getArmorType() {
+	return armorType;
+}
+
+
+
+
+
+
+public void setArmorType(String armorType) {
+	this.armorType = armorType;
+}
+
+
+
+
+
+
+public int getDefenseNumber() {
+	return defenseNumber;
+}
+
+
+
+
+
+
+public void setDefenseNumber(int defenseNumber) {
+	this.defenseNumber = defenseNumber;
+}
+
+
+
+
+
+
+public String getEffectType() {
+	return effectType;
+}
+
+
+
+
+
+
+public void setEffectType(String effectType) {
+	this.effectType = effectType;
+}
+
+
+
+
+
+
+public int getEffectLow() {
+	return effectLow;
+}
+
+
+
+
+
+
+public void setEffectLow(int effectLow) {
+	this.effectLow = effectLow;
+}
+
+
+
+
+
+
+public int getEffectHigh() {
+	return effectHigh;
+}
+
+
+
+
+
+
+public void setEffectHigh(int effectHigh) {
+	this.effectHigh = effectHigh;
+}
+
+
+
+
+
+
+public int getGameID() {
+	return gameID;
+}
+
+
+
 
 
 
 public void setGameID(int gameID) {
-this.gameID = gameID;
-}
-
-public int getGameID() {
-return gameID;
+	this.gameID = gameID;
 }
 
 
 
-public int getLowestPiercingDamage() {
-	return lowestPiercingDamage;
+
+
+
+public String getCombatDescription() {
+	return combatDescription;
 }
 
 
 
-public void setLowestPiercingDamage(int lowestPiercingDamage) {
-	this.lowestPiercingDamage = lowestPiercingDamage;
-}
 
 
 
-public int getHighestPiercingDamage() {
-	return highestPiercingDamage;
-}
-
-
-
-public void setHighestPiercingDamage(int highestPiercingDamage) {
-	this.highestPiercingDamage = highestPiercingDamage;
-}
-
-
-
-public int getLowestSlashingDamage() {
-	return lowestSlashingDamage;
-}
-
-
-
-public void setLowestSlashingDamage(int lowestSlashingDamage) {
-	this.lowestSlashingDamage = lowestSlashingDamage;
-}
-
-
-
-public int getHighestSlashingDamage() {
-	return highestSlashingDamage;
-}
-
-
-
-public void setHighestSlashingDamage(int highestSlashingDamage) {
-	this.highestSlashingDamage = highestSlashingDamage;
-}
-
-
-
-public int getLowestBludgeoningDamage() {
-	return lowestBludgeoningDamage;
-}
-
-
-
-public void setLowestBludgeoningDamage(int lowestBludgeoningDamage) {
-	this.lowestBludgeoningDamage = lowestBludgeoningDamage;
-}
-
-
-public int getLowestThrownDamage() {
-	return lowestThrownDamage;
-}
-
-
-
-public void setLowestThrownDamage(int lowestThrownDamage) {
-	this.lowestThrownDamage = lowestThrownDamage;
-}
-
-
-
-public int getHighestThrownDamage() {
-	return highestThrownDamage;
-}
-
-
-
-public void setHighestThrownDamage(int highestThrownDamage) {
-	this.highestThrownDamage = highestThrownDamage;
-}
-
-
-
-public int getHighestBludgeoningDamage() {
-	return highestBludgeoningDamage;
-}
-
-
-
-public void setHighestBludgeoningDamage(int highestBludgeoningDamage) {
-	this.highestBludgeoningDamage = highestBludgeoningDamage;
+public void setCombatDescription(String combatDescription) {
+	this.combatDescription = combatDescription;
 }
 
 

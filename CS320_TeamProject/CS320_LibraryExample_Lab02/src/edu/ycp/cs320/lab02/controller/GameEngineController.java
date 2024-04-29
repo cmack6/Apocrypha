@@ -2,6 +2,7 @@ package edu.ycp.cs320.lab02.controller;
 
 import edu.ycp.cs320.lab02.model.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import edu.ycp.cs320.booksdb.model.*;
@@ -64,10 +65,11 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		}
 		
 		//FOR ITEMS
+		/*
 		public void setRoomDescription(int itemID, String description) {
 			model.Items.get(itemID).setRoomDescription(description);
 		}
-		
+		*/
 		public void setNPCInteraction(int NPCID, String interaction) {
 			model.NPCs.get(NPCID).setRoomDialogue(interaction);
 		}
@@ -79,7 +81,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		
 		public String processInput(GameModel model, String input) {
 			String setOutput = "";
-			String itemRequested = "";
+			String actionee = "";
 			//int countForItemDescription = 0;
 			//input=input.toLowerCase();
 			String splitInput = input;
@@ -117,8 +119,32 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				
 				setOutput = "fight";
 			}
+			else if(((parts[0].equals("use") && input.length()>4))) {
+				actionee = parts[1];
+				setOutput = "use";
+			}
+
+			else if(input.equals("stats")) {
+				
+				setOutput = "stats";
+			}
+
+			else if((parts[0].equals("equip") && input.length()>5)) {
+				actionee = parts[1];
+				setOutput = "equip";
+			}
+			
+			else if((parts[0].equals("unequip") && input.length()>5)) {
+				actionee = parts[1];
+				setOutput = "unequip";
+			}
+
+			else if(parts[0].equals("inspect") && input.length()>9){
+				actionee = parts[1];
+				setOutput = "container description";
+			}
 			else if(((parts[0].equals("take") || parts[0].equals("grab") )&& input.length()>5) || (parts[0].equals("pickup") && input.length()>7)) {
-				pickUp(model, parts[1]);
+				actionee = parts[1];
 				setOutput = "new item";
 			}
 			
@@ -137,7 +163,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 
 			else if(parts[0].equals("inv") && input.length()>4){
-				itemRequested = parts[1];
+				actionee = parts[1];
 				setOutput = "item description";
 			}
 
@@ -162,7 +188,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				model.setInvalidCommand(input);
 			}
 			
-			return getOutput(model, setOutput, itemRequested);
+			return getOutput(model, setOutput, actionee);
 			
 		}
 		
@@ -171,11 +197,11 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		
 		
 		
-		private String getOutput(GameModel model, String setOutput, String itemName) {
+		private String getOutput(GameModel model, String setOutput, String actionee) {
 			String output = "";
 			boolean currentlyInCombat = model.getPlayer().isInCombat();
 			
-			 if(currentlyInCombat == true && setOutput != "run") {
+			if(currentlyInCombat == true && setOutput != "run" && setOutput != "use" && setOutput != "inventory" && setOutput != "item description" && setOutput != "equip" && setOutput != "unequip" && setOutput != "stats") {
 				output += " " + "You are currently engaged in a fight!";
 			}
 			
@@ -189,10 +215,13 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				else {
 					model.getPlayer().setScore(model.getPlayer().getScore()+50);
 				}
+				
 				output = model.Rooms.get(model.getPlayer().getRoomID()).getDescription();
-				for(int i = 0; i<model.Items.size(); i++) {
-					if(model.Items.get(i).getLocation() == model.getPlayer().getRoomID()) {
-						output += " " + model.Items.get(i).getRoomDescription();
+				
+				
+				for(int i = 0; i<model.Containers.size(); i++) {
+					if(model.Containers.get(i).getRoomID() == model.getPlayer().getRoomID() && model.Containers.get(i).isOpened() == false) {
+						output += " " + model.Containers.get(i).getInRoomDescription();
 					}
 				}
 				for(int i=0;i<model.NPCs.size();i++) {
@@ -233,12 +262,33 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				output = fight(model);
 			}
 			
+			else if(setOutput.equals("stats")) {
+				output = stats(model);
+			}
+			 
+			else if(setOutput.equals("equip")) {
+				output = equip(model, actionee);
+			}
+			 
+			else if(setOutput.equals("unequip")) {
+				output = unequip(model, actionee);
+			}
+
+	else if(setOutput.equals("use")) {
+				output = use(model, actionee);
+			}
+			 
+			else if(setOutput.equals("container description")) {
+				output = inspect(model, actionee);
+			}
+
+			
 			else if(setOutput.equals("item description")) {
-				output = itemDescription(model, itemName);
+				output = itemDescription(model, actionee);
 			}
 			
 			else if(setOutput.equals("new item")) {
-				output = "You gained a new item!";
+				output = pickUp(model, actionee);
 			}
 			
 			else if(setOutput.equals("score")) {
@@ -326,8 +376,9 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				
 				for(int i=0;i<model.NPCs.size();i++) {
 					
-				
-					if((model.NPCs.get(i).getGameID() == model.getPlayer().getGameID()) && (model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID())) {
+					//(model.NPCs.get(i).getGameID() == model.getPlayer().getGameID()) 
+					//I TOOK THIS OUT OF THE FOR LOOP SOME RREAASON FIGHTING WOULDNT WORK WITH IT
+					if((model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID()) && (model.NPCs.get(i).getGameID() == model.getPlayer().getGameID())) {
 						fightLog = "You have initiated combat with " + model.NPCs.get(i).getName() + "!";
 						model.getPlayer().setInCombat(true);
 					}
@@ -350,18 +401,43 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 
 
 
+
 		@Override
-		public void pickUp(GameModel model, String nameOfItem) {
-		int notDoable = 0;
+		public String pickUp(GameModel model, String nameOfItem) {
+		
+		
+		for(int j = 0; j<model.Containers.size(); j++) {
+			if(model.Containers.get(j).isOpened() == true) {
+			if(model.Containers.get(j).getRoomID() == model.getPlayer().getRoomID()) {
+				for(int i = 0; i<model.Items.size(); i++) {
+					if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() > 0 && model.Items.get(i).getContainerID() == model.Containers.get(j).getContainerID()) {
+						model.Items.get(i).setContainerID(-1);
+						return "<p> You gained a new item! </p>";
+						
+						
+					}
+				}
+			}
+			}
+			/*
 			for(int i = 0; i<model.Items.size(); i++) {
-				if((model.Items.get(i).getName().equals(nameOfItem)) && (model.Items.get(i).getLocation() == model.getPlayer().getRoomID())) {
-					model.Items.get(i).setLocation(-1);
+				if((model.Items.get(i).getName().equals(nameOfItem)) && (model.containerList.get(j).getRoomID() == model.getPlayer().getRoomID()) && model.containerList.get(j).isOpened() == true && model.Items.get(i).getContainerID() > 0) {
+					model.Items.get(i).setContainerID(-1);
+					
 					notDoable ++;
 				}
 			}
-			if(notDoable == 0) {
-				model.setInvalidObjectInteraction(nameOfItem);
-			}
+			*/
+		}
+		
+		
+		
+			
+			return "<p>" + nameOfItem + " is not interactable" + "</p>";
+			
+			 
+			
+			
 			
 			
 			
@@ -370,17 +446,26 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 
 
 
+
+
 		@Override
 		public String inventory(GameModel model) {
 			//NOTE TO SELF FOR KORBIN, take name and value and check size then add sizes and subtract from maax size to be determined
 			//after that populate the space in between with characters-----
-			
+			ArrayList<Item> equippedItems = new ArrayList<Item>();
+			String helmet = "";
+			String chestplate = "";
+			String gloves = "";
+			String pants = "";
+			String boots = "";
+			String offhand = "";
+			String mainhand = "";
 			String totalItems = "<p>" + "YOUR INVENTORY" + "</p><p>" + "--------------------------------" + "</p>";
 			
-			for(int i = 0; i<model.Items.size(); i++) {
+			for(Item item : model.Items) {
 				
-				if(model.Items.get(i).getLocation() == -1) {
-					totalItems = totalItems + "<p>" + model.Items.get(i).getName() + "</p>";
+				if(item.getContainerID() == -1 && item.isEquipped() == false) {
+					totalItems = totalItems + "<p>" + item.getName() + "</p>";
 					//totalItems = totalItems + " " + model.Items.get(i).getName();
 					
 				}
@@ -388,18 +473,48 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				
 			}
 			
+			totalItems =  totalItems + "<p>" + "--------------------------------" + "</p>";
 			
-			for(int i = 0; i<model.Items.size(); i++) {
-				String helmetEquipped = "";
-				/*
-				if(model.Items.get(i).getLocation() == -1 && model.Items.get(i).isHelmet && model.Items.get(i).isEquipped) {
-					helmetEquipped = model.Items.get(i).getName();
-					
+			totalItems = totalItems + "<p>" + "EQUIPPED" + "</p>";
+			
+			//just did this in case for the future
+			for(Item item : model.Items) {
+				if(item.isEquipped() && item.getContainerID() == -1) {
+					equippedItems.add(item);
 				}
-				*/
-				
-				
 			}
+			
+			for(Item item : equippedItems) {
+				if(item.getCategory().equals("helmet")) {
+					helmet = item.getName();
+				}
+				else if(item.getCategory().equals("chestplate")) {
+					chestplate = item.getName();
+				}
+				else if(item.getCategory().equals("gloves")) {
+					gloves = item.getName();
+				}
+				else if(item.getCategory().equals("pants")) {
+					pants = item.getName();
+				}
+				else if(item.getCategory().equals("boots")) {
+					boots = item.getName();
+				}
+				else if(item.getCategory().equals("offhand")) {
+					offhand = item.getName();
+				}
+				else if(item.getCategory().equals("mainhand")) {
+					mainhand = item.getName();
+				}
+			}
+			
+			totalItems =  totalItems + "<p>" + "Helmet: " + helmet + "</p>"
+						+	"<p>" + "Chestplate: " + chestplate + "</p>"
+						+	"<p>" + "Gloves: " + gloves + "</p>"
+						+	"<p>" + "Pants: " + pants + "</p>"
+						+	"<p>" + "Boots: " + boots + "</p>"
+						+	"<p>" + "Offhand: " + offhand + "</p>"
+						+	"<p>" + "Mainhand: " + mainhand + "</p>";
 			
 			
 			
@@ -451,8 +566,15 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				int notDoable = 0;
 				
 				for(int i = 0; i<model.Items.size(); i++) {
-					if(itemName.equals(model.Items.get(i).getName())) {
+					if(itemName.equals(model.Items.get(i).getName()) && model.Items.get(i).getContainerID() == -1) {
 						itemDescription = itemDescription + "<p>" + model.Items.get(i).getItemDescription() + "</p>";
+						
+						if(model.Items.get(i).getType().equals("weapon")) {
+							itemDescription = itemDescription + "<p>" + "This weapon does " + model.Items.get(i).getEffectLow() + "-" + model.Items.get(i).getEffectHigh() + " " + model.Items.get(i).getEffectType() + " damage";
+						}
+						if(model.Items.get(i).getType().equals("equipment")) {
+							itemDescription = itemDescription + "<p>" + "This equipment provides " + model.Items.get(i).getDefenseNumber() + " " + model.Items.get(i).getArmorType() + " resistance";
+						}
 					notDoable++;
 					}
 				}
@@ -463,6 +585,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				else
 			return itemDescription;
 		}
+
+
 
 		@Override
 		public String help(GameModel model) {
@@ -529,6 +653,235 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			return runAway;
 			
 		}
+		
+		
+		@Override
+		public String inspect(GameModel model, String containerName) {
+			String containerDescription = "";
+			int notDoable = 0;
+			int nothing = 0;
+			
+			for(int i = 0; i<model.Containers.size(); i++) {
+				if(model.Containers.get(i).getName().equals(containerName) && model.getPlayer().getRoomID() == model.Containers.get(i).getRoomID()) {
+					containerDescription = model.Containers.get(i).getContainerDescription();
+					
+					for(int j = 0; j<model.Items.size(); j++) {
+						if(model.Items.get(j).getContainerID() == model.Containers.get(i).getContainerID()) {
+							containerDescription = containerDescription + "<p>" + model.Items.get(j).getName() + "</p>";
+							
+							nothing++;
+						}
+					}
+					if(nothing == 0) {
+						containerDescription = containerDescription + "<p> Nothing </p>";
+					}
+					model.Containers.get(i).setOpened(true);
+				notDoable++;
+				}
+			}
+			if(notDoable == 0) {
+				 model.setInvalidObjectInteraction(containerName);
+				 return "";
+			}
+			else
+		return containerDescription;
+		}
+		
+		@Override
+		public String use(GameModel model, String nameOfItem) {
+			String use = "";
+			
+			
+			
+			for(int i = 0; i<model.Items.size(); i++) {
+
+				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1) {
+					
+					
+					if(model.getPlayer().isInCombat()) {
+						
+						if(model.Items.get(i).getCombatDescription().equals("0")) {
+							model.setInvalidObjectInteraction(nameOfItem);
+							return "";
+						}
+						use = model.Items.get(i).getCombatDescription();
+						
+						
+						/*
+						for(int j = 0; i<model.NPCs.size(); j++) {
+							if(model.NPCs.get(j).getRoomID() == model.getPlayer().getRoomID()) {
+								
+							}
+						}
+						
+						
+						*/
+						
+					}
+					if(model.getPlayer().isInCombat() == false) {
+						use = model.Items.get(i).getUseDescription();
+					}
+				}
+			}
+			
+			
+			if(use.length() == 0) {
+				model.setInvalidObjectInteraction(nameOfItem);
+				return "";
+			}
+			
+			
+			return use;
+		}
+		
+		
+		@Override
+		public String equip(GameModel model, String nameOfItem) {
+			String equip = "";
+			
+			for(int i = 0; i<model.Items.size(); i++) {
+				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1  && (model.Items.get(i).getType().equals("weapon") || model.Items.get(i).getType().equals("equipment") ||  model.Items.get(i).getType().equals("tool"))) {
+					for(int j = 0; j<model.Items.size(); j++) {
+						if(model.Items.get(i).getCategory().equals(model.Items.get(j).getCategory()) && model.Items.get(j).getContainerID() == -1) {
+							model.Items.get(j).setEquipped(false);
+						}
+					}
+					model.Items.get(i).setEquipped(true);
+					equip  = "<p>" + "You have equipped " + model.Items.get(i).getName() +"!" + "</p>";				
+					}
+			}
+			
+			
+			if(equip.length() == 0) {
+				model.setInvalidObjectInteraction(nameOfItem);
+				return "";
+			}
+			
+			
+			return equip;
+		}
+		
+		@Override
+		public String unequip(GameModel model, String nameOfItem) {
+			String unequip = "";
+			
+			for(int i = 0; i<model.Items.size(); i++) {
+				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1 && model.Items.get(i).isEquipped()) {
+					model.Items.get(i).setEquipped(false);
+					unequip  = "<p>" + "You have unequipped " + model.Items.get(i).getName() +"!" + "</p>";				
+					}
+			}
+			
+			
+			if(unequip.length() == 0) {
+				model.setInvalidObjectInteraction(nameOfItem);
+				return "";
+			}
+			
+			
+			return unequip;
+		}
+		
+		
+		@Override
+		public String stats(GameModel model) {
+			
+			ArrayList<Item> equippedEquipment = new ArrayList<Item>();
+			
+			String currentDamageOffHand = "0";
+			String currentDamageTypeOffHand = "None";		
+			String currentDamageMainHand = "0";
+			String currentDamageTypeMainHand = "None";	
+			int nuts = 0;
+			int radiantResistance = 0;
+			int physicalResistance = 0;
+			int forceResistance = 0;
+			int necroticResistance = 0;
+			int poisionResistance = 0;
+			int thunderResistance = 0;
+			int fireResistance = 0;
+			
+			String stats = "<p>" + "YOUR STATS" + "</p><p>" + "--------------------------------" + "</p>";
+			
+			
+			stats = stats + "<p>" + "Health: " + model.getPlayer().getHealth() + "</p>";
+			
+			for(Item item : model.Items) {
+				if(item.isEquipped() && item.getContainerID() == -1 && item.getType().equals("weapon")) {
+					
+					if(item.getCategory().equals("offhand")) {
+						currentDamageOffHand = item.getEffectLow() + "-" + item.getEffectHigh();
+						currentDamageTypeOffHand = item.getEffectType();
+					}
+					if(item.getCategory().equals("mainhand")) {
+						currentDamageMainHand = item.getEffectLow() + "-" + item.getEffectHigh();
+						currentDamageTypeMainHand = item.getEffectType();
+					}
+					
+					
+				}
+			}
+			
+			
+			for(Item item : model.Items) {
+				if(item.isEquipped() && item.getContainerID() == -1 && (item.getType().equals("equipment") || item.getCategory().equals("offhand"))) {
+					equippedEquipment.add(item);
+				}
+			}
+			
+			for(int i = 0; i<equippedEquipment.size(); i++) {
+				
+				
+			
+			 if(equippedEquipment.get(i).getArmorType().equals("Radiant")) {
+				radiantResistance = radiantResistance + equippedEquipment.get(i).getDefenseNumber();
+			}
+			else if(equippedEquipment.get(i).getArmorType().equals("Physical")) {
+				physicalResistance  = physicalResistance + equippedEquipment.get(i).getDefenseNumber();
+			}
+			else if(equippedEquipment.get(i).getArmorType().equals("Force")) {
+				forceResistance  = forceResistance + equippedEquipment.get(i).getDefenseNumber();
+			}
+			else if(equippedEquipment.get(i).getArmorType().equals("Necrotic")) {
+				necroticResistance  = necroticResistance + equippedEquipment.get(i).getDefenseNumber();
+			}
+			else if(equippedEquipment.get(i).getArmorType().equals("Poision")) {
+				poisionResistance  = poisionResistance + equippedEquipment.get(i).getDefenseNumber();
+			}
+			else if(equippedEquipment.get(i).getArmorType().equals("Thunder")) {
+				thunderResistance  = thunderResistance + equippedEquipment.get(i).getDefenseNumber();
+			}
+			else if(equippedEquipment.get(i).getArmorType().equals("Fire")) {
+				fireResistance  = fireResistance + equippedEquipment.get(i).getDefenseNumber();
+			}
+			 
+			}
+			
+			stats =  stats + "<p>" + "Physical Resistance: " + physicalResistance + "</p>"
+					+	"<p>" + "Radiant Resistance: " + radiantResistance + "</p>"
+					+	"<p>" + "Force Resistance: " + forceResistance + "</p>"
+					+	"<p>" + "Necrotic Resistance: " + necroticResistance + "</p>"
+					+	"<p>" + "Poision Resistance: " + poisionResistance + "</p>"
+					+	"<p>" + "Thunder Resistance: " + thunderResistance + "</p>"
+					+	"<p>" + "Fire Resistance: " + fireResistance + "</p>"
+					+	"<p>" + "Equipped Mainhand Damage Type: " + currentDamageTypeMainHand + "</p>"
+					+	"<p>" + "Mainhand Damage: " + currentDamageMainHand + "</p>"
+					+	"<p>" + "Equipped Offhand Damage Type: " + currentDamageTypeOffHand + "</p>"
+					+	"<p>" + "Offhand Damage: " + currentDamageOffHand + "</p>";
+			
+			
+			 return stats =  stats + "<p>" + "--------------------------------" + "</p>";
+		}
+		
+
+	
+
+
+
+
+
+
+
 		
 
 	}

@@ -260,4 +260,10 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Container> findAllContainers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

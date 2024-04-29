@@ -111,53 +111,51 @@ public class InitialData {
 	}
 	
 	
-		public static List<Item> getItems() throws IOException {
-			List<Item> itemList = new ArrayList<Item>();
-			ReadCSV readItems = new ReadCSV("items.csv");
-			try {
-				// auto-generated primary key for table items
-				Integer itemID = 1;
-				while (true) {
-					List<String> tuple = readItems.next();
-					if (tuple == null) {
-						break;
-					}
-					Iterator<String> i = tuple.iterator();
-					Item item = new Item();
-					
-					Integer.parseInt(i.next());
-					
-				
-					item.setItemID(itemID++);	
-					
-					item.setName(i.next());
-					item.setLocation(Integer.parseInt(i.next()));
-					item.setValue(Integer.parseInt(i.next()));
-					item.setItemDescription(i.next());
-					item.setRoomDescription(i.next());
-					
-					item.setLowestPiercingDamage(Integer.parseInt(i.next()));
-					item.setHighestPiercingDamage(Integer.parseInt(i.next()));
-					
-					item.setLowestSlashingDamage(Integer.parseInt(i.next()));
-					item.setHighestSlashingDamage(Integer.parseInt(i.next()));
-					
-					item.setLowestBludgeoningDamage(Integer.parseInt(i.next()));
-					item.setHighestBludgeoningDamage(Integer.parseInt(i.next()));
-					
-					item.setLowestThrownDamage(Integer.parseInt(i.next()));
-					item.setHighestThrownDamage(Integer.parseInt(i.next()));
-					
-					item.setGameID(Integer.parseInt(i.next()));
-					
-					itemList.add(item);
+	public static List<Item> getItems() throws IOException {
+		List<Item> itemList = new ArrayList<Item>();
+		ReadCSV readItems = new ReadCSV("items.csv");
+		try {
+			// auto-generated primary key for table items
+			
+			while (true) {
+				List<String> tuple = readItems.next();
+				if (tuple == null) {
+					break;
 				}
-				System.out.println("itemList loaded from CSV file");			
-				return itemList;
-			} finally {
-				readItems.close();
+				Iterator<String> i = tuple.iterator();
+				Item item = new Item();
+				
+				
+				
+				
+				item.setItemID(Integer.parseInt(i.next()));
+				item.setName(i.next());
+				item.setType(i.next());
+				item.setContainerID(Integer.parseInt(i.next()));
+				item.setValue(Integer.parseInt(i.next()));
+				item.setItemDescription(i.next());
+				item.setUseDescription(i.next());
+				item.setCombatDescription(i.next());
+				item.setEquipped(Boolean.parseBoolean(i.next()));
+				item.setCategory(i.next());
+				item.setArmorType(i.next());
+				item.setDefenseNumber(Integer.parseInt(i.next()));
+				item.setEffectType(i.next());
+				item.setEffectLow(Integer.parseInt(i.next()));
+				item.setEffectHigh(Integer.parseInt(i.next()));
+			
+				
+				item.setGameID(Integer.parseInt(i.next()));
+				
+				itemList.add(item);
 			}
+			System.out.println("itemList loaded from CSV file");			
+			return itemList;
+		} finally {
+			readItems.close();
 		}
+	}
+
 	
 		
 		public static List<Room> getRooms() throws IOException {
@@ -300,7 +298,7 @@ public class InitialData {
 			List<NPC> NPCList = new ArrayList<NPC>();
 			ReadCSV readNPCs = new ReadCSV("npcs.csv");
 			try {
-				// auto-generated primary key for table items
+				
 				while (true) {
 					List<String> tuple = readNPCs.next();
 					if (tuple == null) {
@@ -309,16 +307,25 @@ public class InitialData {
 					Iterator<String> i = tuple.iterator();
 					NPC npc = new NPC();
 					
-					npc.setNPCID(Integer.parseInt(i.next()));
+					
 					
 				
-					
+					npc.setNPCID(Integer.parseInt(i.next()));	
+					npc.setInventoryID(Integer.parseInt(i.next()));	
+					npc.setRoomID(Integer.parseInt(i.next()));	
+					npc.setName(i.next());	
 					npc.setRoomDialogue(i.next());
 					npc.setSpeakDialogue(i.next());
-					npc.setRoomID(Integer.parseInt(i.next()));
+					npc.setDeathDialogue(i.next());
 					npc.setHealth(Integer.parseInt(i.next()));
-					npc.setName(i.next());
+					npc.setWeakness(i.next());
+					npc.setEffectType(i.next());
+					npc.setEffectLow(Integer.parseInt(i.next()));
+					npc.setEffectHigh(Integer.parseInt(i.next()));
+					
 					npc.setGameID(Integer.parseInt(i.next()));
+					
+					
 					NPCList.add(npc);
 				}
 				System.out.println("NPCList loaded from CSV file");			
@@ -327,6 +334,7 @@ public class InitialData {
 				readNPCs.close();
 			}
 		}
+
 		
 		
 	// reads initial BookAuthor data from CSV file and returns a List of BookAuthors
@@ -351,4 +359,101 @@ public class InitialData {
 			readBookAuthors.close();
 		}
 	}
+	
+	
+	public static List<Container> getContainers() throws IOException {
+		List<Container> containerList = new ArrayList<Container>();
+		ReadCSV readContainers = new ReadCSV("containers.csv");
+		try {
+			// auto-generated primary key for table items
+			Integer containerID = 1;
+			while (true) {
+				List<String> tuple = readContainers.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Container container = new Container();
+				
+				Integer.parseInt(i.next());
+				
+			
+				container.setContainerID(containerID++);	
+				
+				container.setName(i.next());
+				container.setRoomID(Integer.parseInt(i.next()));
+				container.setContainerDescription(i.next());
+				container.setInRoomDescription(i.next());
+				container.setOpened(Boolean.parseBoolean(i.next()));
+				container.setGameID(Integer.parseInt(i.next()));
+				containerList.add(container);
+			}
+			System.out.println("containerList loaded from CSV file");			
+			return containerList;
+		} finally {
+			readContainers.close();
+		}
+	}
+	
+	
+	public static List<ContainerItem> getContainersItems() throws IOException {
+		List<ContainerItem> ContainerItems = new ArrayList<ContainerItem>();
+		ReadCSV readContainerItems = new ReadCSV("containerItems.csv");
+		try {
+
+		while (true) {
+		List<String> tuple = readContainerItems.next();
+		if (tuple == null) {
+		break;
+		}
+		Iterator<String> i = tuple.iterator();
+		ContainerItem containerItem = new ContainerItem();
+
+
+		containerItem.setItemName(i.next());
+		containerItem.setContainerID(Integer.parseInt(i.next()));
+		containerItem.setGameID(Integer.parseInt(i.next()));
+
+
+		ContainerItems.add(containerItem);
+		}
+		System.out.println("ContainerItemList loaded from CSV file");
+		return ContainerItems;
+		} finally {
+		readContainerItems.close();
+		}
+		}
+
+		public static List<RoomContainer> getRoomContainers() throws IOException {
+		List<RoomContainer> roomContainerList = new ArrayList<RoomContainer>();
+		ReadCSV readRoomContainers = new ReadCSV("roomContainers.csv");
+		try {
+
+		while (true) {
+		List<String> tuple = readRoomContainers.next();
+		if (tuple == null) {
+		break;
+		}
+		Iterator<String> i = tuple.iterator();
+		RoomContainer roomContainer = new RoomContainer();
+
+
+		roomContainer.setContainerID(Integer.parseInt(i.next()));
+		roomContainer.setRoomID(Integer.parseInt(i.next()));
+		roomContainer.setGameID(Integer.parseInt(i.next()));
+		roomContainerList.add(roomContainer);
+		}
+		System.out.println("roomContainerList loaded from CSV file");
+		return roomContainerList;
+		} finally {
+		readRoomContainers.close();
+		}
+		}
+
+	
+	
+	
+	
+	
+	
 }

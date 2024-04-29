@@ -673,7 +673,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					stmt1 = conn.prepareStatement(
 							"update items  " +
-							"  set location = ? " +
+							"  set containerID = ?, isEquipped = ? " +
 							"  where itemID = ? "
 					);
 					
@@ -690,8 +690,9 @@ public class DerbyDatabase implements IDatabase {
 							"   gameID integer" +
 							")"
 						*/	
-					stmt1.setInt(1, item.getLocation());
-					stmt1.setInt(2, item.getItemID());
+					stmt1.setInt(1, item.getContainerID());
+					stmt1.setBoolean(2,  item.isEquipped());
+					stmt1.setInt(3, item.getItemID());
 
 					
 					Item result = new Item();
@@ -733,6 +734,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+
 		
 		
 		@Override
@@ -747,7 +749,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt1 = conn.prepareStatement(
 								"update NPCs  " +
 								"  set roomID = ?, health = ? " +
-								"  where npc_id = ? "
+								"  where npcID = ? "
 						);
 						
 						
@@ -774,7 +776,7 @@ public class DerbyDatabase implements IDatabase {
 						
 						stmt2 = conn.prepareStatement(
 								"select * from NPCs  " +
-								"  where npc_id = ?"
+								"  where npcID = ?"
 						);
 						stmt2.setInt(1, NPC.getNPCID());
 						
@@ -807,6 +809,7 @@ public class DerbyDatabase implements IDatabase {
 				}
 			});
 	}
+
 	
 	@Override
 	public List<RoomConnection> getRoomConnectionsByRoomID(int roomID) {
@@ -1237,28 +1240,40 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	// retrieves Author information from query result set
-		private void loadItem(Item item, ResultSet resultSet, int index) throws SQLException {
-			item.setItemID(resultSet.getInt(index++));
-			item.setName(resultSet.getString(index++));
-			item.setLocation(resultSet.getInt(index++));
-			item.setValue(resultSet.getInt(index++));
-			item.setItemDescription(resultSet.getString(index++));
-			item.setRoomDescription(resultSet.getString(index++));
-			
-			item.setLowestPiercingDamage(resultSet.getInt(index++));
-			item.setHighestPiercingDamage(resultSet.getInt(index++));
-			
-			item.setLowestSlashingDamage(resultSet.getInt(index++));
-			item.setHighestSlashingDamage(resultSet.getInt(index++));
-			
-			item.setLowestBludgeoningDamage(resultSet.getInt(index++));
-			item.setHighestBludgeoningDamage(resultSet.getInt(index++));
-			
-			item.setLowestThrownDamage(resultSet.getInt(index++));
-			item.setHighestThrownDamage(resultSet.getInt(index++));
-			
-			item.setGameID(resultSet.getInt(index++));
-		}
+	private void loadItem(Item item, ResultSet resultSet, int index) throws SQLException {
+		
+		
+		item.setItemID(resultSet.getInt(index++));
+		item.setName(resultSet.getString(index++));
+		item.setType(resultSet.getString(index++));
+		item.setContainerID(resultSet.getInt(index++));
+		item.setValue(resultSet.getInt(index++));
+		item.setItemDescription(resultSet.getString(index++));
+		item.setUseDescription(resultSet.getString(index++));
+		item.setCombatDescription(resultSet.getString(index++));
+		item.setEquipped(resultSet.getBoolean(index++));
+		item.setCategory(resultSet.getString(index++));
+		item.setArmorType(resultSet.getString(index++));
+		item.setDefenseNumber(resultSet.getInt(index++));
+		item.setEffectType(resultSet.getString(index++));
+		item.setEffectLow(resultSet.getInt(index++));
+		item.setEffectHigh(resultSet.getInt(index++));
+	
+		
+		item.setGameID(resultSet.getInt(index++));
+	}
+	
+	private void loadContainer(Container container, ResultSet resultSet, int index) throws SQLException {
+		container.setContainerID(resultSet.getInt(index++));
+		container.setName(resultSet.getString(index++));
+		container.setRoomID(resultSet.getInt(index++));
+		container.setContainerDescription(resultSet.getString(index++));
+		container.setInRoomDescription(resultSet.getString(index++));
+		container.setOpened(resultSet.getBoolean(index++));
+		container.setGameID(resultSet.getInt(index++));
+		
+	}
+
 		
 		private void loadRoom(Room room, ResultSet resultSet, int index) throws SQLException {
 			room.setRoomID(resultSet.getInt(index++));
@@ -1328,14 +1343,20 @@ public class DerbyDatabase implements IDatabase {
 	
 	private void loadNPC(NPC npc, ResultSet resultSet, int index) throws SQLException{
 		npc.setNPCID(resultSet.getInt(index++));
+		npc.setInventoryID(resultSet.getInt(index++));
+		npc.setRoomID(resultSet.getInt(index++));
+		npc.setName(resultSet.getString(index++));
 		npc.setRoomDialogue(resultSet.getString(index++));
 		npc.setSpeakDialogue(resultSet.getString(index++));
-		npc.setRoomID(resultSet.getInt(index++));
+		npc.setDeathDialogue(resultSet.getString(index++));
 		npc.setHealth(resultSet.getInt(index++));
-		
-		npc.setName(resultSet.getString(index++));
-		
+		npc.setWeakness(resultSet.getString(index++));
+		npc.setEffectType(resultSet.getString(index++));
+		npc.setEffectLow(resultSet.getInt(index++));
+		npc.setEffectHigh(resultSet.getInt(index++));
 		npc.setGameID(resultSet.getInt(index++));
+		
+		
 	}
 		
 	
@@ -1356,6 +1377,9 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt9 = null;
 				PreparedStatement stmt10 = null;
 				PreparedStatement stmt11 = null;
+				PreparedStatement stmt13 = null;
+				PreparedStatement stmt18 = null;
+				PreparedStatement stmt19 = null;
 			
 				try {
 					stmt1 = conn.prepareStatement(
@@ -1404,34 +1428,30 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt7 = conn.prepareStatement(
 							"create table items (" +
-							"	itemID integer primary key" +
-							"		generated always as identity (start with 1, increment by 1), " +
+							"	itemID integer," +
 							"	name varchar(70)," +
-							"	location integer," +
+							"	type varchar(70)," +
+							"	containerID integer," +
 							"   value integer," +
 							"   itemDescription varchar(800)," +
-							"   inRoomDescription varchar(800)," +
-							
-							"   lowestPiercingDamage integer," +
-							"   highestPiercingDamage integer," +
-							
-							"   lowestSlashingDamage integer," +
-							"   highestSlashingDamage integer," +
-							
-							"   lowestBludgeoningDamage integer," +
-							"   highestBludgeoningDamage integer," +
-							
-							"   lowestThrownDamage integer," +
-							"   highestThrownDamage integer," +
-							
+							"   useDescription varchar(800)," +
+							"   combatDescription varchar(800)," +
+							"   isEquipped boolean," +
+							"   category varchar(25)," +
+							"   armorType varchar(25)," +
+							"   defenseNumber integer," +
+							"   effectType varchar(15)," +
+							"   effectLow integer," +
+							"   effectHigh integer," +
 							"   gameID integer" +
+							
 							")"
 					);
 					
 					stmt7.executeUpdate();
 					
 					System.out.println("Items table created");	
-					
+
 					
 					stmt4 = conn.prepareStatement(
 							"create table roomItems (" +
@@ -1518,12 +1538,18 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt11 = conn.prepareStatement(
 							"create table NPCs (" +
-							"	npc_id integer, " +
+							"	npcID integer," +
+							"	inventoryID integer," +
+							"	roomID integer," +
+							"   name varchar(50), " +
 							"	roomDialogue varchar(250)," +
 							"	speakDialogue varchar(250)," +
-							"   roomID integer, " +
+							"	deathDialogue varchar(250)," +
 							"   health integer, " +
-							"   name varchar(50), " +
+							"   weakness varchar(20), " +
+							"   effectType varchar(20), " +
+							"	effectLow integer," +
+							"	effectHigh integer," +
 							"   gameID integer " +
 							")"
 					);
@@ -1531,6 +1557,49 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("NPC table created");
 					
+					
+					stmt13 = conn.prepareStatement(
+							"create table containers (" +
+							" containerID integer primary key " +
+							" generated always as identity (start with 1, increment by 1), " +
+							" name varchar(80)," +
+							" roomID integer," +
+							" containerDescription varchar(80)," +
+							" inRoomDescription varchar(80)," +
+							" isOpened boolean," +
+							" gameID integer" +
+							")"
+							);
+							stmt13.executeUpdate();
+
+							System.out.println("containers table created");
+
+
+							stmt18 = conn.prepareStatement(
+							"create table containerItems (" +
+							" itemName varchar(80)," +
+							" containerID integer," +
+							" gameID integer" +
+							")"
+							);
+							stmt18.executeUpdate();
+
+							System.out.println("containerItems table created");
+
+							stmt19 = conn.prepareStatement(
+							"create table roomContainers (" +
+							" containerID integer," +
+							" roomID integer," +
+							" gameID integer" +
+							")"
+							);
+							stmt19.executeUpdate();
+
+							System.out.println("roomContainers table created");
+							
+							
+							
+							
 										
 					return true;
 				} finally {
@@ -1543,6 +1612,9 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt8);
 					DBUtil.closeQuietly(stmt9);
 					DBUtil.closeQuietly(stmt10);
+					DBUtil.closeQuietly(stmt13);
+					DBUtil.closeQuietly(stmt18);
+					DBUtil.closeQuietly(stmt19);
 				}
 			}
 		});
@@ -1564,6 +1636,9 @@ public class DerbyDatabase implements IDatabase {
 				List<Player> playerList;
 				List<RoomConnection> roomConnectionList;
 				List<NPC> NPCList;
+				List<Container> containerList;
+				List<ContainerItem> containerItemList;
+				List<RoomContainer> roomContainerList;
 				
 				try {
 					authorList         = InitialData.getAuthors();
@@ -1577,6 +1652,9 @@ public class DerbyDatabase implements IDatabase {
 					playerList         = InitialData.getPlayers();
 					roomConnectionList = InitialData.getRoomConnections();
 					NPCList            = InitialData.getNPCs();
+					containerList      = InitialData.getContainers();
+					containerItemList  = InitialData.getContainersItems();
+					roomContainerList  = InitialData.getRoomContainers();
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
@@ -1593,6 +1671,9 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertPlayer         = null;
 				PreparedStatement insertRoomConnection = null;
 				PreparedStatement insertNPC            = null;
+				PreparedStatement insertContainer      = null;
+				PreparedStatement insertRoomContainer  = null;
+				PreparedStatement insertContainerItem  = null;
 				
 
 				try {
@@ -1636,37 +1717,79 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Rooms table populated");
 					
 					
-					insertItem = conn.prepareStatement("insert into items (name, location, value, itemDescription, inRoomDescription, lowestPiercingDamage, highestPiercingDamage, lowestSlashingDamage, highestSlashingDamage, lowestBludgeoningDamage, highestBludgeoningDamage, lowestThrownDamage, highestThrownDamage, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : itemList) {
-						//insertItem.setInt(1, item.getItemID());
-						insertItem.setString(1, item.getName());
-						insertItem.setInt(2, item.getLocation());
-						insertItem.setInt(3, item.getValue());
-						insertItem.setString(4, item.getItemDescription());
-						insertItem.setString(5, item.getRoomDescription());
 						
-						insertItem.setInt(6, item.getLowestPiercingDamage());
-						insertItem.setInt(7, item.getHighestPiercingDamage());
+						insertItem.setInt(1, item.getItemID());
+						insertItem.setString(2, item.getName());
+						insertItem.setString(3, item.getType());
+						insertItem.setInt(4, item.getContainerID());
+						insertItem.setInt(5, item.getValue());
+						insertItem.setString(6, item.getItemDescription());
+						insertItem.setString(7, item.getUseDescription());
+						insertItem.setString(8, item.getCombatDescription());
+						insertItem.setBoolean(9, item.isEquipped());
+						insertItem.setString(10, item.getCategory());
+						insertItem.setString(11, item.getArmorType());
+						insertItem.setInt(12, item.getDefenseNumber());
+						insertItem.setString(13, item.getEffectType());
+						insertItem.setInt(14, item.getEffectLow());
+						insertItem.setInt(15, item.getEffectHigh());
+						insertItem.setInt(16, item.getGameID());
 						
-						insertItem.setInt(8, item.getLowestSlashingDamage());
-						insertItem.setInt(9, item.getHighestSlashingDamage());
-						
-						insertItem.setInt(10, item.getLowestBludgeoningDamage());
-						insertItem.setInt(11, item.getHighestBludgeoningDamage());
-						
-						insertItem.setInt(12, item.getLowestThrownDamage());
-						insertItem.setInt(13, item.getHighestThrownDamage());
-						
-						insertItem.setInt(14, item.getGameID());
-					
 						insertItem.addBatch();
+					
+						
 					}
 					
+				
 					insertItem.executeBatch();
-					
-					
-					
-					System.out.println("Items table populated");	
+System.out.println("Items table populated");	
+
+insertContainer = conn.prepareStatement("insert into containers (name, roomID, containerDescription, inRoomDescription, isOpened, gameID) values (?, ?, ?, ?, ?, ?)");
+for (Container container : containerList) {
+//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
+insertContainer.setString(1, container.getName());
+insertContainer.setInt(2, container.getRoomID());
+insertContainer.setString(3, container.getContainerDescription());
+insertContainer.setString(4, container.getInRoomDescription());
+insertContainer.setBoolean(5, container.isOpened());
+insertContainer.setInt(6, container.getGameID());
+
+insertContainer.addBatch();
+}
+insertContainer.executeBatch();
+
+System.out.println("containers table populated");
+
+
+
+insertContainerItem = conn.prepareStatement("insert into containerItems (itemName, containerID, gameID) values (?, ?, ?)");
+for (ContainerItem containerItem : containerItemList) {
+//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
+insertContainerItem.setString(1, containerItem.getItemName());
+insertContainerItem.setInt(2, containerItem.getContainerID());
+insertContainerItem.setInt(3, containerItem.getGameID());
+insertContainerItem.addBatch();
+}
+insertContainerItem.executeBatch();
+
+System.out.println("containerItems table populated");
+
+
+
+insertRoomContainer = conn.prepareStatement("insert into roomContainers (containerID, roomID, gameID) values (?, ?, ?)");
+for (RoomContainer roomContainer : roomContainerList) {
+//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
+insertRoomContainer.setInt(1, roomContainer.getContainerID());
+insertRoomContainer.setInt(2, roomContainer.getRoomID());
+insertRoomContainer.setInt(3, roomContainer.getGameID());
+insertRoomContainer.addBatch();
+}
+insertRoomContainer.executeBatch();
+
+System.out.println("roomContainers table populated");
+
 					
 					
 					
@@ -1755,20 +1878,30 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Players table populated");	
 					
 					
-					insertNPC = conn.prepareStatement("insert into NPCs (npc_id, roomDialogue, speakDialogue, roomID, health, name, gameID) values (?, ?, ?, ?, ?, ?, ?)");
+					insertNPC = conn.prepareStatement("insert into NPCs (npcID, inventoryID, roomID, name, roomDialogue, speakDialogue, deathDialogue, health, weakness, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (NPC npc: NPCList) {
-						insertNPC.setInt(1,npc.getNPCID());
-						insertNPC.setString(2, npc.getRoomDialogue());
-						insertNPC.setString(3, npc.getSpeakDialogue());
-						insertNPC.setInt(4, npc.getRoomID());
-						insertNPC.setInt(5, npc.getHealth());
 						
-						insertNPC.setString(6, npc.getName());
 						
-						insertNPC.setInt(7, npc.getGameID());
+						insertNPC.setInt(1, npc.getNPCID());
+						insertNPC.setInt(2, npc.getInventoryID());
+						insertNPC.setInt(3, npc.getRoomID());
+						insertNPC.setString(4, npc.getName());
+						insertNPC.setString(5, npc.getRoomDialogue());
+						insertNPC.setString(6, npc.getSpeakDialogue());
+						insertNPC.setString(7, npc.getDeathDialogue());
+						insertNPC.setInt(8, npc.getHealth());
+						insertNPC.setString(9, npc.getWeakness());
+						insertNPC.setString(10, npc.geEffectType());
+						insertNPC.setInt(11, npc.getEffectLow());
+						insertNPC.setInt(12, npc.getEffectHigh());
+						insertNPC.setInt(13, npc.getGameID());
+					
+						
 						insertNPC.addBatch();
 					}
-					insertNPC.executeBatch();	
+insertNPC.executeBatch();	
+					
+					
 					
 					System.out.println("NPCs table populated");	
 					
@@ -1785,6 +1918,9 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(insertUser);
 					DBUtil.closeQuietly(insertPlayer);
 					DBUtil.closeQuietly(insertRoomConnection);
+					DBUtil.closeQuietly(insertContainer);
+					DBUtil.closeQuietly(insertRoomContainer);
+					DBUtil.closeQuietly(insertContainerItem);
 				}
 			}
 		});
@@ -2100,6 +2236,56 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	
+	@Override
+	public List<Container> findAllContainers() {
+		return executeTransaction(new Transaction<List<Container>>() {
+			@Override
+			public List<Container> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from containers" 
+						
+							
+					);
+					
+					//stmt.setString(1, title);
+					
+					List<Container> result = new ArrayList<Container>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Container container = new Container();
+						loadContainer(container, resultSet, 1);
+						
+						
+						result.add(container);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("nothing was not found in the containers table");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
 
 
 

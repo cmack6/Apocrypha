@@ -17,7 +17,17 @@ public interface Commands {
 	
 	public String fight(GameModel model);
 	
-	public void pickUp(GameModel model, String nameOfItem);
+	public String inspect(GameModel model, String nameOfContainer);
+	
+	public String equip(GameModel model, String nameOfItem);
+	
+	public String unequip(GameModel model, String nameOfItem);
+	
+	public String stats(GameModel model);
+	
+	public String pickUp(GameModel model, String nameOfItem);
+	
+	public String use(GameModel model, String nameOfItem);
 	
 	public String inventory(GameModel model);
 	

@@ -43,6 +43,7 @@ public class GameServlet extends HttpServlet {
 		List<RoomConnection> roomConnections = db.findRoomConnections();
 		List<Item> itemList = db.findAllItems();
 		List<NPC> NPCList = db.findAllNPCs();
+		List<Container> containerList = db.findAllContainers();
 		Player player = db.getPlayerFromGameID(1);//uncomment next line for cool awesome shenanigans (the game doesnt work lol)
 		//Player player = db.getPlayerFromGameID((Integer)req.getSession().getAttribute("userID"));
 		/*for (Room room: roomList) {
@@ -69,7 +70,7 @@ public class GameServlet extends HttpServlet {
 		}
 		NPCList = transferNPCs;*/
 		System.out.println(player.getLog());//ATTENTION!!:!!::!:! CHANGE 1 TO THE GAMEID WHEN IT GETS PASSED!
-		GameModel model = new GameModel(player,roomList,itemList,NPCList,roomConnections);
+		GameModel model = new GameModel(player,roomList,itemList,NPCList,roomConnections, containerList);
 		
 		GameEngineController controller = new GameEngineController(model);
 		

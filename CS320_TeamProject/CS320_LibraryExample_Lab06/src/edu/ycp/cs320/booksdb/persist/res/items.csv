@@ -1,4 +1,9 @@
-1|Moonveil|-1|150|One of the strongest swords ever forged. It cuts through most enemies with ease.|you should never see this|0|0|5|14|0|0|4|9|1
-2|Ketheric's Shield|2|125|Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterrent against projectiles...|Here lies Ketheric’s Shield. It’s utterly massive and could fare rather useful in fights.|0|0|0|0|4|10|3|6|1
-3|Flashlight|-1|25|Can be used to light the way for whatever situation you find yourself in.|There’s a flashlight on the ground, it looks new|0|0|0|0|2|3|1|3|1
-4|Health Potion|4|10|Use this to regain 5-15hp. Nothing really more to it.|A Health Potion lies on the ground, you should probably grab this while you can.|0|0|0|0|0|0|-5|-15|1
+1|Moonveil|weapon|-1|150|One of the strongest swords ever forged. It cuts through most enemies with ease.|You swing the Moonveil with all of your might.|You attack your enemy with a variety of slashes and strikes.|true|mainhand|0|0|Physical|5|10|1
+2|Ketheric's Shield|weapon|2|125|Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterent against projectiles...|0|You sprint as fast as you can using Ketheric’s Shield to bash your opponent.|false|offhand|Physical|5|Physical|4|5|1
+3|Flashlight|tool|-1|25|Can be used to light the way for whatever situation you find yourself in.|You light the way with your Flashlight|0|false|offhand|0|0|0|0|0|1
+4|Health Potion|potion|1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|false|0|0|0|health|5|10|1
+5|Thicc Greaves|equipment|2|15|Great Greaves!|0|0|false|pants|Physical|5|0|0|0|1
+6|Booties|equipment|-1|10|booties for ya booties|0|0|true|boots|Physical|3|0|0|0|1
+7|The Doom Slayer's Helmet|equipment|-1|50|DUKA DUKA DU DUKA DUKA DUKA|0|0|true|helmet|Physical|5|0|0|0|1
+8|Diamond Chestplate|equipment|-1|1000|MINECRAFT REFERENCE|0|0|false|chestplate|Physical|20|0|0|0|1
+9|Gortash's Gauntlets|equipment|1|75|This guy's gloves are like pretty cool|0|0|false|gloves|Physical|10|0|0|0|1

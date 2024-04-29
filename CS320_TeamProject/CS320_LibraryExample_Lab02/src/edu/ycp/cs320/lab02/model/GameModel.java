@@ -11,6 +11,7 @@ public class GameModel {
 		public List<Item> Items = new ArrayList<Item>();
 		public List<NPC> NPCs = new ArrayList<>();
 		public List<RoomConnection> RoomConnections = new ArrayList<RoomConnection>();
+		public List<Container> Containers = new ArrayList<Container>();
 		public Player player;
 		public String log;
 		public String error = "working";
@@ -19,13 +20,14 @@ public class GameModel {
 			
 		}
 		
-		public GameModel(Player player, List<Room> rooms, List<Item> items, List<NPC> NPCs, List<RoomConnection> roomConnections) {
+		public GameModel(Player player, List<Room> rooms, List<Item> items, List<NPC> NPCs, List<RoomConnection> roomConnections, List<Container> containers) {
 			this.player = player;
 			this.log=player.getLog();
 			this.Rooms = rooms;
 			this.Items = items;
 			this.NPCs = NPCs;
 			this.RoomConnections = roomConnections;
+			this.Containers = containers;
 		}
 
 		public void setAction(String input) {

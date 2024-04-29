@@ -28,4 +28,5 @@ public interface IDatabase {
 	public User insertNewUser(String username, String password);
 	public List<User> removeUserByUserId(int ID);
 	public Player createNewGame(int userID);
+	public List<Container> findAllContainers();
 }
