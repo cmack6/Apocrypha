@@ -48,9 +48,12 @@
 </head>
 <body>
 <h1>Choose your File</h1>
-<div class="container" id="container">
-  <!-- Boxes will be dynamically generated here -->
-</div>
+<form action="" method="post">
+  <div class="container" id="container">
+    <!-- Boxes will be dynamically generated here -->
+  </div>
+</form>
+
 
 <script>
   // Function to generate boxes based on the count variable
