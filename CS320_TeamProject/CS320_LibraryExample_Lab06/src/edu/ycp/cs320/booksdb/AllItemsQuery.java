@@ -24,14 +24,14 @@ public class AllItemsQuery {
 		
 		// check if anything was returned and output the list
 		if (itemList.isEmpty()) {
-			System.out.println("There are no books in the database");
+			System.out.println("There are no items in the database");
 		}
 		else {
 			for (Item item : itemList) {
 				
-				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue()
-					+ ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getLowestPiercingDamage() + ", " + item.getHighestPiercingDamage() + ", " + item.getLowestSlashingDamage() 
-                    + ", " + item.getHighestSlashingDamage() + ", " + item.getLowestBludgeoningDamage() + ", " + item.getHighestBludgeoningDamage() + ", " + item.getLowestThrownDamage() + ", " + item.getHighestThrownDamage() + ", " + item.getGameID());
+				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getType() + ", " + item.getContainerID()
+					+ ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getUseDescription() + ", " + item.getCombatDescription() + ", " + item.isEquipped() 
+                    + ", " + item.getCategory() + ", " + item.getArmorType() + ", " + item.getDefenseNumber() + ", " + item.getEffectType() + ", " + item.getEffectLow() + ", " + item.getEffectHigh() + ", " + item.getGameID());
 			
 			}
 		}

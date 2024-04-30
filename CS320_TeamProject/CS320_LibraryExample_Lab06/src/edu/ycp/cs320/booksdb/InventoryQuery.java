@@ -28,10 +28,10 @@ public class InventoryQuery {
 		}
 		else {
 			for (Item item : itemList) {
-				
+				/*
 				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue()
 					+ ", " + item.getItemDescription() + ", " + item.getRoomDescription());
-			
+			*/
 			}
 		}
 	}
