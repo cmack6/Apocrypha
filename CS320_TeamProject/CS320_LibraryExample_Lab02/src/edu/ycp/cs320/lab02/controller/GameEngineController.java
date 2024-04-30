@@ -206,7 +206,12 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		
 		private String getOutput(GameModel model, String setOutput, String actionee) {
 			String output = "";
+			
 			boolean currentlyInCombat = model.getPlayer().isInCombat();
+			
+			if(model.getPlayer().getHealth() <= 0) {
+				return "You have died! Restart";
+			}
 			
 			if(currentlyInCombat == true && setOutput != "run" && setOutput != "use" && setOutput != "inventory" && setOutput != "item description" && setOutput != "equip" && setOutput != "unequip" && setOutput != "stats") {
 				output += " " + "You are currently engaged in a fight!";
@@ -697,13 +702,23 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		@Override
 		public String use(GameModel model, String nameOfItem) {
 			String use = "";
+			int healthGained = 0;
+			
+			
 			
 			
 			
 			for(int i = 0; i<model.Items.size(); i++) {
 
 				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1) {
-					
+				
+					if(model.Items.get(i).getEffectType().equals("health")) {
+						Random rand = new Random();
+						healthGained = rand.nextInt(model.Items.get(i).getEffectHigh()) + model.Items.get(i).getEffectLow();
+						model.getPlayer().setHealth(model.getPlayer().getHealth() + healthGained);
+						model.Items.get(i).setContainerID(0);
+						return "You just gained " + healthGained + " health!";
+					}
 					
 					if(model.getPlayer().isInCombat()) {
 						
@@ -714,7 +729,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 						use = model.Items.get(i).getCombatDescription();
 						
 						
-						/*
+						
 						for(int j = 0; i<model.NPCs.size(); j++) {
 							if(model.NPCs.get(j).getRoomID() == model.getPlayer().getRoomID()) {
 								
@@ -722,7 +737,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 						}
 						
 						
-						*/
+						
 						
 					}
 					if(model.getPlayer().isInCombat() == false) {
