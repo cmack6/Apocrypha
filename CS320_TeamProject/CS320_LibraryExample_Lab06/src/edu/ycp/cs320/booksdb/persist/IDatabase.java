@@ -29,4 +29,5 @@ public interface IDatabase {
 	public List<User> removeUserByUserId(int ID);
 	public Player createNewGame(int gameID);
 	public List<Container> findAllContainers();
+	public Player restartGame(int gameID, int userID);
 }

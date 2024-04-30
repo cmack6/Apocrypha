@@ -122,6 +122,9 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			else if(input.equals("crawl")||input.equals("c")) {
 				crawl();
 			}
+			else if(input.equals("restart")||input.equals("Restart")) {
+				setOutput = "restart";
+			}
 			else if(input.equals("fight")||input.equals("f")) {
 				
 				setOutput = "fight";
@@ -209,6 +212,12 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			boolean currentlyInCombat = model.getPlayer().isInCombat();
 			
+			if(setOutput.equals("restart")) {
+				DatabaseProvider.setInstance(new DerbyDatabase());
+				IDatabase db = DatabaseProvider.getInstance();
+				db.restartGame(model.getPlayer().getGameID(), model.getPlayer().getUserID());
+			}
+			
 			if(model.getPlayer().getHealth() <= 0) {
 				return "You have died! Restart";
 			}
@@ -274,6 +283,9 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				output = fight(model);
 			}
 			
+			else if(setOutput.equals("restart")) {
+				output = fight(model);
+			}
 			else if(setOutput.equals("stats")) {
 				output = stats(model);
 			}

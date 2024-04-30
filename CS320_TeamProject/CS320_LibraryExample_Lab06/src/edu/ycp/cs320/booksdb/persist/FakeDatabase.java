@@ -266,4 +266,10 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Player restartGame(int gameID, int userID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
