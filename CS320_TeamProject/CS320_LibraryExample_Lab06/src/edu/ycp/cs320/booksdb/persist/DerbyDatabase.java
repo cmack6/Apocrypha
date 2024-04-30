@@ -1896,7 +1896,7 @@ System.out.println("roomContainers table populated");
 						insertNPC.setString(7, npc.getDeathDialogue());
 						insertNPC.setInt(8, npc.getHealth());
 						insertNPC.setString(9, npc.getWeakness());
-						insertNPC.setString(10, npc.geEffectType());
+						insertNPC.setString(10, npc.getEffectType());
 						insertNPC.setInt(11, npc.getEffectLow());
 						insertNPC.setInt(12, npc.getEffectHigh());
 						insertNPC.setInt(13, npc.getGameID());

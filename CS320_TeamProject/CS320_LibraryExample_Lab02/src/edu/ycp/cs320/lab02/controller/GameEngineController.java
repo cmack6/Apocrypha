@@ -390,7 +390,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					
 					//(model.NPCs.get(i).getGameID() == model.getPlayer().getGameID()) 
 					//I TOOK THIS OUT OF THE FOR LOOP SOME RREAASON FIGHTING WOULDNT WORK WITH IT
-					if((model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID()) && (model.NPCs.get(i).getGameID() == model.getPlayer().getGameID())) {
+					if((model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID()) && (model.NPCs.get(i).getGameID() == model.getPlayer().getGameID()) && model.NPCs.get(i).getHealth() > 0) {
 						fightLog = "You have initiated combat with " + model.NPCs.get(i).getName() + "!";
 						model.getPlayer().setInCombat(true);
 					}
@@ -703,6 +703,9 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		public String use(GameModel model, String nameOfItem) {
 			String use = "";
 			int healthGained = 0;
+			int damageDone = 0;
+			int NPCDamageDone = 0;
+			String NPCTypeOfDamage = "";
 			
 			
 			
@@ -720,29 +723,80 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 						return "You just gained " + healthGained + " health!";
 					}
 					
+					
+					
+					if(model.Items.get(i).isEquipped() && (model.Items.get(i).getCategory().equals("mainhand") || model.Items.get(i).getCategory().equals("offhand"))) {
+						
+						
 					if(model.getPlayer().isInCombat()) {
 						
 						if(model.Items.get(i).getCombatDescription().equals("0")) {
 							model.setInvalidObjectInteraction(nameOfItem);
 							return "";
 						}
-						use = model.Items.get(i).getCombatDescription();
 						
 						
+						//use = model.Items.get(i).getCombatDescription();
 						
-						for(int j = 0; i<model.NPCs.size(); j++) {
+						Random rand = new Random();
+						damageDone = rand.nextInt(model.Items.get(i).getEffectHigh()) + model.Items.get(i).getEffectLow();
+						
+						for(int j = 0; j<model.NPCs.size(); j++) {
 							if(model.NPCs.get(j).getRoomID() == model.getPlayer().getRoomID()) {
+								
+								if(model.NPCs.get(j).getHealth() <= 0) {
+									return "<p>" + model.NPCs.get(j).getName() + " is already dead." + "</p>";
+								}
+								
+								if(model.NPCs.get(j).getWeakness().equals(model.Items.get(i).getEffectType())) {
+									damageDone = damageDone * 2;
+								}
+								
+								
+								model.NPCs.get(j).setHealth(model.NPCs.get(j).getHealth() - damageDone);
+								use = use + "<p>" + model.Items.get(i).getCombatDescription() + "</p>";
+								use = use + "<p>" + "You did " + damageDone + " damage to " + model.NPCs.get(j).getName() + "!" + "</p>";
+								System.out.println(model.NPCs.get(j).getHealth());
+								
+								if(model.NPCs.get(j).getHealth() <=0) {
+									return use = use + "<p>" + model.NPCs.get(j).getName() + " has died!";
+								}
+								
+								Random rand1 = new Random();
+								NPCDamageDone = rand1.nextInt(model.NPCs.get(j).getEffectHigh()) + model.NPCs.get(j).getEffectLow();
+								
+								
+								for(int x = 0; x<model.Items.size(); x++) {
+									if(model.Items.get(x).getContainerID() == -1 &&  model.Items.get(x).isEquipped() && model.Items.get(x).getType().equals("equipment")) {
+										if(model.Items.get(x).getArmorType().equals(model.NPCs.get(j).getEffectType())) {
+											NPCDamageDone = NPCDamageDone - model.Items.get(x).getDefenseNumber();
+										}
+									}
+								}
+								
+								model.getPlayer().setHealth(model.getPlayer().getHealth() - NPCDamageDone);
+								return use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " damage to you!" + "</p>";
+								
+								
+								
+								
+								
+								
+								
+								
 								
 							}
 						}
-						
-						
-						
-						
 					}
+					
+					
+					
 					if(model.getPlayer().isInCombat() == false) {
-						use = model.Items.get(i).getUseDescription();
+						return use = model.Items.get(i).getUseDescription();
 					}
+					
+					
+				}
 				}
 			}
 			

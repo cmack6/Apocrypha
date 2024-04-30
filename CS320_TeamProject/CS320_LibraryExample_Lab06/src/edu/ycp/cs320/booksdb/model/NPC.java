@@ -159,7 +159,7 @@ public int gameID;
 
 
 
-	public String geEffectType() {
+	public String getEffectType() {
 		return effectType;
 	}
 
