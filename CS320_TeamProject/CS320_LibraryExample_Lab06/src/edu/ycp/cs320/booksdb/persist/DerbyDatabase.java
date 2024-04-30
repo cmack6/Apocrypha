@@ -568,7 +568,7 @@ public class DerbyDatabase implements IDatabase {
 					insertContainer.setString(3, container.getContainerDescription());
 					insertContainer.setString(4, container.getInRoomDescription());
 					insertContainer.setBoolean(5, container.isOpened());
-					insertContainer.setInt(6, container.getGameID());
+					insertContainer.setInt(6, player.getGameID());
 
 					insertContainer.addBatch();
 					}
@@ -583,7 +583,7 @@ public class DerbyDatabase implements IDatabase {
 					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
 					insertContainerItem.setString(1, containerItem.getItemName());
 					insertContainerItem.setInt(2, containerItem.getContainerID());
-					insertContainerItem.setInt(3, containerItem.getGameID());
+					insertContainerItem.setInt(3, player.getGameID());
 					insertContainerItem.addBatch();
 					}
 					insertContainerItem.executeBatch();
@@ -597,12 +597,42 @@ public class DerbyDatabase implements IDatabase {
 					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
 					insertRoomContainer.setInt(1, roomContainer.getContainerID());
 					insertRoomContainer.setInt(2, roomContainer.getRoomID());
-					insertRoomContainer.setInt(3, roomContainer.getGameID());
+					insertRoomContainer.setInt(3, player.getGameID());
 					insertRoomContainer.addBatch();
 					}
 					insertRoomContainer.executeBatch();
 
 					System.out.println("roomContainers table updated");
+					
+					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					for (Item item : itemList) {
+						
+						insertItem.setInt(1, item.getItemID());
+						insertItem.setString(2, item.getName());
+						insertItem.setString(3, item.getType());
+						insertItem.setInt(4, item.getContainerID());
+						insertItem.setInt(5, item.getValue());
+						insertItem.setString(6, item.getItemDescription());
+						insertItem.setString(7, item.getUseDescription());
+						insertItem.setString(8, item.getCombatDescription());
+						insertItem.setBoolean(9, item.isEquipped());
+						insertItem.setString(10, item.getCategory());
+						insertItem.setString(11, item.getArmorType());
+						insertItem.setInt(12, item.getDefenseNumber());
+						insertItem.setString(13, item.getEffectType());
+						insertItem.setInt(14, item.getEffectLow());
+						insertItem.setInt(15, item.getEffectHigh());
+						insertItem.setInt(16, player.getGameID());
+						
+						insertItem.addBatch();
+					
+						
+					}
+					
+				
+					insertItem.executeBatch();
+					System.out.println("Items table updated");	
+
 					return player;
 				} finally {					
 					DBUtil.closeQuietly(insertItem);	

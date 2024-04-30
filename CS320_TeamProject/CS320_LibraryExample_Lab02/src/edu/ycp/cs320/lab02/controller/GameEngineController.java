@@ -685,7 +685,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			int nothing = 0;
 			
 			for(int i = 0; i<model.Containers.size(); i++) {
-				if(model.Containers.get(i).getName().equals(containerName) && model.getPlayer().getRoomID() == model.Containers.get(i).getRoomID()) {
+				if(model.Containers.get(i).getName().equals(containerName) && model.getPlayer().getRoomID() == model.Containers.get(i).getRoomID()&&model.getPlayer().getGameID()==model.Containers.get(i).getGameID()) {
 					containerDescription = model.Containers.get(i).getContainerDescription();
 					
 					for(int j = 0; j<model.Items.size(); j++) {
@@ -704,7 +704,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			}
 			
 			for(int i = 0; i<model.NPCs.size(); i++) {
-				if(model.NPCs.get(i).getName().equals(containerName) && model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID() && model.getPlayer().isInCombat() == false && model.NPCs.get(i).getHealth() < 0 ){
+				if(model.NPCs.get(i).getName().equals(containerName) && model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID() && model.getPlayer().isInCombat() == false && model.NPCs.get(i).getHealth() < 0 &&model.getPlayer().getGameID()==model.NPCs.get(i).getGameID()){
 					containerDescription = containerDescription + "<p>" + "You loot " + model.NPCs.get(i).getName() + " to find:"+ "</p>";
 					for(int j = 0; j<model.Items.size(); j++) {
 						if(model.Items.get(j).getContainerID() == model.NPCs.get(i).getInventoryID()) {
