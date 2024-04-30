@@ -237,7 +237,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					}
 				}
 				for(int i=0;i<model.NPCs.size();i++) {
-					if(model.NPCs.get(i).getRoomID()==model.getPlayer().getRoomID()&&model.NPCs.get(i).getGameID()==model.getPlayer().getGameID()) {
+					if(model.NPCs.get(i).getRoomID()==model.getPlayer().getRoomID()&&model.NPCs.get(i).getGameID()==model.getPlayer().getGameID() && model.NPCs.get(i).getHealth() > 0) {
 						output += "<br><br>"+model.NPCs.get(i).getRoomDialogue();
 						}
 					}
@@ -440,6 +440,17 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				}
 			}
 			*/
+		}
+		
+		for(int i = 0; i<model.NPCs.size(); i++) {
+			if(model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID() && model.NPCs.get(i).getHealth() <= 0) {
+				for(int j = 0; j<model.Items.size(); j++) {
+					if(model.Items.get(j).getName().equals(nameOfItem)) {
+						model.Items.get(j).setContainerID(-1);
+						return "You gained a new item!";
+					}
+				}
+			}
 		}
 		
 		
@@ -691,6 +702,24 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				notDoable++;
 				}
 			}
+			
+			for(int i = 0; i<model.NPCs.size(); i++) {
+				if(model.NPCs.get(i).getName().equals(containerName) && model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID() && model.getPlayer().isInCombat() == false && model.NPCs.get(i).getHealth() < 0 ){
+					containerDescription = containerDescription + "<p>" + "You loot " + model.NPCs.get(i).getName() + " to find:"+ "</p>";
+					for(int j = 0; j<model.Items.size(); j++) {
+						if(model.Items.get(j).getContainerID() == model.NPCs.get(i).getInventoryID()) {
+							containerDescription = containerDescription + "<p>" + model.Items.get(j).getName() + "</p>";		
+							nothing++;
+							}
+						}
+					if(nothing == 0) {
+						containerDescription = containerDescription + "<p> Nothing </p>";
+					}
+					notDoable++;
+					}
+				}
+			
+			
 			if(notDoable == 0) {
 				 model.setInvalidObjectInteraction(containerName);
 				 return "";
@@ -698,6 +727,9 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			else
 		return containerDescription;
 		}
+		
+		
+		
 		
 		@Override
 		public String use(GameModel model, String nameOfItem) {
@@ -759,6 +791,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								System.out.println(model.NPCs.get(j).getHealth());
 								
 								if(model.NPCs.get(j).getHealth() <=0) {
+									model.getPlayer().setInCombat(false);
 									return use = use + "<p>" + model.NPCs.get(j).getName() + " has died!";
 								}
 								
