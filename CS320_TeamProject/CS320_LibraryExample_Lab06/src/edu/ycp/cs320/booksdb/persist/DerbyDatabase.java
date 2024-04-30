@@ -568,7 +568,11 @@ public class DerbyDatabase implements IDatabase {
 					insertContainer.setString(3, container.getContainerDescription());
 					insertContainer.setString(4, container.getInRoomDescription());
 					insertContainer.setBoolean(5, container.isOpened());
+<<<<<<< Updated upstream
 					insertContainer.setInt(6, player.getGameID());
+=======
+					insertContainer.setInt(6, container.getGameID());
+>>>>>>> Stashed changes
 
 					insertContainer.addBatch();
 					}
@@ -583,7 +587,11 @@ public class DerbyDatabase implements IDatabase {
 					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
 					insertContainerItem.setString(1, containerItem.getItemName());
 					insertContainerItem.setInt(2, containerItem.getContainerID());
+<<<<<<< Updated upstream
 					insertContainerItem.setInt(3, player.getGameID());
+=======
+					insertContainerItem.setInt(3, containerItem.getGameID());
+>>>>>>> Stashed changes
 					insertContainerItem.addBatch();
 					}
 					insertContainerItem.executeBatch();
@@ -597,12 +605,17 @@ public class DerbyDatabase implements IDatabase {
 					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
 					insertRoomContainer.setInt(1, roomContainer.getContainerID());
 					insertRoomContainer.setInt(2, roomContainer.getRoomID());
+<<<<<<< Updated upstream
 					insertRoomContainer.setInt(3, player.getGameID());
+=======
+					insertRoomContainer.setInt(3, roomContainer.getGameID());
+>>>>>>> Stashed changes
 					insertRoomContainer.addBatch();
 					}
 					insertRoomContainer.executeBatch();
 
 					System.out.println("roomContainers table updated");
+<<<<<<< Updated upstream
 					
 					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : itemList) {
@@ -633,6 +646,8 @@ public class DerbyDatabase implements IDatabase {
 					insertItem.executeBatch();
 					System.out.println("Items table updated");	
 
+=======
+>>>>>>> Stashed changes
 					return player;
 				} finally {					
 					DBUtil.closeQuietly(insertItem);	
