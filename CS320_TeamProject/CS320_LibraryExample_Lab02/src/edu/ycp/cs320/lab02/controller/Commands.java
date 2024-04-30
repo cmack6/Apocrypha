@@ -42,5 +42,7 @@ public interface Commands {
 	public String score(GameModel model);
 	
 	public void save(GameModel model);
+	
+	public void restart(GameModel model);
 
 }

@@ -212,11 +212,11 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			boolean currentlyInCombat = model.getPlayer().isInCombat();
 			
-			if(setOutput.equals("restart")) {
-				DatabaseProvider.setInstance(new DerbyDatabase());
-				IDatabase db = DatabaseProvider.getInstance();
-				db.restartGame(model.getPlayer().getGameID(), model.getPlayer().getUserID());
+			 if(setOutput.equals("restart")) {
+				restart(model);
 			}
+			
+			
 			
 			if(model.getPlayer().getHealth() <= 0) {
 				return "You have died! Restart";
@@ -283,9 +283,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				output = fight(model);
 			}
 			
-			else if(setOutput.equals("restart")) {
-				output = fight(model);
-			}
+			
 			else if(setOutput.equals("stats")) {
 				output = stats(model);
 			}
@@ -992,6 +990,19 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			
 			 return stats =  stats + "<p>" + "--------------------------------" + "</p>";
+		}
+
+
+
+		@Override
+		public void restart(GameModel model) {
+			
+				System.out.print("game restarting");
+				DatabaseProvider.setInstance(new DerbyDatabase());
+				IDatabase db = DatabaseProvider.getInstance();
+				db.restartGame(model.getPlayer().getGameID(), model.getPlayer().getUserID());
+			
+			
 		}
 		
 
