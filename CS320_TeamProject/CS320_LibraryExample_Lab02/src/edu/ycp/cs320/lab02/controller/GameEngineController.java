@@ -241,7 +241,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				
 				
 				for(int i = 0; i<model.Containers.size(); i++) {
-					if(model.Containers.get(i).getRoomID() == model.getPlayer().getRoomID() && model.Containers.get(i).isOpened() == false) {
+					if(model.Containers.get(i).getRoomID() == model.getPlayer().getRoomID() && model.Containers.get(i).isOpened() == false && model.Containers.get(i).getGameID()==model.getPlayer().getGameID()) {
 						output += " " + model.Containers.get(i).getInRoomDescription();
 					}
 				}
@@ -434,7 +434,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			if(model.Containers.get(j).isOpened() == true) {
 			if(model.Containers.get(j).getRoomID() == model.getPlayer().getRoomID()) {
 				for(int i = 0; i<model.Items.size(); i++) {
-					if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() > 0 && model.Items.get(i).getContainerID() == model.Containers.get(j).getContainerID()) {
+					if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() > 0 && model.Items.get(i).getContainerID() == model.Containers.get(j).getContainerID() && model.Containers.get(j).getGameID()==model.getPlayer().getGameID() && model.Items.get(i).getGameID() == model.getPlayer().getGameID()) {
 						model.Items.get(i).setContainerID(-1);
 						return "<p> You gained a new item! </p>";
 						
@@ -457,7 +457,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		for(int i = 0; i<model.NPCs.size(); i++) {
 			if(model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID() && model.NPCs.get(i).getHealth() <= 0) {
 				for(int j = 0; j<model.Items.size(); j++) {
-					if(model.Items.get(j).getName().equals(nameOfItem)) {
+					if(model.Items.get(j).getName().equals(nameOfItem) && model.Items.get(j).getGameID()==model.getPlayer().getGameID()) {
 						model.Items.get(j).setContainerID(-1);
 						return "You gained a new item!";
 					}
@@ -499,7 +499,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			for(Item item : model.Items) {
 				
-				if(item.getContainerID() == -1 && item.isEquipped() == false) {
+				if(item.getContainerID() == -1 && item.isEquipped() == false && model.getPlayer().getGameID()==item.getGameID()) {
 					totalItems = totalItems + "<p>" + item.getName() + "</p>";
 					//totalItems = totalItems + " " + model.Items.get(i).getName();
 					
@@ -514,7 +514,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			//just did this in case for the future
 			for(Item item : model.Items) {
-				if(item.isEquipped() && item.getContainerID() == -1) {
+				if(item.isEquipped() && item.getContainerID() == -1 && item.getGameID()==model.getPlayer().getGameID()) {
 					equippedItems.add(item);
 				}
 			}
@@ -701,7 +701,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					containerDescription = model.Containers.get(i).getContainerDescription();
 					
 					for(int j = 0; j<model.Items.size(); j++) {
-						if(model.Items.get(j).getContainerID() == model.Containers.get(i).getContainerID()) {
+						if(model.Items.get(j).getContainerID() == model.Containers.get(i).getContainerID() && model.Items.get(j).getGameID()==model.getPlayer().getGameID() && model.Containers.get(i).getGameID()==model.getPlayer().getGameID()) {
 							containerDescription = containerDescription + "<p>" + model.Items.get(j).getName() + "</p>";
 							
 							nothing++;
