@@ -469,6 +469,9 @@ public class DerbyDatabase implements IDatabase {
 				List<Player> newPlayerList;
 				List<RoomConnection> roomConnectionList;
 				List<NPC> NPCList;
+				List<Container> containerList;
+				List<RoomContainer> roomContainerList;
+				List<ContainerItem> containerItemList;
 				try {
 				itemList           = InitialData.getItems();
 				roomList           = InitialData.getRooms();
@@ -476,6 +479,9 @@ public class DerbyDatabase implements IDatabase {
 				playerList         = InitialData.getPlayers();
 				roomConnectionList = InitialData.getRoomConnections();
 				NPCList            = InitialData.getNPCs();
+				containerList      = InitialData.getContainers();
+				roomContainerList  = InitialData.getRoomContainers();
+				containerItemList  = InitialData.getContainersItems();
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read CSV data", e);
@@ -487,6 +493,9 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertPlayer         = null;
 				PreparedStatement insertRoomConnection = null;
 				PreparedStatement insertNPC            = null;
+				PreparedStatement insertContainer      = null;
+				PreparedStatement insertRoomContainer  = null;
+				PreparedStatement insertContainerItem  = null;
 				
 				
 				try { 
@@ -549,6 +558,51 @@ public class DerbyDatabase implements IDatabase {
 					insertNPC.executeBatch();	
 					
 					System.out.println("NPCs table updated");	
+					
+					
+					insertContainer = conn.prepareStatement("insert into containers (name, roomID, containerDescription, inRoomDescription, isOpened, gameID) values (?, ?, ?, ?, ?, ?)");
+					for (Container container : containerList) {
+					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
+					insertContainer.setString(1, container.getName());
+					insertContainer.setInt(2, container.getRoomID());
+					insertContainer.setString(3, container.getContainerDescription());
+					insertContainer.setString(4, container.getInRoomDescription());
+					insertContainer.setBoolean(5, container.isOpened());
+					insertContainer.setInt(6, container.getGameID());
+
+					insertContainer.addBatch();
+					}
+					insertContainer.executeBatch();
+
+					System.out.println("containers table updated");
+
+
+
+					insertContainerItem = conn.prepareStatement("insert into containerItems (itemName, containerID, gameID) values (?, ?, ?)");
+					for (ContainerItem containerItem : containerItemList) {
+					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
+					insertContainerItem.setString(1, containerItem.getItemName());
+					insertContainerItem.setInt(2, containerItem.getContainerID());
+					insertContainerItem.setInt(3, containerItem.getGameID());
+					insertContainerItem.addBatch();
+					}
+					insertContainerItem.executeBatch();
+
+					System.out.println("containerItems table updated");
+
+
+
+					insertRoomContainer = conn.prepareStatement("insert into roomContainers (containerID, roomID, gameID) values (?, ?, ?)");
+					for (RoomContainer roomContainer : roomContainerList) {
+					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
+					insertRoomContainer.setInt(1, roomContainer.getContainerID());
+					insertRoomContainer.setInt(2, roomContainer.getRoomID());
+					insertRoomContainer.setInt(3, roomContainer.getGameID());
+					insertRoomContainer.addBatch();
+					}
+					insertRoomContainer.executeBatch();
+
+					System.out.println("roomContainers table updated");
 					return player;
 				} finally {					
 					DBUtil.closeQuietly(insertItem);	
@@ -556,6 +610,9 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(insertRoomItem);
 					DBUtil.closeQuietly(insertPlayer);
 					DBUtil.closeQuietly(insertRoomConnection);
+					DBUtil.closeQuietly(insertContainer);
+					DBUtil.closeQuietly(insertContainerItem);
+					DBUtil.closeQuietly(insertRoomContainer);
 				}
 			}
 		});
