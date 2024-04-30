@@ -745,7 +745,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			for(int i = 0; i<model.Items.size(); i++) {
 
-				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1) {
+				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1 && model.Items.get(i).getGameID()==model.getPlayer().getGameID()) {
 				
 					if(model.Items.get(i).getEffectType().equals("health")) {
 						Random rand = new Random();
@@ -849,7 +849,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			String equip = "";
 			
 			for(int i = 0; i<model.Items.size(); i++) {
-				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1  && (model.Items.get(i).getType().equals("weapon") || model.Items.get(i).getType().equals("equipment") ||  model.Items.get(i).getType().equals("tool"))) {
+				if(model.Items.get(i).getGameID() == model.getPlayer().getGameID() && model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1  && (model.Items.get(i).getType().equals("weapon") || model.Items.get(i).getType().equals("equipment") ||  model.Items.get(i).getType().equals("tool"))) {
 					for(int j = 0; j<model.Items.size(); j++) {
 						if(model.Items.get(i).getCategory().equals(model.Items.get(j).getCategory()) && model.Items.get(j).getContainerID() == -1) {
 							model.Items.get(j).setEquipped(false);
@@ -875,7 +875,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			String unequip = "";
 			
 			for(int i = 0; i<model.Items.size(); i++) {
-				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1 && model.Items.get(i).isEquipped()) {
+				if(model.Items.get(i).getGameID() == model.getPlayer().getGameID() && model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1 && model.Items.get(i).isEquipped()) {
 					model.Items.get(i).setEquipped(false);
 					unequip  = "<p>" + "You have unequipped " + model.Items.get(i).getName() +"!" + "</p>";				
 					}
@@ -933,7 +933,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			
 			for(Item item : model.Items) {
-				if(item.isEquipped() && item.getContainerID() == -1 && (item.getType().equals("equipment") || item.getCategory().equals("offhand"))) {
+				if(item.getGameID()==model.getPlayer().getGameID() && item.isEquipped() && item.getContainerID() == -1 && (item.getType().equals("equipment") || item.getCategory().equals("offhand"))) {
 					equippedEquipment.add(item);
 				}
 			}
