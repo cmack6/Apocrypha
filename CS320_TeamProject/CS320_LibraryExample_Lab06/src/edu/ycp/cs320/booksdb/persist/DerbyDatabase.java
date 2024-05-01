@@ -560,15 +560,16 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("NPCs table updated");	
 					
 					
-					insertContainer = conn.prepareStatement("insert into containers (name, roomID, containerDescription, inRoomDescription, isOpened, gameID) values (?, ?, ?, ?, ?, ?)");
+					insertContainer = conn.prepareStatement("insert into containers (containerID, name, roomID, containerDescription, inRoomDescription, isOpened, gameID) values (?, ?, ?, ?, ?, ?, ?)");
 					for (Container container : containerList) {
 					//insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
-					insertContainer.setString(1, container.getName());
-					insertContainer.setInt(2, container.getRoomID());
-					insertContainer.setString(3, container.getContainerDescription());
-					insertContainer.setString(4, container.getInRoomDescription());
-					insertContainer.setBoolean(5, container.isOpened());
-					insertContainer.setInt(6, player.getGameID());
+					insertContainer.setInt(1, container.getContainerID());
+					insertContainer.setString(2, container.getName());
+					insertContainer.setInt(3, container.getRoomID());
+					insertContainer.setString(4, container.getContainerDescription());
+					insertContainer.setString(5, container.getInRoomDescription());
+					insertContainer.setBoolean(6, container.isOpened());
+					insertContainer.setInt(7, player.getGameID());
 					insertContainer.addBatch();
 					}
 					insertContainer.executeBatch();
@@ -1650,8 +1651,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt13 = conn.prepareStatement(
 							"create table containers (" +
-							" containerID integer primary key " +
-							" generated always as identity (start with 1, increment by 1), " +
+							" containerID integer, " +
 							" name varchar(80)," +
 							" roomID integer," +
 							" containerDescription varchar(80)," +
@@ -1836,15 +1836,16 @@ public class DerbyDatabase implements IDatabase {
 					insertItem.executeBatch();
 System.out.println("Items table populated");	
 
-insertContainer = conn.prepareStatement("insert into containers (name, roomID, containerDescription, inRoomDescription, isOpened, gameID) values (?, ?, ?, ?, ?, ?)");
+insertContainer = conn.prepareStatement("insert into containers (containerID, name, roomID, containerDescription, inRoomDescription, isOpened, gameID) values (?, ?, ?, ?, ?, ?, ?)");
 for (Container container : containerList) {
 //insertAuthor.setInt(1, author.getAuthorId()); // auto-generated primary key, don't insert this
-insertContainer.setString(1, container.getName());
-insertContainer.setInt(2, container.getRoomID());
-insertContainer.setString(3, container.getContainerDescription());
-insertContainer.setString(4, container.getInRoomDescription());
-insertContainer.setBoolean(5, container.isOpened());
-insertContainer.setInt(6, container.getGameID());
+insertContainer.setInt(1, container.getContainerID());
+insertContainer.setString(2, container.getName());
+insertContainer.setInt(3, container.getRoomID());
+insertContainer.setString(4, container.getContainerDescription());
+insertContainer.setString(5, container.getInRoomDescription());
+insertContainer.setBoolean(6, container.isOpened());
+insertContainer.setInt(7, container.getGameID());
 
 insertContainer.addBatch();
 }

@@ -699,6 +699,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					containerDescription = model.Containers.get(i).getContainerDescription();
 					
 					for(int j = 0; j<model.Items.size(); j++) {
+						//System.out.println(model.Items.get(j).getContainerID() + "" + model.Containers.get(i).getContainerID() + "" +  model.Items.get(j).getGameID() + "" + model.getPlayer().getGameID() + "" + model.Containers.get(i).getGameID()+ "" + model.getPlayer().getGameID());
 						if(model.Items.get(j).getContainerID() == model.Containers.get(i).getContainerID() && model.Items.get(j).getGameID()==model.getPlayer().getGameID() && model.Containers.get(i).getGameID()==model.getPlayer().getGameID()) {
 							containerDescription = containerDescription + "<p>" + model.Items.get(j).getName() + "</p>";
 							

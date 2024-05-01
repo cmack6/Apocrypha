@@ -375,10 +375,10 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				Container container = new Container();
 				
-				Integer.parseInt(i.next());
+				container.setContainerID(Integer.parseInt(i.next()));
 				
 			
-				container.setContainerID(containerID++);	
+				//container.setContainerID(containerID++);	
 				
 				container.setName(i.next());
 				container.setRoomID(Integer.parseInt(i.next()));
