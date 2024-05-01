@@ -69,7 +69,7 @@ public class DerbyDatabaseTests {
 			items = new ArrayList<Item>();
 			for (Item item : itemList) {
 				items.add(item);
-				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
+				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getContainerID() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getUseDescription() + ", " + item.getCombatDescription() + ", " + item.getCategory() + ", " + item.getArmorType() + ", " + item.getDefenseNumber() + ", " + item.getEffectType() + ", " + item.getEffectLow() + ", " + item.getEffectHigh() + ", " + item.getGameID());
 			}			
 		}
 	}
@@ -165,7 +165,7 @@ public class DerbyDatabaseTests {
 			inventory = new ArrayList<Item>();
 			for (Item item : inventoryList) {
 				inventory.add(item);
-				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
+				System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getContainerID() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getUseDescription() + ", " + item.getCombatDescription() + ", " + item.getCategory() + ", " + item.getArmorType() + ", " + item.getDefenseNumber() + ", " + item.getEffectType() + ", " + item.getEffectLow() + ", " + item.getEffectHigh() + ", " + item.getGameID());
 			}			
 		}
 	}
@@ -174,7 +174,7 @@ public class DerbyDatabaseTests {
 	public void testgetPlayerFromGameID() {
 		System.out.println("\n*** Testing getPlayerFromGameID ***");
 
-		int gameID = 2;
+		int gameID = 1;
 		
 		Player player = db.getPlayerFromGameID(gameID);
 		
@@ -223,7 +223,7 @@ public class DerbyDatabaseTests {
 		testPlayer.setHealth(60);
 		testPlayer.setRoomID(5);
 		testPlayer.setLog("Testing");
-		testPlayer.setPlayerID(3);
+		testPlayer.setPlayerID(1);
 		
 		Player player = db.updatePlayer(testPlayer);
 		
@@ -231,7 +231,7 @@ public class DerbyDatabaseTests {
 		assertEquals(60, player.getHealth());
 		assertEquals(5, player.getRoomID());
 		assertEquals("Testing", player.getLog());
-		assertEquals(3, player.getPlayerID());
+		assertEquals(1, player.getPlayerID());
 		
 		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
 	}
@@ -305,15 +305,15 @@ public class DerbyDatabaseTests {
 		System.out.println("\n*** Testing updateItem ***");
 		
 		Item testItem = new Item();
-		testItem.setLocation(-1);
+		testItem.setContainerID(-1);
 		testItem.setItemID(4);
 		
 		Item item = db.updateItem(testItem);
 		
-		assertEquals(-1, item.getLocation());
+		assertEquals(-1, item.getContainerID());
 		assertEquals(4, item.getItemID());
 		
-		System.out.println(item.getItemID() + "," + item.getName() + "," + item.getLocation() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getRoomDescription() + ", " + item.getGameID());
+		System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getContainerID() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getUseDescription() + ", " + item.getCombatDescription() + ", " + item.getCategory() + ", " + item.getArmorType() + ", " + item.getDefenseNumber() + ", " + item.getEffectType() + ", " + item.getEffectLow() + ", " + item.getEffectHigh() + ", " + item.getGameID());
 	}
 	
 	@Test
@@ -335,6 +335,9 @@ public class DerbyDatabaseTests {
 		// Removing new user
 		List<User> removeNewUser = new ArrayList<User>();
 		removeNewUser = db.removeUserByUserId(testUser.getUserID());
+		
+		//Making sure user was removed
+		System.out.println("Making Sure new user was removed");
 		
 		userList = new ArrayList<User>();
 		for (User user : removeNewUser) {
@@ -364,90 +367,6 @@ public class DerbyDatabaseTests {
 				users.add(user);
 				System.out.println(user.getUserID() + ", " + user.getUsername() + ", " + user.getPassword());
 			}			
-		}
-	}
-
-	@Test
-	public void testInsertBookIntoBooksTable() {
-		System.out.println("\n*** Testing insertBookIntoBooksTable ***");
-
-		String title     = "Wired for War";
-		String isbn      = "0-143-11684-3";
-		int    published = 2009;
-		String lastName  = "Singer";
-		String firstName = "P.J.";
-  
-				
-		// insert new book (and possibly new author) into DB
-		Integer book_id = db.insertBookIntoBooksTable(title, isbn, published, lastName, firstName);
-
-		// check the return value - should be a book_id > 0
-		if (book_id > 0)
-		{
-			// try to retrieve the book and author from the DB
-			// get the list of (Author, Book) pairs from DB
-			authorBookList = db.findAuthorAndBookByAuthorLastName(lastName);
-			
-			if (authorBookList.isEmpty()) {
-				System.out.println("No books found for author <" + lastName + ">");
-				fail("Failed to insert new book <" + title + "> into Library DB");
-			}
-			// otherwise, the test was successful.  Now remove the book just inserted to return the DB
-			// to it's original state, except for using an author_id and a book_id
-			else {
-				System.out.println("New book (ID: " + book_id + ") successfully added to Books table: <" + title + ">");
-				
-				// now delete Book (and its Author) from DB
-				// leaving the DB in its previous state - except that an author_id, and a book_id have been used
-				List<Author> authors = db.removeBookByTitle(title);				
-			}
-		}
-		else
-		{
-			System.out.println("Failed to insert new book (ID: " + book_id + ") into Books table: <" + title + ">");
-			fail("Failed to insert new book <" + title + "> into Library DB");
-		}
-	}
-
-	@Test
-	public void testRemoveBookByTitle() {
-		System.out.println("\n*** Testing removeBookByTitle ***");
-		
-		String title     = "Outliers";
-		String isbn      = "0-316-01793-0";
-		int    published = 2010;		
-		String lastName  = "Gladwell";
-		String firstName = "Malcolm";
-				
-		// insert new book (and new author) into DB
-		Integer book_id = db.insertBookIntoBooksTable(title, isbn, published, lastName, firstName);
-		
-		// check to see that insertion was successful before proceeding
-		if (book_id > 0) {
-			// now delete Book (and its Author) from DB
-			List<Author> authors = db.removeBookByTitle(title);
-			
-			if (authors.isEmpty()) {
-				System.out.println("Failed to remove Author(s) for book with title <" + title + ">");
-				fail("No Author(s) removed from DB for Book with title <" + title + ">");
-			}
-			else {
-				System.out.println("Author <" + authors.get(0).getLastname() + ", " + authors.get(0).getFirstname() + "> removed from Library DB");
-			}					
-			
-			// get the list of (Author, Book) pairs from DB
-			authorBookList = db.findAuthorAndBookByTitle(title);
-			
-			if (authorBookList.isEmpty()) {
-				System.out.println("All Books with title <" + title + "> were removed from the Library DB");
-			}
-			else {
-				fail("Book with title <" + title + "> remains in Library DB after delete");			
-			}
-		}
-		else {
-			System.out.println("Failed to insert new book (ID: " + book_id + ") into Books table: <" + title + ">");
-			fail("Failed to insert new book <" + title + "> into Library DB");			
 		}
 	}
 }
