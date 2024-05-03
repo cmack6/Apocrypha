@@ -27,7 +27,7 @@ public interface IDatabase {
 	public NPC updateNPC(NPC NPC);
 	public User insertNewUser(String username, String password);
 	public List<User> removeUserByUserId(int ID);
-	public Player createNewGame(int gameID);
+	public Player createNewGame(int userID);
 	public List<Container> findAllContainers();
 	public Player restartGame(int gameID, int userID);
 }

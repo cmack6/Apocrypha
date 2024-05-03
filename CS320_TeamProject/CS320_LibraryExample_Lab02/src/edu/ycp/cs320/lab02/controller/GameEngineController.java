@@ -467,14 +467,6 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		
 			
 			return "<p>" + nameOfItem + " is not interactable" + "</p>";
-			
-			 
-			
-			
-			
-			
-			
-			
 		}
 
 
@@ -669,6 +661,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			if(model.getPlayer().isInCombat() != false) {
 				
+				
+				
 				Random rand= new Random();
 				
 				int ran = rand.nextInt(100)+1;
@@ -678,7 +672,9 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					model.getPlayer().setInCombat(false);
 				}
 				else {
+					
 					runAway = "You cannot escape from combat right now! Either try again or stand your ground!";
+				
 				}
 				
 				
@@ -1005,19 +1001,4 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			
 		}
-		
-
-	
-
-
-
-
-
-
-
-		
-
 	}
-		
-	
-	
