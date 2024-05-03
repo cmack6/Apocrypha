@@ -656,7 +656,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 
 		@Override
 		public String run(GameModel model) {
-			
+			int NPCTotalDamage = 0;
 			String runAway = "";
 			
 			if(model.getPlayer().isInCombat() != false) {
@@ -672,6 +672,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					model.getPlayer().setInCombat(false);
 				}
 				else {
+					
+					
 					
 					runAway = "You cannot escape from combat right now! Either try again or stand your ground!";
 				
@@ -815,6 +817,12 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								}
 								
 								model.getPlayer().setHealth(model.getPlayer().getHealth() - NPCDamageDone);
+								
+								
+								
+								
+								
+								
 								return use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " damage to you!" + "</p>";
 								
 								
@@ -876,6 +884,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			return equip;
 		}
+		
+		
 		
 		@Override
 		public String unequip(GameModel model, String nameOfItem) {
