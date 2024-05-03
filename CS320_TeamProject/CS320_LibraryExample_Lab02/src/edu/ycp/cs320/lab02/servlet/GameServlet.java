@@ -129,8 +129,8 @@ public class GameServlet extends HttpServlet {
 		//when the jsp is first created, the first model created will be setModel, getting passed
 		//the user created above and the first long description of the starting room being the first log
 /*		
-		Item sword = new Item("Moonveil", -1, 150, 0);
-		Item torch = new Item("Flashlight", -1, 25, 1);
+		Item sword = new Item("Moonveil", _1, 150, 0);
+		Item torch = new Item("Flashlight", _1, 25, 1);
 		Item shield = new Item("Ketheric's Shield", 4, 125, 2);
 		Item potion = new Item("Health Potion", 7, 10, 3);
 		controller.addItem(setModel,sword);
@@ -241,7 +241,7 @@ public class GameServlet extends HttpServlet {
 		
 		controller.setItemDescription(0, "The Moonveil. I honestly have no clue what this does but it's like insanely sharp so prolly use with caution or something.");
 		controller.setItemDescription(1, "A classic. Lights the way so you can see. You can use it in dark areas.");
-		controller.setItemDescription(2, "Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterent against projectiles...");
+		controller.setItemDescription(2, "Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half_elf who lost his shield which is a pretty good deterent against projectiles...");
 		controller.setItemDescription(3, "Yet another classic. You drink this thing and it'll restore some of your health, simple.");
 		controller.setRoomDescription(2, "Ketheric's Shield lies on the ground, it wants to be picked up.");
 		controller.setRoomDescription(3, "A Health Potion lies on it's side.");
@@ -273,6 +273,9 @@ public class GameServlet extends HttpServlet {
 		modelString = UUID.randomUUID().toString();
 		req.getSession().setAttribute("modelString", model);
 		req.setAttribute("modelString", modelString);
+		
+		
+		//HERES WHER IT SAVES :D :chart_with_upwards_trend:
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
 		for(Item item: model.Items) {

@@ -923,7 +923,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			int physicalResistance = 0;
 			int forceResistance = 0;
 			int necroticResistance = 0;
-			int poisionResistance = 0;
+			int poisonResistance = 0;
 			int thunderResistance = 0;
 			int fireResistance = 0;
 			
@@ -971,8 +971,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			else if(equippedEquipment.get(i).getArmorType().equals("Necrotic")) {
 				necroticResistance  = necroticResistance + equippedEquipment.get(i).getDefenseNumber();
 			}
-			else if(equippedEquipment.get(i).getArmorType().equals("Poision")) {
-				poisionResistance  = poisionResistance + equippedEquipment.get(i).getDefenseNumber();
+			else if(equippedEquipment.get(i).getArmorType().equals("")) {
+				poisonResistance  = poisonResistance + equippedEquipment.get(i).getDefenseNumber();
 			}
 			else if(equippedEquipment.get(i).getArmorType().equals("Thunder")) {
 				thunderResistance  = thunderResistance + equippedEquipment.get(i).getDefenseNumber();
@@ -987,7 +987,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					+	"<p>" + "Radiant Resistance: " + radiantResistance + "</p>"
 					+	"<p>" + "Force Resistance: " + forceResistance + "</p>"
 					+	"<p>" + "Necrotic Resistance: " + necroticResistance + "</p>"
-					+	"<p>" + "Poision Resistance: " + poisionResistance + "</p>"
+					+	"<p>" + "Poison Resistance: " + poisonResistance + "</p>"
 					+	"<p>" + "Thunder Resistance: " + thunderResistance + "</p>"
 					+	"<p>" + "Fire Resistance: " + fireResistance + "</p>"
 					+	"<p>" + "Equipped Mainhand Damage Type: " + currentDamageTypeMainHand + "</p>"
