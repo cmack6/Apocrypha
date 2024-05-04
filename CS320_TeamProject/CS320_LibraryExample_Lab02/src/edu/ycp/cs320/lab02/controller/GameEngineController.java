@@ -657,6 +657,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		@Override
 		public String run(GameModel model) {
 			int NPCTotalDamage = 0;
+			String NPCName = "";
 			String runAway = "";
 			
 			if(model.getPlayer().isInCombat() != false) {
@@ -674,8 +675,32 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				else {
 					
 					
+					for(int i = 0; i<model.NPCs.size();i++) {
+						if(model.NPCs.get(i).getGameID() == model.getPlayer().getGameID() && model.NPCs.get(i).getRoomID() == model.getPlayer().getRoomID()) {
+							
+							Random rand0 = new Random();
+							NPCTotalDamage = rand0.nextInt(model.NPCs.get(i).getEffectHigh())+model.NPCs.get(i).getEffectLow();
+							
+							for(int x = 0; x<model.Items.size(); x++) {
+								if(model.Items.get(x).getContainerID() == -1 &&  model.Items.get(x).isEquipped() && model.Items.get(x).getType().equals("equipment")) {
+									if(model.Items.get(x).getArmorType().equals(model.NPCs.get(i).getEffectType())) {
+										NPCTotalDamage = NPCTotalDamage - model.Items.get(x).getDefenseNumber();
+									}
+								}
+							}
+							
+							NPCName = model.NPCs.get(i).getName();
+							
+							model.getPlayer().setHealth(model.getPlayer().getHealth() - NPCTotalDamage);
+							
+							
+							
+						}
+					}
 					
-					runAway = "You cannot escape from combat right now! Either try again or stand your ground!";
+					runAway = "<p>" + "During your attempt to run away " + NPCName + " did " + NPCTotalDamage + " damage to you!" + "</p>";
+					runAway = runAway + "<p>" + "You currently have " + model.getPlayer().getHealth() + " health" + "</p>";
+					runAway = runAway + "<p>" + "You cannot escape from combat right now! Either try again or stand your ground!" + "</p>";
 				
 				}
 				
@@ -746,7 +771,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			int healthGained = 0;
 			int damageDone = 0;
 			int NPCDamageDone = 0;
-			String NPCTypeOfDamage = "";
+			String NPCName = "";
 			
 			
 			
@@ -793,10 +818,12 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 									damageDone = damageDone * 2;
 								}
 								
+								NPCName = model.NPCs.get(j).getName();
 								
 								model.NPCs.get(j).setHealth(model.NPCs.get(j).getHealth() - damageDone);
 								use = use + "<p>" + model.Items.get(i).getCombatDescription() + "</p>";
 								use = use + "<p>" + "You did " + damageDone + " damage to " + model.NPCs.get(j).getName() + "!" + "</p>";
+								use = use + "<p>" + NPCName + " currently has " + model.NPCs.get(j).getHealth() + " health" + "</p>";
 								System.out.println(model.NPCs.get(j).getHealth());
 								
 								if(model.NPCs.get(j).getHealth() <=0) {
@@ -821,9 +848,12 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								
 								
 								
+								use = use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " damage to you!" + "</p>";
+								return use + "<p>" + "You currently have " + model.getPlayer().getHealth() + " health" + "</p>";
 								
+								//return use + "<p>" + "You cannot escape from combat right now! Either try again or stand your ground!" + "</p>";
 								
-								return use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " damage to you!" + "</p>";
+								//return use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " damage to you!" + "</p>";
 								
 								
 								
