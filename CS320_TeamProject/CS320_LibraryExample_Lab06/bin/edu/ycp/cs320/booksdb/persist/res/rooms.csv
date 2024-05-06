@@ -1,16 +1,16 @@
-0|Starting room|short 0|1
-1|Camp|short 1|1
-2|Woods|short 2|1
-3|Outside shack|short 3|1
-4|Inside shack|short 4|1
-5|Outside tavern|short 5|1
-6|Inside tavern|short 6|1
-7|Tavern basement|short 7|1
-8|Cliffs|short 8|1
-9|Thief hideout|short 9|1
-10|Inside hideout|short 10|1
-11|Shore|short 11|1
-12|Gorge|short 12|1
-13|Item shop|short 13|1
-14|Beach|short 14|1
-15|Boss room|short 15|1
+0|Your at a crossroads. It’s too dark to see in front of you, but you can just make out what looks like a camp up ahead.|This is where you started.|1
+1|This area is not as dark as your surroundings due to the camp fire.|The camp fire has a nice warmth to it.|1
+2|While traversing the woods figures keep shifting in and out of your focus, it’s impossible to make out what they are. You can’t help but notice you feel lighter.|These woods have an erie felling about them.|1
+3|A run down shack sits in front of you. It might be worth seeing what's inside.|This run down shack has seen better days.|1
+4|The inside doesn't look much better than the outside. However you spot a small hole that looks like you can fit through.|It might be worth it to crawl through the hole. It might lead somewhere.|1
+5|A beat up tavern that fits in well with its surroundings. You should enter to see what information you can find out about this place.|Lots of stories are probably told in this tavern.|1
+6|The inside isn't as bad as expected. Much of the stools and tables look like they've seen their fair share of bar fights however. There's a door to the right of the barkeep that looks like it could lead into a basement.|There's probably something in that basement that can benefit you.|1
+7|You find the typical things you would expect in a tavern basement. Food preserves, wine, rats, and the occasional skeleton.|Nothing down here but rats to keep you company.|1
+8|From here you can see all your surroundings. A thick black fog engulfs the land like a plague. To north you can see a beach with a few people. Further than that you can see what looks to be the source of the fog.|A top the cliffs you have a good vantage to see your surroundings.|1
+9|While walking through the woods you notice two torches leading to an encampment, marked by skulls. This is most likely a thief hideout.|This place is probably home to thieves.|1
+10|Inside the hideout you find various weapons and coins scattered about. Most likely not belonging to these people.|The air of this place smells of blood and coin.|1
+11|You come across a rocky shore. There's a gorge ahead of you that looks like it could lead to the source of the black fog but you'll need a boat to cross it.|There are broken boats scattered all across the shore.|1
+12|The water in this gorge has a black and green hue to it. Up ahead you can see the end of the gorge and the source of the fog. However you can hear singing coming from the west. There's also a building on the water that looks worth checking out.|Things keep jumping out of the water and rocking the boat. It's probably best to move from here.|1
+13|You enter what appears to be a shop. Various powerful looking potions and weapons fill the shop walls.|Despite its surroundings the shop is well organized.|1
+14|Nearing the shore of the beach the singing becomes louder and fills your head. You can't help but become entranced by it.|You notice skulls and bones litter the beach.|1
+15|Boss room.|short 15.|1
