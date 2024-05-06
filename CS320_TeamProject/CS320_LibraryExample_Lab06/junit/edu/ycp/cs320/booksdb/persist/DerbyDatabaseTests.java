@@ -147,6 +147,30 @@ public class DerbyDatabaseTests {
 	}
 	
 	@Test
+	public void testFindAllContainers() {
+
+		System.out.println("\n*** Testing findAllContainers ***");
+
+		// get the list of (Author, Book) pairs from DB
+		List<Container> containerList = db.findAllContainers();
+
+		// NOTE: this is a simple test to check if no results were found in the DB
+		if (containerList.isEmpty()) {
+			System.out.println("No containers found in library");
+			fail("No containers returned from Library DB");
+		}
+		// NOTE: assembling the results into Author and Book lists so that they could be
+		//       inspected for correct content - well-formed objects with correct content
+		else {
+			ArrayList<Container> containers = new ArrayList<Container>();
+			for (Container container : containerList) {
+				containers.add(container);
+				System.out.println(container.getContainerID() + ", " + container.getName() + ", " + container.getRoomID() + ", " + container.getContainerDescription() + ", " + container.getInRoomDescription() + ", " + container.getGameID() );
+			}			
+		}
+	}
+	
+	@Test
 	public void testFindInventory() {
 
 		System.out.println("\n*** Testing findInventory ***");
@@ -223,7 +247,7 @@ public class DerbyDatabaseTests {
 		testPlayer.setHealth(60);
 		testPlayer.setRoomID(5);
 		testPlayer.setLog("Testing");
-		testPlayer.setPlayerID(1);
+		testPlayer.setPlayerID(2);
 		
 		Player player = db.updatePlayer(testPlayer);
 		
@@ -231,7 +255,7 @@ public class DerbyDatabaseTests {
 		assertEquals(60, player.getHealth());
 		assertEquals(5, player.getRoomID());
 		assertEquals("Testing", player.getLog());
-		assertEquals(1, player.getPlayerID());
+		assertEquals(2, player.getPlayerID());
 		
 		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
 	}
@@ -369,4 +393,42 @@ public class DerbyDatabaseTests {
 			}			
 		}
 	}
+	
+	@Test
+	public void testCreateNewGame() {
+		System.out.println("\n*** Testing createNewGame ***");
+		
+		Player testPlayer = new Player();
+		testPlayer.setUserID(2);
+		
+		Player player = db.createNewGame(testPlayer.getUserID());
+		
+		assertEquals(1, player.getPlayerID());
+		assertEquals(100, player.getScore());
+		assertEquals(75, player.getHealth());
+		assertEquals(0, player.getRoomID());
+		assertEquals(2, player.getUserID());
+		assertEquals("Welcome to Apocrypha! Tiny hint- try moving.", player.getLog());
+		
+		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
+	}
+	
+	/*@Test
+	public void testRestartGame(){
+		System.out.println("\n*** Testing createNewGame ***");
+		
+		Player testPlayer = new Player();
+		testPlayer.setUserID(2);
+		
+		Player player = db.createNewGame(testPlayer.getUserID());
+		
+		assertEquals(1, player.getPlayerID());
+		assertEquals(100, player.getScore());
+		assertEquals(75, player.getHealth());
+		assertEquals(0, player.getRoomID());
+		assertEquals(2, player.getUserID());
+		assertEquals("Welcome to Apocrypha! Tiny hint- try moving.", player.getLog());
+		
+		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
+	}*/
 }
