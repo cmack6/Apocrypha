@@ -28,7 +28,7 @@ public class AllRoomConnections {
 		else {
 			for (RoomConnection roomConnections : roomConnectionList) {
 				
-				System.out.println(roomConnections.getStartingRoomID() + ", " + roomConnections.getCommand() + ", " + roomConnections.getDestinationRoomID() + ", " + roomConnections.getGameID());
+				System.out.println(roomConnections.getStartingRoomID() + ", " + roomConnections.getCommand() + ", " + roomConnections.getDestinationRoomID() + ", " + roomConnections.getItemID() + ", " + roomConnections.getItemMissingMsg() + ", " + roomConnections.getGameID());
 			
 			}
 		}

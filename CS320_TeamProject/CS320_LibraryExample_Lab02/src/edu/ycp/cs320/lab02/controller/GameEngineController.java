@@ -107,7 +107,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					}
 					else
 					{
-						setOutput = "itemMissingMsg";
+						setOutput = "itemMissing";
 					}
 				}
 			}
@@ -264,6 +264,14 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				}
 			}
 			
+			 else if(setOutput.equals("itemMissing")) {
+				 for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getItemID() > 1) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			 }
 			
 			
 			else if(setOutput.equals("invalidMove")) {

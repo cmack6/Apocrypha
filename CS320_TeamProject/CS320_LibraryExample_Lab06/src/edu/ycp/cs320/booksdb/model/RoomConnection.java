@@ -51,11 +51,17 @@ public int getItemID() {
 	return itemID;
 }
 
+public void setItemID(int itemID) {
+	this.itemID = itemID;
+}
+
 public String getItemMissingMsg() {
 	// TODO Auto-generated method stub
 	return itemMissingMsg;
 }
 
-
+public void setItemMissingMsg(String itemMissingMsg) {
+	this.itemMissingMsg = itemMissingMsg;
+}
 
 }

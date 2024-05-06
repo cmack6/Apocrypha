@@ -529,12 +529,14 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Rooms table updated");
 					
-					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID, gameID) values (?, ?, ?, ?)");
+					insertRoomConnection = conn.prepareStatement("insert into roomConnections (startingRoomID, command, destinationRoomID, itemID, itemMissingMsg, gameID) values (?, ?, ?, ?, ?, ?)");
 					for (RoomConnection roomConnection: roomConnectionList) {
 						insertRoomConnection.setInt(1, roomConnection.getStartingRoomID());
 						insertRoomConnection.setString(2, roomConnection.getCommand());
 						insertRoomConnection.setInt(3, roomConnection.getDestinationRoomID());
-						insertRoomConnection.setInt(4, player.getGameID());
+						insertRoomConnection.setInt(4, roomConnection.getItemID());
+						insertRoomConnection.setString(5, roomConnection.getItemMissingMsg());
+						insertRoomConnection.setInt(6, player.getGameID());
 						insertRoomConnection.addBatch();
 					}
 					insertRoomConnection.executeBatch();	
@@ -1433,6 +1435,8 @@ public class DerbyDatabase implements IDatabase {
 		roomConnection.setStartingRoomID(resultSet.getInt(index++));
 		roomConnection.setCommand(resultSet.getString(index++));
 		roomConnection.setDestinationRoomID(resultSet.getInt(index++));
+		roomConnection.setItemID(resultSet.getInt(index++));
+		roomConnection.setItemMissingMsg(resultSet.getString(index++));
 		roomConnection.setGameID(resultSet.getInt(index++));
 	}
 	

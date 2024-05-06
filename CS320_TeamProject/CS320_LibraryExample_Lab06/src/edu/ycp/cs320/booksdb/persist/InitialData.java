@@ -225,6 +225,8 @@ public class InitialData {
 					roomConnection.setStartingRoomID(Integer.parseInt(i.next()));				
 					roomConnection.setCommand(i.next());
 					roomConnection.setDestinationRoomID(Integer.parseInt(i.next()));
+					roomConnection.setItemID(Integer.parseInt(i.next()));
+					roomConnection.setItemMissingMsg(i.next());
 					roomConnection.setGameID(Integer.parseInt(i.next()));
 					roomConnectionList.add(roomConnection);
 				}
