@@ -101,7 +101,14 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				//System.out.println(model.getPlayer().getGameID()+ "" + roomConnection.getGameID() + "" + model.getPlayer().getRoomID() + "" + roomConnection.getStartingRoomID() + "" + input + "" + roomConnection.getCommand()); 
 
 				if(model.getPlayer().getGameID()==roomConnection.getGameID()&&model.getPlayer().getRoomID()==roomConnection.getStartingRoomID()&&input.equals(roomConnection.getCommand())) {
-					move = true;
+					for(Item item : model.Items)
+					if(roomConnection.getItemID() == item.getItemID()&&item.getContainerID() == -1) {
+						move = true;
+					}
+					else
+					{
+						setOutput = "itemMissingMsg";
+					}
 				}
 			}
 			if(move) {
