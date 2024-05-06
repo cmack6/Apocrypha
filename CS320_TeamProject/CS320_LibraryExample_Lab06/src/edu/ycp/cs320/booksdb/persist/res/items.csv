@@ -8,3 +8,7 @@
 8|Diamond Chestplate|equipment|-1|1000|MINECRAFT REFERENCE|0|0|false|chestplate|Physical|20|0|0|0|1
 9|Gortash's Gauntlets|equipment|1|75|This guy's gloves are like pretty cool|0|0|false|gloves|Physical|10|0|0|0|1
 10|Huge Stick|weapon|-3|100|This is The Swan's weapon of choice!|SWING STICK|YOU BONK YOUR ENEMY UPSIDE THE HEAD|false|mainhand|0|0|physical|3|9|1
+11|Energy Sword|weapon|-1|100|Dude I think this is that thing from Halo|You notice that this sword looks like it could do insane damage|You thrash The Energy Sword at your opponent in an effort to kill|false|mainhand|0|0|Force|10|20|1
+12|Silver Sword|weapon|-1|200|The Silver Sword of the Astral Plane, an extremely strong Greatsword that utilizes Radiance to do damage|You swing the Silver Sword as if practicing for battle|You strike your enemy with the Silver Sword|false|mainhand|0|0|Radiant|10|20|1
+13|Shield of the Undevout|weapon|-1|200|Super hefty shield that helps against incoming Necrotic damage|0|You bash your shield into the enemy|false|offhand|Necrotic|10|Physical|5|8|1
+14|Health Potion|potion|-1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|false|0|0|0|health|5|10|1
