@@ -2446,7 +2446,7 @@ insertNPC.executeBatch();
 					
 					
 					
-					insertNPC = conn.prepareStatement("update NPCs set health = ?   where gameID = ? and npcID = ?)");
+					insertNPC = conn.prepareStatement("update NPCs set health = ?   where gameID = ? and npcID = ?");
 					for (NPC npc: NPCList) {
 						insertNPC.setInt(1,npc.getHealth());
 						insertNPC.setInt(2, player.getGameID());
