@@ -544,7 +544,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("roomConnections table updated");	
 					
 					
-					insertNPC = conn.prepareStatement("insert into NPCs (npcID, inventoryID, roomID, name, roomDialogue, speakDialogue, deathDialogue, health, weakness, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertNPC = conn.prepareStatement("insert into NPCs (npcID, inventoryID, roomID, name, roomDialogue, speakDialogue, deathDialogue, missDialogue, health, weakness, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (NPC npc: NPCList) {
 						insertNPC.setInt(1, npc.getNPCID());
 						insertNPC.setInt(2, npc.getInventoryID());
@@ -553,12 +553,13 @@ public class DerbyDatabase implements IDatabase {
 						insertNPC.setString(5, npc.getRoomDialogue());
 						insertNPC.setString(6, npc.getSpeakDialogue());
 						insertNPC.setString(7, npc.getDeathDialogue());
-						insertNPC.setInt(8, npc.getHealth());
-						insertNPC.setString(9, npc.getWeakness());
-						insertNPC.setString(10, npc.getEffectType());
-						insertNPC.setInt(11, npc.getEffectLow());
-						insertNPC.setInt(12, npc.getEffectHigh());
-						insertNPC.setInt(13, player.getGameID());
+						insertNPC.setString(8,  npc.getMissDialogue());
+						insertNPC.setInt(9, npc.getHealth());
+						insertNPC.setString(10, npc.getWeakness());
+						insertNPC.setString(11, npc.getEffectType());
+						insertNPC.setInt(12, npc.getEffectLow());
+						insertNPC.setInt(13, npc.getEffectHigh());
+						insertNPC.setInt(14, player.getGameID());
 						insertNPC.addBatch();
 					}
 					insertNPC.executeBatch();	
@@ -610,7 +611,7 @@ public class DerbyDatabase implements IDatabase {
 
 					System.out.println("roomContainers table updated");
 					
-					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, missDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : itemList) {
 						
 						insertItem.setInt(1, item.getItemID());
@@ -621,14 +622,15 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setString(6, item.getItemDescription());
 						insertItem.setString(7, item.getUseDescription());
 						insertItem.setString(8, item.getCombatDescription());
-						insertItem.setBoolean(9, item.isEquipped());
-						insertItem.setString(10, item.getCategory());
-						insertItem.setString(11, item.getArmorType());
-						insertItem.setInt(12, item.getDefenseNumber());
-						insertItem.setString(13, item.getEffectType());
-						insertItem.setInt(14, item.getEffectLow());
-						insertItem.setInt(15, item.getEffectHigh());
-						insertItem.setInt(16, player.getGameID());
+						insertItem.setString(9, item.getMissDescription());
+						insertItem.setBoolean(10, item.isEquipped());
+						insertItem.setString(11, item.getCategory());
+						insertItem.setString(12, item.getArmorType());
+						insertItem.setInt(13, item.getDefenseNumber());
+						insertItem.setString(14, item.getEffectType());
+						insertItem.setInt(15, item.getEffectLow());
+						insertItem.setInt(16, item.getEffectHigh());
+						insertItem.setInt(17, player.getGameID());
 						
 						insertItem.addBatch();
 					
