@@ -109,6 +109,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					else{
 						move = 0;
 					}
+					}
 				}
 			}
 			if(move == 1) {
@@ -211,7 +212,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			return getOutput(model, setOutput, actionee);
 		}
-}
+
 		
 		
 		
