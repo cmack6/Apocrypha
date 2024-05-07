@@ -399,7 +399,7 @@ public class DerbyDatabaseTests {
 		System.out.println("\n*** Testing createNewGame ***");
 		
 		Player testPlayer = new Player();
-		testPlayer.setUserID(2);
+		testPlayer.setUserID(7);
 		
 		Player player = db.createNewGame(testPlayer.getUserID());
 		
