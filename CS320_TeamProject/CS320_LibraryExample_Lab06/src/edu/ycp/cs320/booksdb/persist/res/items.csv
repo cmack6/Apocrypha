@@ -13,3 +13,4 @@
 13|Shield of the Undevout|weapon|-1|200|Super hefty shield that helps against incoming Necrotic damage|0|You bash your shield into the enemy|0|false|offhand|Necrotic|10|Physical|5|8|1
 14|Health Potion|potion|-1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|0|false|0|0|0|health|5|10|1
 15|Freaky Sword|weapon|6|0|if you're not Spencer, Jonathan, Caron or Korbin you shouldn't have this.|You're using the freaky swor....mmmm...|You swing the Freaky Sword.|You're not freaky enough. The Freaky Sword missed.|false|mainhand|0|0|force|0|40000|1
+16|Tavern Basement keys|equipment|-4|1|Keys to the tavern basement.|You use the keys|You smack your enemy across the face with the keys!|false|offhand|0|0|0|0|1|1
