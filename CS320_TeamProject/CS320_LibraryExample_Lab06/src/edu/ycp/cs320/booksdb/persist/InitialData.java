@@ -136,6 +136,7 @@ public class InitialData {
 				item.setItemDescription(i.next());
 				item.setUseDescription(i.next());
 				item.setCombatDescription(i.next());
+				item.setMissDescription(i.next());
 				item.setEquipped(Boolean.parseBoolean(i.next()));
 				item.setCategory(i.next());
 				item.setArmorType(i.next());
@@ -319,6 +320,7 @@ public class InitialData {
 					npc.setRoomDialogue(i.next());
 					npc.setSpeakDialogue(i.next());
 					npc.setDeathDialogue(i.next());
+					npc.setMissDialogue(i.next());
 					npc.setHealth(Integer.parseInt(i.next()));
 					npc.setWeakness(i.next());
 					npc.setEffectType(i.next());
