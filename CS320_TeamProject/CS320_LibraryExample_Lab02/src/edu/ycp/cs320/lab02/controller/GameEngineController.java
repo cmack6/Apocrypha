@@ -226,7 +226,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			
 			
 			if(model.getPlayer().getHealth() <= 0) {
-				return "You have died! Restart";
+				return "You have died! Try restarting...";
 			}
 			
 			if(currentlyInCombat == true && setOutput != "run" && setOutput != "use" && setOutput != "inventory" && setOutput != "item description" && setOutput != "equip" && setOutput != "unequip" && setOutput != "stats") {
@@ -707,7 +707,10 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 							NPCName = model.NPCs.get(i).getName();
 							
 							model.getPlayer().setHealth(model.getPlayer().getHealth() - NPCTotalDamage);
-							
+							if(model.getPlayer().getHealth() <= 0) {
+								return "You have died trying to run away!";
+								
+							}
 							
 							
 						}
