@@ -920,8 +920,10 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								else {
 									use = use + "<p>" + model.NPCs.get(j).getMissDialogue() + "</p>";
 								}
-								
-								return use + "<p>" + "You currently have " + model.getPlayer().getHealth() + " health" + "</p>";
+								if(model.getPlayer().getHealth()>0) {
+									return use + "<p>" + "You currently have " + model.getPlayer().getHealth() + " health" + "</p>";
+								}
+								return use + "<p>" + "You have died!" + "</p>";
 								
 								//return use + "<p>" + "You cannot escape from combat right now! Either try again or stand your ground!" + "</p>";
 								
