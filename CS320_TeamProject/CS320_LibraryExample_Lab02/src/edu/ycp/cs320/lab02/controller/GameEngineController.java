@@ -240,6 +240,88 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					 }
 				 }
 			}
+			else if(setOutput.equals("west"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("west")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("east"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("east")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("northeast"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("northeast")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("northwest"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("northwest")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("southeast"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("southeast")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("southwest"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("southwest")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("enter"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("enter")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("exit"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("exit")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("freaky"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("freaky")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			
 			
 			
 			boolean currentlyInCombat = model.getPlayer().isInCombat();

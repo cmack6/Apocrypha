@@ -31,6 +31,7 @@
 2|enter|-1|1|cant get in here yet roflcoptor|1
 2|exit|-1|1|cant get in here yet roflcoptor|1
 2|crawl|14|1|cant get in here yet roflcoptor|1
+2|freak|16|1|freaky flashlight|1
 3|north|5|1|cant get in here yet roflcoptor|1
 3|east|-1|1|cant get in here yet roflcoptor|1
 3|west|0|1|cant get in here yet roflcoptor|1
@@ -174,3 +175,4 @@
 15|enter|-1|1|cant get in here yet roflcoptor|1
 15|exit|-1|1|cant get in here yet roflcoptor|1
 15|crawl|-1|1|cant get in here yet roflcoptor|1
+16|exit|2|15|dont be scared of the freaky box.|1
