@@ -75,6 +75,17 @@ public class GameModel {
 			error=newError;
 		}
 		
+		public void setItems(List<Item> items) {
+			this.Items = items;
+		}
+		
+		public void setNPCs(List<NPC> npcs) {
+			this.NPCs = npcs;
+		}
+
+		public void setContainers(List<Container> containers) {
+			this.Containers = containers;
+		}
 		
 		
 		

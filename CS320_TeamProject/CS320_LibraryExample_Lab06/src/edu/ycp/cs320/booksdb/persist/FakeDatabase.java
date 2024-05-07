@@ -272,4 +272,10 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Container updateContainer(Container container) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

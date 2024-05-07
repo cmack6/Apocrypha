@@ -30,4 +30,5 @@ public interface IDatabase {
 	public Player createNewGame(int userID);
 	public List<Container> findAllContainers();
 	public Player restartGame(int gameID, int userID);
+	public Container updateContainer(Container container);
 }

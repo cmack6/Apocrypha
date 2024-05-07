@@ -544,7 +544,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("roomConnections table updated");	
 					
 					
-					insertNPC = conn.prepareStatement("insert into NPCs (npcID, inventoryID, roomID, name, roomDialogue, speakDialogue, deathDialogue, health, weakness, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertNPC = conn.prepareStatement("insert into NPCs (npcID, inventoryID, roomID, name, roomDialogue, speakDialogue, deathDialogue, missDialogue, health, weakness, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (NPC npc: NPCList) {
 						insertNPC.setInt(1, npc.getNPCID());
 						insertNPC.setInt(2, npc.getInventoryID());
@@ -553,12 +553,13 @@ public class DerbyDatabase implements IDatabase {
 						insertNPC.setString(5, npc.getRoomDialogue());
 						insertNPC.setString(6, npc.getSpeakDialogue());
 						insertNPC.setString(7, npc.getDeathDialogue());
-						insertNPC.setInt(8, npc.getHealth());
-						insertNPC.setString(9, npc.getWeakness());
-						insertNPC.setString(10, npc.getEffectType());
-						insertNPC.setInt(11, npc.getEffectLow());
-						insertNPC.setInt(12, npc.getEffectHigh());
-						insertNPC.setInt(13, player.getGameID());
+						insertNPC.setString(8,  npc.getMissDialogue());
+						insertNPC.setInt(9, npc.getHealth());
+						insertNPC.setString(10, npc.getWeakness());
+						insertNPC.setString(11, npc.getEffectType());
+						insertNPC.setInt(12, npc.getEffectLow());
+						insertNPC.setInt(13, npc.getEffectHigh());
+						insertNPC.setInt(14, player.getGameID());
 						insertNPC.addBatch();
 					}
 					insertNPC.executeBatch();	
@@ -610,7 +611,7 @@ public class DerbyDatabase implements IDatabase {
 
 					System.out.println("roomContainers table updated");
 					
-					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, missDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : itemList) {
 						
 						insertItem.setInt(1, item.getItemID());
@@ -621,14 +622,15 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setString(6, item.getItemDescription());
 						insertItem.setString(7, item.getUseDescription());
 						insertItem.setString(8, item.getCombatDescription());
-						insertItem.setBoolean(9, item.isEquipped());
-						insertItem.setString(10, item.getCategory());
-						insertItem.setString(11, item.getArmorType());
-						insertItem.setInt(12, item.getDefenseNumber());
-						insertItem.setString(13, item.getEffectType());
-						insertItem.setInt(14, item.getEffectLow());
-						insertItem.setInt(15, item.getEffectHigh());
-						insertItem.setInt(16, player.getGameID());
+						insertItem.setString(9, item.getMissDescription());
+						insertItem.setBoolean(10, item.isEquipped());
+						insertItem.setString(11, item.getCategory());
+						insertItem.setString(12, item.getArmorType());
+						insertItem.setInt(13, item.getDefenseNumber());
+						insertItem.setString(14, item.getEffectType());
+						insertItem.setInt(15, item.getEffectLow());
+						insertItem.setInt(16, item.getEffectHigh());
+						insertItem.setInt(17, player.getGameID());
 						
 						insertItem.addBatch();
 					
@@ -819,6 +821,78 @@ public class DerbyDatabase implements IDatabase {
 					}
 					else {
 						System.out.println("Item updated with ID "+result.getItemID());
+					}
+					return result;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+	
+	@Override
+	public Container updateContainer(Container container) {
+		return executeTransaction(new Transaction<Container>() {
+			@Override
+			public Container execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				try {
+					stmt1 = conn.prepareStatement(
+							"update containers  " +
+							"  set isOpened = ? " +
+							"  where containerID = ? "
+					);
+					
+					
+					/*stmt7 = conn.prepareStatement(
+							"create table items (" +
+							"	itemID integer primary key" +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	name varchar(70)," +
+							"	location integer," +
+							"   value integer," +
+							"   itemDescription varchar(100)," +
+							"   roomDescription varchar(100)," +
+							"   gameID integer" +
+							")"
+						*/	
+					stmt1.setBoolean(1, container.isOpened());
+					stmt1.setInt(2, container.getContainerID());
+
+					
+					Container result = new Container();
+					
+					stmt1.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"select * from containers  " +
+							"  where containerID = ?"
+					);
+					stmt2.setInt(1, container.getContainerID());
+					
+					
+					resultSet = stmt2.executeQuery();
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						loadContainer(result,resultSet,1);
+					}
+					
+					// check if any authors were found
+					if (!found) {
+						System.out.println("No containers were found in the database for the specified containerID");
+						result = null;
+					}
+					else {
+						System.out.println("Container updated with ID "+result.getContainerID());
 					}
 					return result;
 					
@@ -1646,10 +1720,10 @@ public class DerbyDatabase implements IDatabase {
 							"	inventoryID integer," +
 							"	roomID integer," +
 							"   name varchar(50), " +
-							"	roomDialogue varchar(250)," +
-							"	speakDialogue varchar(250)," +
-							"	deathDialogue varchar(250)," +
-							"	missDialogue varchar(250)," +
+							"	roomDialogue varchar(800)," +
+							"	speakDialogue varchar(800)," +
+							"	deathDialogue varchar(800)," +
+							"	missDialogue varchar(800)," +
 							"   health integer, " +
 							"   weakness varchar(20), " +
 							"   effectType varchar(20), " +
@@ -2412,13 +2486,15 @@ insertNPC.executeBatch();
 				List<NPC> NPCList;
 				//List<RoomContainer> roomContainerList;
 				//List<ContainerItem> containerItemList;
+				List<Container> containerList;
 				try {
 				itemList           = InitialData.getItems();
 			//	roomItemList       = InitialData.getRoomItems();
 				playerList         = InitialData.getPlayers();
 				NPCList            = InitialData.getNPCs();
-				//roomContainerList  = InitialData.getRoomContainers();
+			  //roomContainerList  = InitialData.getRoomContainers();
 			//	containerItemList  = InitialData.getContainersItems();
+				containerList      = InitialData.getContainers();
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read CSV data", e);
@@ -2455,18 +2531,26 @@ insertNPC.executeBatch();
 					
 					
 					
-					insertNPC = conn.prepareStatement("update NPCs set health = ?   where gameID = ? and npcID = ?");
+					/*insertNPC = conn.prepareStatement("update NPCs set health = ?   where gameID = ? and npcID = ?");
 					for (NPC npc: NPCList) {
 						insertNPC.setInt(1,npc.getHealth());
 						insertNPC.setInt(2, player.getGameID());
 						insertNPC.setInt(3, npc.getNPCID());
 						insertNPC.addBatch();
 					}
-					insertNPC.executeBatch();	
+					insertNPC.executeBatch();	*/
 					
+					for(NPC npc: NPCList) {
+						npc.setGameID(player.getGameID());
+						NPC newNPC = db.updateNPC(npc);
+						//System.out.println(item.getName() + " updated with container id " + item.getContainerID() + " and isEquipped " + item.isEquipped());
+					}
 					System.out.println("NPCs table updated");	
 					
-					
+					for(Container container: containerList) {
+						container.setGameID(player.getGameID());
+						Container newContainer = db.updateContainer(container);
+					}
 
 
 /*
@@ -2496,9 +2580,9 @@ insertNPC.executeBatch();
 
 					System.out.println("roomContainers table updated");
 	*/				
-					insertItem = conn.prepareStatement("update items set containerID = ?, isEquipped = ?  where gameID = ?");
+					/*insertItem = conn.prepareStatement("update items set containerID = ?, isEquipped = ?  where gameID = ?");
 					for (Item item : itemList) {
-						
+						System.out.println(item.getName() + " updated with container id " + item.getContainerID() + " and isEquipped " + item.isEquipped());
 						insertItem.setInt(1, item.getContainerID());
 						insertItem.setBoolean(2, item.isEquipped());
 						insertItem.setInt(3, player.getGameID());
@@ -2509,7 +2593,12 @@ insertNPC.executeBatch();
 					}
 					
 				
-					insertItem.executeBatch();
+					insertItem.executeBatch();*/
+					for(Item item: itemList) {
+						item.setGameID(player.getGameID());
+						Item newItem = db.updateItem(item);
+						System.out.println(item.getName() + " updated with container id " + item.getContainerID() + " and isEquipped " + item.isEquipped());
+					}
 					System.out.println("Items table updated");	
 					return player;
 				} finally {					
