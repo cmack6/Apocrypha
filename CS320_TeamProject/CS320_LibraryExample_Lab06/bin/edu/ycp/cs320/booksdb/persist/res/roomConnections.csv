@@ -73,7 +73,7 @@
 6|northwest|-1|1|cant get in here yet roflcoptor|1
 6|southeast|-1|1|cant get in here yet roflcoptor|1
 6|southwest|-1|1|cant get in here yet roflcoptor|1
-6|enter|7|1|cant get in here yet roflcoptor|1
+6|enter|7|15|The door is locked|1
 6|exit|5|1|cant get in here yet roflcoptor|1
 6|crawl|-1|1|cant get in here yet roflcoptor|1
 7|north|-1|1|cant get in here yet roflcoptor|1
@@ -85,7 +85,7 @@
 7|southeast|-1|1|cant get in here yet roflcoptor|1
 7|southwest|-1|1|cant get in here yet roflcoptor|1
 7|enter|-1|1|cant get in here yet roflcoptor|1
-7|exit|6|1|cant get in here yet roflcoptor|1
+7|exit|6|15|The door is locked|1
 7|crawl|4|1|cant get in here yet roflcoptor|1
 8|north|14|1|cant get in here yet roflcoptor|1
 8|east|11|1|cant get in here yet roflcoptor|1
