@@ -3,6 +3,7 @@ package edu.ycp.cs320.lab02.controller;
 import edu.ycp.cs320.lab02.model.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import edu.ycp.cs320.booksdb.model.*;
@@ -841,7 +842,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 						healthGained = rand.nextInt(model.Items.get(i).getEffectHigh()) + model.Items.get(i).getEffectLow();
 						model.getPlayer().setHealth(model.getPlayer().getHealth() + healthGained);
 						model.Items.get(i).setContainerID(0);
-						return "You just gained " + healthGained + " health!";
+						return "You just gained " + healthGained + " health! &#128200;";
 					}
 					
 					
@@ -1112,7 +1113,10 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				DatabaseProvider.setInstance(new DerbyDatabase());
 				IDatabase db = DatabaseProvider.getInstance();
 				model.setPlayer(db.restartGame(model.getPlayer().getGameID(), model.getPlayer().getUserID()));
-
+				model.setNPCs(db.findAllNPCs());
+				List<Item> itemList = db.findAllItems();
+				model.setItems(db.findAllItems());
+				model.setContainers(db.findAllContainers());
 			
 			
 		}
