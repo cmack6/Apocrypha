@@ -12,6 +12,7 @@ private int value;
 private String itemDescription;
 private String useDescription;
 private String combatDescription;
+private String missDescription;
 private boolean isEquipped;
 private String category;
 private String armorType;
@@ -20,6 +21,7 @@ private String effectType;
 private int effectLow;
 private int effectHigh;
 private int gameID;
+
 
 
 
@@ -316,6 +318,19 @@ public String getCombatDescription() {
 
 public void setCombatDescription(String combatDescription) {
 	this.combatDescription = combatDescription;
+}
+
+
+
+
+
+
+public String getMissDescription() {
+	return  missDescription;
+}
+
+public void setMissDescription(String missDescription) {
+	this.missDescription = missDescription;
 }
 
 

@@ -1347,6 +1347,7 @@ public class DerbyDatabase implements IDatabase {
 		item.setItemDescription(resultSet.getString(index++));
 		item.setUseDescription(resultSet.getString(index++));
 		item.setCombatDescription(resultSet.getString(index++));
+		item.setMissDescription(resultSet.getString(index++));
 		item.setEquipped(resultSet.getBoolean(index++));
 		item.setCategory(resultSet.getString(index++));
 		item.setArmorType(resultSet.getString(index++));
@@ -1448,6 +1449,7 @@ public class DerbyDatabase implements IDatabase {
 		npc.setRoomDialogue(resultSet.getString(index++));
 		npc.setSpeakDialogue(resultSet.getString(index++));
 		npc.setDeathDialogue(resultSet.getString(index++));
+		npc.setMissDialogue(resultSet.getString(index++));
 		npc.setHealth(resultSet.getInt(index++));
 		npc.setWeakness(resultSet.getString(index++));
 		npc.setEffectType(resultSet.getString(index++));
@@ -1535,6 +1537,7 @@ public class DerbyDatabase implements IDatabase {
 							"   itemDescription varchar(800)," +
 							"   useDescription varchar(800)," +
 							"   combatDescription varchar(800)," +
+							"   missDescription varchar(800)," +
 							"   isEquipped boolean," +
 							"   category varchar(25)," +
 							"   armorType varchar(25)," +
@@ -1646,6 +1649,7 @@ public class DerbyDatabase implements IDatabase {
 							"	roomDialogue varchar(250)," +
 							"	speakDialogue varchar(250)," +
 							"	deathDialogue varchar(250)," +
+							"	missDialogue varchar(250)," +
 							"   health integer, " +
 							"   weakness varchar(20), " +
 							"   effectType varchar(20), " +
@@ -1817,7 +1821,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Rooms table populated");
 					
 					
-					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertItem = conn.prepareStatement("insert into items (itemID, name, type, containerID, value, itemDescription, useDescription, combatDescription, missDescription, isEquipped, category, armorType, defenseNumber, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : itemList) {
 						
 						insertItem.setInt(1, item.getItemID());
@@ -1828,14 +1832,15 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setString(6, item.getItemDescription());
 						insertItem.setString(7, item.getUseDescription());
 						insertItem.setString(8, item.getCombatDescription());
-						insertItem.setBoolean(9, item.isEquipped());
-						insertItem.setString(10, item.getCategory());
-						insertItem.setString(11, item.getArmorType());
-						insertItem.setInt(12, item.getDefenseNumber());
-						insertItem.setString(13, item.getEffectType());
-						insertItem.setInt(14, item.getEffectLow());
-						insertItem.setInt(15, item.getEffectHigh());
-						insertItem.setInt(16, item.getGameID());
+						insertItem.setString(9, item.getMissDescription());
+						insertItem.setBoolean(10, item.isEquipped());
+						insertItem.setString(11, item.getCategory());
+						insertItem.setString(12, item.getArmorType());
+						insertItem.setInt(13, item.getDefenseNumber());
+						insertItem.setString(14, item.getEffectType());
+						insertItem.setInt(15, item.getEffectLow());
+						insertItem.setInt(16, item.getEffectHigh());
+						insertItem.setInt(17, item.getGameID());
 						
 						insertItem.addBatch();
 					
@@ -1982,7 +1987,7 @@ System.out.println("roomContainers table populated");
 					System.out.println("Players table populated");	
 					
 					
-					insertNPC = conn.prepareStatement("insert into NPCs (npcID, inventoryID, roomID, name, roomDialogue, speakDialogue, deathDialogue, health, weakness, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertNPC = conn.prepareStatement("insert into NPCs (npcID, inventoryID, roomID, name, roomDialogue, speakDialogue, deathDialogue, missDialogue, health, weakness, effectType, effectLow, effectHigh, gameID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (NPC npc: NPCList) {
 						
 						
@@ -1993,12 +1998,13 @@ System.out.println("roomContainers table populated");
 						insertNPC.setString(5, npc.getRoomDialogue());
 						insertNPC.setString(6, npc.getSpeakDialogue());
 						insertNPC.setString(7, npc.getDeathDialogue());
-						insertNPC.setInt(8, npc.getHealth());
-						insertNPC.setString(9, npc.getWeakness());
-						insertNPC.setString(10, npc.getEffectType());
-						insertNPC.setInt(11, npc.getEffectLow());
-						insertNPC.setInt(12, npc.getEffectHigh());
-						insertNPC.setInt(13, npc.getGameID());
+						insertNPC.setString(8, npc.getMissDialogue());
+						insertNPC.setInt(9, npc.getHealth());
+						insertNPC.setString(10, npc.getWeakness());
+						insertNPC.setString(11, npc.getEffectType());
+						insertNPC.setInt(12, npc.getEffectLow());
+						insertNPC.setInt(13, npc.getEffectHigh());
+						insertNPC.setInt(14, npc.getGameID());
 					
 						
 						insertNPC.addBatch();

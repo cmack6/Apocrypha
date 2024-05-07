@@ -10,6 +10,7 @@ public String name;
 public String roomDialogue;
 public String speakDialogue;
 public String deathDialogue;
+public String missDialogue;
 public int health;
 public String weakness;
 public String effectType;
@@ -179,6 +180,14 @@ public int gameID;
 
 	public int getGameID() {
 		return gameID;
+	}
+	
+	public String getMissDialogue() {
+		return  missDialogue;
+	}
+
+	public void setMissDialogue(String missDialogue) {
+		this.missDialogue = missDialogue;
 	}
 	
 	

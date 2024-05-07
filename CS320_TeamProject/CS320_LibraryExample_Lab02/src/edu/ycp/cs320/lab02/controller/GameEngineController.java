@@ -805,6 +805,28 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			int damageDone = 0;
 			int NPCDamageDone = 0;
 			String NPCName = "";
+			int missNPCChance = 0;
+			int missPlayerChance = 0;
+			boolean NPCMissed = false;
+			boolean PlayerMissed = false;
+			
+			
+			Random randd = new Random();
+			missNPCChance = randd.nextInt(4)+1;
+			Random randdd = new Random();
+			missPlayerChance = randdd.nextInt(6)+1;
+			
+			if(missNPCChance == 1) {
+				NPCMissed = true;
+				
+			}
+			
+			if(missPlayerChance == 1) {
+				PlayerMissed = true;
+				
+			}
+			
+			
 			
 			
 			
@@ -852,15 +874,18 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								}
 								
 								NPCName = model.NPCs.get(j).getName();
-								
+								if(PlayerMissed == false) {
 								model.NPCs.get(j).setHealth(model.NPCs.get(j).getHealth() - damageDone);
 								use = use + "<p>" + model.Items.get(i).getCombatDescription() + "</p>";
 								use = use + "<p>" + "You did " + damageDone + " damage to " + model.NPCs.get(j).getName() + "!" + "</p>";
+								}
+								else {
+									use = use + "<p>" + model.Items.get(i).getMissDescription() + "</p>";
+								}
 								if(model.NPCs.get(j).getHealth() > 0) {
 									use = use + "<p>" + NPCName + " currently has " + model.NPCs.get(j).getHealth() + " health" + "</p>";
 								}
-								//use = use + "<p>" + NPCName + " currently has " + model.NPCs.get(j).getHealth() + " health" + "</p>";
-								//System.out.println(model.NPCs.get(j).getHealth());
+								
 								
 								if(model.NPCs.get(j).getHealth() <=0) {
 									model.getPlayer().setInCombat(false);
@@ -868,6 +893,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 									return use = use + "<p>" + model.NPCs.get(j).getName() + " has died!";
 								}
 								
+								
+								if(NPCMissed == false) {
 								Random rand1 = new Random();
 								NPCDamageDone = rand1.nextInt(model.NPCs.get(j).getEffectHigh()) + model.NPCs.get(j).getEffectLow();
 								
@@ -879,6 +906,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 										}
 									}
 								}
+							
 								
 								model.getPlayer().setHealth(model.getPlayer().getHealth() - NPCDamageDone);
 								
@@ -886,7 +914,16 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								
 								
 								use = use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " damage to you!" + "</p>";
-								return use + "<p>" + "You currently have " + model.getPlayer().getHealth() + " health" + "</p>";
+								
+								}
+								
+								else {
+									use = use + "<p>" + model.NPCs.get(j).getMissDialogue() + "</p>";
+								}
+								if(model.getPlayer().getHealth()>0) {
+									return use + "<p>" + "You currently have " + model.getPlayer().getHealth() + " health" + "</p>";
+								}
+								return use + "<p>" + "You have died!" + "</p>";
 								
 								//return use + "<p>" + "You cannot escape from combat right now! Either try again or stand your ground!" + "</p>";
 								

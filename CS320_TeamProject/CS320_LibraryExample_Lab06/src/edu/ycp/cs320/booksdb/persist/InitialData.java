@@ -115,8 +115,7 @@ public class InitialData {
 		List<Item> itemList = new ArrayList<Item>();
 		ReadCSV readItems = new ReadCSV("items.csv");
 		try {
-			// auto-generated primary key for table items
-			
+	
 			while (true) {
 				List<String> tuple = readItems.next();
 				if (tuple == null) {
@@ -136,6 +135,7 @@ public class InitialData {
 				item.setItemDescription(i.next());
 				item.setUseDescription(i.next());
 				item.setCombatDescription(i.next());
+				item.setMissDescription(i.next());
 				item.setEquipped(Boolean.parseBoolean(i.next()));
 				item.setCategory(i.next());
 				item.setArmorType(i.next());
@@ -319,6 +319,7 @@ public class InitialData {
 					npc.setRoomDialogue(i.next());
 					npc.setSpeakDialogue(i.next());
 					npc.setDeathDialogue(i.next());
+					npc.setMissDialogue(i.next());
 					npc.setHealth(Integer.parseInt(i.next()));
 					npc.setWeakness(i.next());
 					npc.setEffectType(i.next());
