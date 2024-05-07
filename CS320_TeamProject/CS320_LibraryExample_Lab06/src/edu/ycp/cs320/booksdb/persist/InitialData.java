@@ -115,8 +115,7 @@ public class InitialData {
 		List<Item> itemList = new ArrayList<Item>();
 		ReadCSV readItems = new ReadCSV("items.csv");
 		try {
-			// auto-generated primary key for table items
-			
+	
 			while (true) {
 				List<String> tuple = readItems.next();
 				if (tuple == null) {
