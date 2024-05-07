@@ -841,11 +841,15 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								model.NPCs.get(j).setHealth(model.NPCs.get(j).getHealth() - damageDone);
 								use = use + "<p>" + model.Items.get(i).getCombatDescription() + "</p>";
 								use = use + "<p>" + "You did " + damageDone + " damage to " + model.NPCs.get(j).getName() + "!" + "</p>";
-								use = use + "<p>" + NPCName + " currently has " + model.NPCs.get(j).getHealth() + " health" + "</p>";
-								System.out.println(model.NPCs.get(j).getHealth());
+								if(model.NPCs.get(j).getHealth() > 0) {
+									use = use + "<p>" + NPCName + " currently has " + model.NPCs.get(j).getHealth() + " health" + "</p>";
+								}
+								//use = use + "<p>" + NPCName + " currently has " + model.NPCs.get(j).getHealth() + " health" + "</p>";
+								//System.out.println(model.NPCs.get(j).getHealth());
 								
 								if(model.NPCs.get(j).getHealth() <=0) {
 									model.getPlayer().setInCombat(false);
+									use = use + "<p>" + model.NPCs.get(j).getDeathDialogue() + "</p>";
 									return use = use + "<p>" + model.NPCs.get(j).getName() + " has died!";
 								}
 								
