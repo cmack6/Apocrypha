@@ -126,7 +126,7 @@ public class InitialData {
 				
 				
 				
-				
+				//balls
 				item.setItemID(Integer.parseInt(i.next()));
 				item.setName(i.next());
 				item.setType(i.next());

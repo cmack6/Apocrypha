@@ -1648,10 +1648,10 @@ public class DerbyDatabase implements IDatabase {
 							"	inventoryID integer," +
 							"	roomID integer," +
 							"   name varchar(50), " +
-							"	roomDialogue varchar(250)," +
-							"	speakDialogue varchar(250)," +
-							"	deathDialogue varchar(250)," +
-							"	missDialogue varchar(250)," +
+							"	roomDialogue varchar(800)," +
+							"	speakDialogue varchar(800)," +
+							"	deathDialogue varchar(800)," +
+							"	missDialogue varchar(800)," +
 							"   health integer, " +
 							"   weakness varchar(20), " +
 							"   effectType varchar(20), " +

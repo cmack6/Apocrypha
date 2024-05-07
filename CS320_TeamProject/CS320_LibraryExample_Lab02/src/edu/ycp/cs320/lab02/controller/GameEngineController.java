@@ -1022,7 +1022,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			String currentDamageTypeOffHand = "None";		
 			String currentDamageMainHand = "0";
 			String currentDamageTypeMainHand = "None";	
-			int nuts = 0;
+			int nuts = 2;
 			int radiantResistance = 0;
 			int physicalResistance = 0;
 			int forceResistance = 0;
