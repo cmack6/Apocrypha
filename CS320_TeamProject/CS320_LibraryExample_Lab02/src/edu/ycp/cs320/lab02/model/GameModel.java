@@ -42,6 +42,10 @@ public class GameModel {
 			return player;
 		}
 		
+		public void setPlayer(Player player) {
+			this.player = player;
+		}
+		
 		public Room getRoom(int roomIndex) {
 			return Rooms.get(roomIndex);
 		}

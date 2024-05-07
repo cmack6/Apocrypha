@@ -254,15 +254,16 @@ public class GameServlet extends HttpServlet {
 		
 		
 		String output = controller.processInput(model,input); 
-		if(input.equals("restart")) {
-			resp.sendRedirect("http://localhost:8081/lab02/game");
-		}
 		
 		System.out.println("after move:" + model.getPlayer().getRoomID());
 		String newLog;
 		if(model.getError().equals("working")) {
-			newLog = model.getLog() + "<p>" + input + "</p><p>" + output + "</p>";
-
+			if(input.equals("restart")) {
+				newLog = model.getPlayer().getLog();
+			}
+			else {
+				newLog = model.getLog() + "<p>" + input + "</p><p>" + output + "</p>";
+			}
 		}
 		else {
 			newLog = model.getLog() + "<p>" + input + "</p><p>" + model.getError() + "</p>";

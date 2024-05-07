@@ -1073,7 +1073,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				System.out.print("game restarting");
 				DatabaseProvider.setInstance(new DerbyDatabase());
 				IDatabase db = DatabaseProvider.getInstance();
-				db.restartGame(model.getPlayer().getGameID(), model.getPlayer().getUserID());
+				model.setPlayer(db.restartGame(model.getPlayer().getGameID(), model.getPlayer().getUserID()));
+
 			
 			
 		}

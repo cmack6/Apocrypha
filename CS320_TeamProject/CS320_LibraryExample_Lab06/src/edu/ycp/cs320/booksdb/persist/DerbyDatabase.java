@@ -2435,16 +2435,15 @@ insertNPC.executeBatch();
 					player.setUserID(userID);		/*"update items  " +
 												   	  "  set containerID = ?, isEquipped = ? " +
 													  "  where itemID = ? "*/
-					insertPlayer = conn.prepareStatement("update players set score = ?, health = ?, roomID = ?, isInCombat = ?, log = ?   where gameID = ? and userID = ?");
-					System.out.println(player.getScore() + "" + player.getHealth() + "" + player.getRoomID() + "" + (playerList.size()+1) + "" + player.getUserID() + "" + player.isInCombat() + "" + player.getLog());
+					insertPlayer = conn.prepareStatement("update players set score = ?, health = ?, roomID = ?, isInCombat = ?, log = ?   where player_id = ?");
+					System.out.println(player.getScore() + "" + player.getHealth() + "" + player.getRoomID() + "" + playerList.size() + "" + player.getUserID() + "" + player.isInCombat() + "" + player.getLog());
 					insertPlayer.setInt(1, player.getScore());
 					insertPlayer.setInt(2, player.getHealth());
 					insertPlayer.setInt(3, player.getRoomID());
 					insertPlayer.setBoolean(4, player.isInCombat());
 					Clob myClob = new javax.sql.rowset.serial.SerialClob(player.getLog().toCharArray());
 					insertPlayer.setClob(5, myClob);
-					insertPlayer.setInt(6, player.getGameID());
-					insertPlayer.setInt(7, player.getUserID());
+					insertPlayer.setInt(6, player.getPlayerID());
 					insertPlayer.executeUpdate();
 					System.out.println("player updated");	
 					
