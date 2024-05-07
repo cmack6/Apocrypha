@@ -107,7 +107,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					}
 					else
 					{
-						setOutput = "itemMissing";
+						setOutput = input;
 					}
 				}
 			}
@@ -217,6 +217,26 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 		private String getOutput(GameModel model, String setOutput, String actionee) {
 			String output = "";
 			
+			if(setOutput.equals("north"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("north")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("south"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("south")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			
+			
 			boolean currentlyInCombat = model.getPlayer().isInCombat();
 			
 			 if(setOutput.equals("restart")) {
@@ -263,16 +283,6 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					output += " " + "You cannot move that way! Try moving a different direction...";
 				}
 			}
-			
-			 else if(setOutput.equals("itemMissing")) {
-				 for(RoomConnection roomConnection : model.RoomConnections)
-				 {
-					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getItemID() > 1) {
-						 output = roomConnection.getItemMissingMsg();
-					 }
-				 }
-			 }
-			
 			
 			else if(setOutput.equals("invalidMove")) {
 				output = "There is no place to go in that direction.";
