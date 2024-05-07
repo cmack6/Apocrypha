@@ -96,22 +96,22 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				}
 			}
 			*/
-			Boolean move = false;
+			int move = -1;
 			for(RoomConnection roomConnection: model.RoomConnections) {
 				//System.out.println(model.getPlayer().getGameID()+ "" + roomConnection.getGameID() + "" + model.getPlayer().getRoomID() + "" + roomConnection.getStartingRoomID() + "" + input + "" + roomConnection.getCommand()); 
 
 				if(model.getPlayer().getGameID()==roomConnection.getGameID()&&model.getPlayer().getRoomID()==roomConnection.getStartingRoomID()&&input.equals(roomConnection.getCommand())) {
-					for(Item item : model.Items)
+					for(Item item : model.Items) {
 					if(roomConnection.getItemID() == item.getItemID()&&item.getContainerID() == -1) {
-						move = true;
+						move = 1;
+						break;
 					}
-					else
-					{
-						setOutput = input;
+					else{
+						move = 0;
 					}
 				}
 			}
-			if(move) {
+			if(move == 1) {
 				Boolean isMoved = move(model,input);
 				if(isMoved) {
 				setOutput = "move";
@@ -192,6 +192,10 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 				save(model);
 				setOutput = "save";
 			}
+			else if(move == 0)
+			{
+				setOutput = input;
+			}
 			/*
 			else if(countForItemDescription>0) {
 				
@@ -206,8 +210,8 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			}
 			
 			return getOutput(model, setOutput, actionee);
-			
 		}
+}
 		
 		
 		
