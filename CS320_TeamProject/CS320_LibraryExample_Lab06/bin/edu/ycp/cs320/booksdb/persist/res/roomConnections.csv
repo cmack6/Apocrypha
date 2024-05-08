@@ -1,178 +1,232 @@
-0|north|1|1|cant get in here yet roflcoptor|1
-0|east|-1|1|cant get in here yet roflcoptor|1
-0|west|3|1|cant get in here yet roflcoptor|1
-0|south|-1|1|cant get in here yet roflcoptor|1
-0|northeast|5|1|cant get in here yet roflcoptor|1
-0|northwest|2|1|cant get in here yet roflcoptor|1
-0|southeast|-1|1|cant get in here yet roflcoptor|1
-0|southwest|-1|1|cant get in here yet roflcoptor|1
-0|enter|-1|1|cant get in here yet roflcoptor|1
-0|exit|-1|1|cant get in here yet roflcoptor|1
-0|crawl|-1|1|cant get in here yet roflcoptor|1
-1|north|11|1|cant get in here yet roflcoptor|1
-1|east|5|1|cant get in here yet roflcoptor|1
-1|west|2|1|cant get in here yet roflcoptor|1
+0|north|1|1|unused|1
+0|east|3|1|unused|1
+0|west|-1|1|unused|1
+0|south|17|18|Your shoes will burn right off if you step this way right now. You'll need a pair that are more heat resistant.|1
+0|northeast|5|1|unused|1
+0|northwest|2|1|unused|1
+0|southeast|-1|1|unused|1
+0|southwest|-1|1|unused|1
+0|enter|-1|1|unused|1
+0|exit|-1|1|unused|1
+0|crawl|-1|1|unused|1
+1|north|11|1|unused|1
+1|east|5|1|unused|1
+1|west|2|1|unused|1
 1|south|0|5|Make sure you grab everything from the Backpack before leaving. It might get cold.|1
-1|northeast|-1|1|cant get in here yet roflcoptor|1
-1|northwest|8|1|cant get in here yet roflcoptor|1
-1|southeast|3|1|cant get in here yet roflcoptor|1
-1|southwest|-1|1|cant get in here yet roflcoptor|1
-1|enter|-1|1|cant get in here yet roflcoptor|1
-1|exit|-1|1|cant get in here yet roflcoptor|1
-1|crawl|-1|1|cant get in here yet roflcoptor|1
-2|north|8|1|cant get in here yet roflcoptor|1
-2|east|1|1|cant get in here yet roflcoptor|1
-2|west|3|1|cant get in here yet roflcoptor|1
-2|south|5|1|cant get in here yet roflcoptor|1
-2|northeast|-1|1|cant get in here yet roflcoptor|1
-2|northwest|9|1|cant get in here yet roflcoptor|1
-2|southeast|-1|1|cant get in here yet roflcoptor|1
-2|southwest|-1|1|cant get in here yet roflcoptor|1
-2|enter|-1|1|cant get in here yet roflcoptor|1
-2|exit|-1|1|cant get in here yet roflcoptor|1
-2|crawl|14|1|cant get in here yet roflcoptor|1
+1|northeast|-1|1|unused|1
+1|northwest|8|1|unused|1
+1|southeast|3|1|unused|1
+1|southwest|-1|1|unused|1
+1|enter|-1|1|unused|1
+1|exit|-1|1|unused|1
+1|crawl|-1|1|unused|1
+2|north|8|1|unused|1
+2|east|1|1|unused|1
+2|west|3|1|unused|1
+2|south|-1|1|unused|1
+2|northeast|-1|1|unused|1
+2|northwest|9|1|unused|1
+2|southeast|-1|1|unused|1
+2|southwest|-1|1|unused|1
+2|enter|-1|1|unused|1
+2|exit|-1|1|unused|1
+2|crawl|14|1|unused|1
 2|freak|16|1|freaky flashlight|1
-3|north|5|1|cant get in here yet roflcoptor|1
-3|east|-1|1|cant get in here yet roflcoptor|1
-3|west|0|1|cant get in here yet roflcoptor|1
-3|south|-1|1|cant get in here yet roflcoptor|1
-3|northeast|1|1|cant get in here yet roflcoptor|1
-3|northwest|-1|1|cant get in here yet roflcoptor|1
-3|southeast|-1|1|cant get in here yet roflcoptor|1
-3|southwest|-1|1|cant get in here yet roflcoptor|1
-3|enter|4|1|cant get in here yet roflcoptor|1
-3|exit|-1|1|cant get in here yet roflcoptor|1
-3|crawl|-1|1|cant get in here yet roflcoptor|1
-4|north|-1|1|cant get in here yet roflcoptor|1
-4|east|-1|1|cant get in here yet roflcoptor|1
-4|west|-1|1|cant get in here yet roflcoptor|1
-4|south|-1|1|cant get in here yet roflcoptor|1
-4|northeast|-1|1|cant get in here yet roflcoptor|1
-4|northwest|-1|1|cant get in here yet roflcoptor|1
-4|southeast|-1|1|cant get in here yet roflcoptor|1
-4|southwest|-1|1|cant get in here yet roflcoptor|1
-4|enter|-1|1|cant get in here yet roflcoptor|1
-4|exit|7|1|cant get in here yet roflcoptor|1
-4|crawl|3|1|cant get in here yet roflcoptor|1
-5|north|-1|1|cant get in here yet roflcoptor|1
-5|east|-1|1|cant get in here yet roflcoptor|1
-5|west|1|1|cant get in here yet roflcoptor|1
-5|south|3|1|cant get in here yet roflcoptor|1
-5|northeast|-1|1|cant get in here yet roflcoptor|1
-5|northwest|11|1|cant get in here yet roflcoptor|1
-5|southeast|-1|1|cant get in here yet roflcoptor|1
-5|southwest|-1|1|cant get in here yet roflcoptor|1
-5|enter|6|1|cant get in here yet roflcoptor|1
-5|exit|-1|1|cant get in here yet roflcoptor|1
-5|crawl|-1|1|cant get in here yet roflcoptor|1
-6|north|-1|1|cant get in here yet roflcoptor|1
-6|east|-1|1|cant get in here yet roflcoptor|1
-6|west|-1|1|cant get in here yet roflcoptor|1
-6|south|-1|1|cant get in here yet roflcoptor|1
-6|northeast|-1|1|cant get in here yet roflcoptor|1
-6|northwest|-1|1|cant get in here yet roflcoptor|1
-6|southeast|-1|1|cant get in here yet roflcoptor|1
-6|southwest|-1|1|cant get in here yet roflcoptor|1
-6|enter|7|15|The door is locked|1
-6|exit|5|1|cant get in here yet roflcoptor|1
-6|crawl|-1|1|cant get in here yet roflcoptor|1
-7|north|-1|1|cant get in here yet roflcoptor|1
-7|east|-1|1|cant get in here yet roflcoptor|1
-7|west|-1|1|cant get in here yet roflcoptor|1
-7|south|-1|1|cant get in here yet roflcoptor|1
-7|northeast|-1|1|cant get in here yet roflcoptor|1
-7|northwest|-1|1|cant get in here yet roflcoptor|1
-7|southeast|-1|1|cant get in here yet roflcoptor|1
-7|southwest|-1|1|cant get in here yet roflcoptor|1
-7|enter|-1|1|cant get in here yet roflcoptor|1
-7|exit|6|15|The door is locked|1
-7|crawl|4|1|cant get in here yet roflcoptor|1
-8|north|14|1|cant get in here yet roflcoptor|1
-8|east|11|1|cant get in here yet roflcoptor|1
-8|west|9|1|cant get in here yet roflcoptor|1
-8|south|2|1|cant get in here yet roflcoptor|1
-8|northeast|-1|1|cant get in here yet roflcoptor|1
-8|northwest|-1|1|cant get in here yet roflcoptor|1
-8|southeast|1|1|cant get in here yet roflcoptor|1
-8|southwest|-1|1|cant get in here yet roflcoptor|1
-8|enter|-1|1|cant get in here yet roflcoptor|1
-8|exit|-1|1|cant get in here yet roflcoptor|1
-8|crawl|-1|1|cant get in here yet roflcoptor|1
-9|north|-1|1|cant get in here yet roflcoptor|1
-9|east|8|1|cant get in here yet roflcoptor|1
-9|west|-1|1|cant get in here yet roflcoptor|1
-9|south|-1|1|cant get in here yet roflcoptor|1
-9|northeast|-1|1|cant get in here yet roflcoptor|1
-9|northwest|-1|1|cant get in here yet roflcoptor|1
-9|southeast|2|1|cant get in here yet roflcoptor|1
-9|southwest|-1|1|cant get in here yet roflcoptor|1
-9|enter|10|1|cant get in here yet roflcoptor|1
-9|exit|-1|1|cant get in here yet roflcoptor|1
-9|crawl|-1|1|cant get in here yet roflcoptor|1
-10|north|-1|1|cant get in here yet roflcoptor|1
-10|east|-1|1|cant get in here yet roflcoptor|1
-10|west|-1|1|cant get in here yet roflcoptor|1
-10|south|-1|1|cant get in here yet roflcoptor|1
-10|northeast|-1|1|cant get in here yet roflcoptor|1
-10|northwest|-1|1|cant get in here yet roflcoptor|1
-10|southeast|-1|1|cant get in here yet roflcoptor|1
-10|southwest|-1|1|cant get in here yet roflcoptor|1
-10|enter|-1|1|cant get in here yet roflcoptor|1
-10|exit|9|1|cant get in here yet roflcoptor|1
-10|crawl|-1|1|cant get in here yet roflcoptor|1
-11|north|12|1|cant get in here yet roflcoptor|1
-11|east|-1|1|cant get in here yet roflcoptor|1
-11|west|8|1|cant get in here yet roflcoptor|1
-11|south|1|1|cant get in here yet roflcoptor|1
-11|northeast|-1|1|cant get in here yet roflcoptor|1
-11|northwest|-1|1|cant get in here yet roflcoptor|1
-11|southeast|5|1|cant get in here yet roflcoptor|1
-11|southwest|-1|1|cant get in here yet roflcoptor|1
-11|enter|-1|1|cant get in here yet roflcoptor|1
-11|exit|-1|1|cant get in here yet roflcoptor|1
-11|crawl|-1|1|cant get in here yet roflcoptor|1
-12|north|15|1|cant get in here yet roflcoptor|1
-12|east|-1|1|cant get in here yet roflcoptor|1
-12|west|14|1|cant get in here yet roflcoptor|1
-12|south|11|1|cant get in here yet roflcoptor|1
-12|northeast|-1|1|cant get in here yet roflcoptor|1
-12|northwest|-1|1|cant get in here yet roflcoptor|1
-12|southeast|-1|1|cant get in here yet roflcoptor|1
-12|southwest|-1|1|cant get in here yet roflcoptor|1
-12|enter|13|1|cant get in here yet roflcoptor|1
-12|exit|-1|1|cant get in here yet roflcoptor|1
-12|crawl|-1|1|cant get in here yet roflcoptor|1
-13|north|-1|1|cant get in here yet roflcoptor|1
-13|east|-1|1|cant get in here yet roflcoptor|1
-13|west|-1|1|cant get in here yet roflcoptor|1
-13|south|-1|1|cant get in here yet roflcoptor|1
-13|northeast|-1|1|cant get in here yet roflcoptor|1
-13|northwest|-1|1|cant get in here yet roflcoptor|1
-13|southeast|-1|1|cant get in here yet roflcoptor|1
-13|southwest|-1|1|cant get in here yet roflcoptor|1
-13|enter|-1|1|cant get in here yet roflcoptor|1
-13|exit|12|1|cant get in here yet roflcoptor|1
-13|crawl|-1|1|cant get in here yet roflcoptor|1
-14|north|-1|1|cant get in here yet roflcoptor|1
-14|east|12|1|cant get in here yet roflcoptor|1
-14|west|-1|1|cant get in here yet roflcoptor|1
-14|south|8|1|cant get in here yet roflcoptor|1
-14|northeast|15|1|cant get in here yet roflcoptor|1
-14|northwest|-1|1|cant get in here yet roflcoptor|1
-14|southeast|-1|1|cant get in here yet roflcoptor|1
-14|southwest|-1|1|cant get in here yet roflcoptor|1
-14|enter|-1|1|cant get in here yet roflcoptor|1
-14|exit|-1|1|cant get in here yet roflcoptor|1
-14|crawl|2|1|cant get in here yet roflcoptor|1
-15|north|-1|1|cant get in here yet roflcoptor|1
-15|east|-1|1|cant get in here yet roflcoptor|1
-15|west|-1|1|cant get in here yet roflcoptor|1
-15|south|12|1|cant get in here yet roflcoptor|1
-15|northeast|-1|1|cant get in here yet roflcoptor|1
-15|northwest|-1|1|cant get in here yet roflcoptor|1
-15|southeast|14|1|cant get in here yet roflcoptor|1
-15|southwest|-1|1|cant get in here yet roflcoptor|1
-15|enter|-1|1|cant get in here yet roflcoptor|1
-15|exit|-1|1|cant get in here yet roflcoptor|1
-15|crawl|-1|1|cant get in here yet roflcoptor|1
+3|north|5|1|unused|1
+3|east|-1|1|unused|1
+3|west|0|1|unused|1
+3|south|-1|1|unused|1
+3|northeast|1|1|unused|1
+3|northwest|-1|1|unused|1
+3|southeast|-1|1|unused|1
+3|southwest|-1|1|unused|1
+3|enter|4|1|unused|1
+3|exit|-1|1|unused|1
+3|crawl|-1|1|unused|1
+4|north|-1|1|unused|1
+4|east|-1|1|unused|1
+4|west|-1|1|unused|1
+4|south|-1|1|unused|1
+4|northeast|-1|1|unused|1
+4|northwest|-1|1|unused|1
+4|southeast|-1|1|unused|1
+4|southwest|-1|1|unused|1
+4|enter|-1|1|unused|1
+4|exit|3|1|unused|1
+4|crawl|7|1|unused|1
+5|north|-1|1|unused|1
+5|east|-1|1|unused|1
+5|west|1|1|unused|1
+5|south|3|1|unused|1
+5|northeast|-1|1|unused|1
+5|northwest|11|1|unused|1
+5|southeast|-1|1|unused|1
+5|southwest|-1|1|unused|1
+5|enter|6|1|unused|1
+5|exit|-1|1|unused|1
+5|crawl|-1|1|unused|1
+6|north|-1|1|unused|1
+6|east|-1|1|unused|1
+6|west|-1|1|unused|1
+6|south|-1|1|unused|1
+6|northeast|-1|1|unused|1
+6|northwest|-1|1|unused|1
+6|southeast|-1|1|unused|1
+6|southwest|-1|1|unused|1
+6|enter|7|16|The basement door is locked.|1
+6|exit|5|1|unused|1
+6|crawl|-1|1|unused|1
+7|north|-1|1|unused|1
+7|east|-1|1|unused|1
+7|west|-1|1|unused|1
+7|south|-1|1|unused|1
+7|northeast|-1|1|unused|1
+7|northwest|-1|1|unused|1
+7|southeast|-1|1|unused|1
+7|southwest|-1|1|unused|1
+7|enter|-1|1|unused|1
+7|exit|6|16|The basement door is locked.|1
+7|crawl|4|1|unused|1
+8|north|14|1|unused|1
+8|east|11|1|unused|1
+8|west|9|1|unused|1
+8|south|2|1|unused|1
+8|northeast|-1|1|unused|1
+8|northwest|-1|1|unused|1
+8|southeast|1|1|unused|1
+8|southwest|-1|1|unused|1
+8|enter|-1|1|unused|1
+8|exit|-1|1|unused|1
+8|crawl|-1|1|unused|1
+9|north|-1|1|unused|1
+9|east|8|1|unused|1
+9|west|-1|1|unused|1
+9|south|-1|1|unused|1
+9|northeast|-1|1|unused|1
+9|northwest|-1|1|unused|1
+9|southeast|2|1|unused|1
+9|southwest|-1|1|unused|1
+9|enter|10|1|unused|1
+9|exit|-1|1|unused|1
+9|crawl|-1|1|unused|1
+10|north|-1|1|unused|1
+10|east|-1|1|unused|1
+10|west|-1|1|unused|1
+10|south|-1|1|unused|1
+10|northeast|-1|1|unused|1
+10|northwest|-1|1|unused|1
+10|southeast|-1|1|unused|1
+10|southwest|-1|1|unused|1
+10|enter|-1|1|unused|1
+10|exit|9|1|unused|1
+10|crawl|-1|1|unused|1
+11|north|12|1|unused|1
+11|east|-1|1|unused|1
+11|west|8|1|unused|1
+11|south|1|1|unused|1
+11|northeast|-1|1|unused|1
+11|northwest|-1|1|unused|1
+11|southeast|5|1|unused|1
+11|southwest|-1|1|unused|1
+11|enter|-1|1|unused|1
+11|exit|-1|1|unused|1
+11|crawl|-1|1|unused|1
+12|north|15|1|unused|1
+12|east|-1|1|unused|1
+12|west|14|1|unused|1
+12|south|11|1|unused|1
+12|northeast|-1|1|unused|1
+12|northwest|-1|1|unused|1
+12|southeast|-1|1|unused|1
+12|southwest|-1|1|unused|1
+12|enter|13|1|unused|1
+12|exit|-1|1|unused|1
+12|crawl|-1|1|unused|1
+13|north|-1|1|unused|1
+13|east|-1|1|unused|1
+13|west|-1|1|unused|1
+13|south|-1|1|unused|1
+13|northeast|-1|1|unused|1
+13|northwest|-1|1|unused|1
+13|southeast|-1|1|unused|1
+13|southwest|-1|1|unused|1
+13|enter|-1|1|unused|1
+13|exit|12|1|unused|1
+13|crawl|-1|1|unused|1
+14|north|-1|1|unused|1
+14|east|12|1|unused|1
+14|west|-1|1|unused|1
+14|south|8|1|unused|1
+14|northeast|15|1|unused|1
+14|northwest|-1|1|unused|1
+14|southeast|-1|1|unused|1
+14|southwest|-1|1|unused|1
+14|enter|-1|1|unused|1
+14|exit|-1|1|unused|1
+14|crawl|2|1|unused|1
+15|north|-1|1|unused|1
+15|east|-1|1|unused|1
+15|west|-1|1|unused|1
+15|south|12|1|unused|1
+15|northeast|-1|1|unused|1
+15|northwest|-1|1|unused|1
+15|southeast|14|1|unused|1
+15|southwest|-1|1|unused|1
+15|enter|-1|1|unused|1
+15|exit|-1|1|unused|1
+15|crawl|-1|1|unused|1
 16|exit|2|15|dont be scared of the freaky box.|1
+17|north|0|1|unused|1
+17|south|-1|1|unused|1
+17|east|-1|1|unused|1
+17|west|18|1|unused|1
+17|northeast|-1|1|unused|1
+17|northwest|-1|1|unused|1
+17|southeast|-1|1|unused|1
+17|southwest|-1|1|unused|1
+17|enter|-1|1|unused|1
+17|exit|-1|1|unused|1
+18|north|20|1|unused|1
+18|south|19|1|unused|1
+18|climb|21|19|You don't have the skills to climb this yet. Keep searching elsewhere.|1
+18|west|-1|1|unused|1
+18|east|-1|1|unused|1
+18|northeast|-1|1|unused|1
+18|northwest|-1|1|unused|1
+18|southeast|-1|1|unused|1
+18|southwest|-1|1|unused|1
+18|enter|-1|1|unused|1
+18|exit|-1|1|unused|1
+19|north|18|1|unused|1
+19|south|-1|1|unused|1
+19|west|-1|1|unused|1
+19|east|-1|1|unused|1
+19|northeast|-1|1|unused|1
+19|northwest|-1|1|unused|1
+19|southeast|-1|1|unused|1
+19|southwest|-1|1|unused|1
+19|enter|-1|1|unused|1
+19|exit|-1|1|unused|1
+20|south|18|1|unused|1
+20|north|-1|1|unused|1
+20|east|-1|1|unused|1
+20|west|-1|1|unused|1
+20|northeast|-1|1|unused|1
+20|northwest|-1|1|unused|1
+20|southeast|-1|1|unused|1
+20|southwest|-1|1|unused|1
+20|enter|-1|1|unused|1
+20|exit|12|1|unused|1
+20|crawl|-1|1|unused|
+21|north|-1|1|unused|1
+21|east|-1|1|unused|1
+21|west|-1|1|unused|1
+21|south|-1|1|unused|1
+21|northeast|-1|1|unused|1
+21|northwest|-1|1|unused|1
+21|southeast|-1|1|unused|1
+21|southwest|-1|1|unused|1
+21|enter|-1|1|unused|1
+21|exit|12|1|unused|1
+21|crawl|-1|1|unused|1
+21|climb|18|19|how do you not have rock climb WTF|1
