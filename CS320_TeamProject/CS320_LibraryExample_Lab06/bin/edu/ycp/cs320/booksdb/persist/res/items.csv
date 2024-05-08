@@ -29,3 +29,6 @@
 29|Even Greater Health Potion|potion|-6|10|Use this to regain 50-60hp. Nothing really more to it.|You just drank an Even Greater Health Potion!|You just drank an Even Greater Health Potion!|0|false|0|0|0|health|50|60|1
 30|Greatest Health Potion|potion|-7|10|Use this to regain 75hp. Nothing really more to it.|You just drank the Greatest Health Potion!|You just drank the Greatest Health Potion!|0|false|0|0|0|health|75|75|1
 31|Lakers Jersey|equipment|-6|0|LePookieBear's jersey from his time on the Lakers. Doesn't look like he'll need it anymore after D'angelo Russel's game 2 performance.|0|0|0|false|chestplate|Thunder|40|0|0|0|1
+32|Lava Waders|equipment|11|0|These are built to survive intense heat, but also keep your feet cool.|0|0|0|false|boots|Fire|30|0|0|0|1
+33|Hideout Key Card|tool|-8|0|This card should let you into the Hideout, no problem. Just keep it cool around the other thieves.|0|0|0|false|offhand|bro|0|0|0|1
+34|Thudley|weapon|10|0|This mystical friend lets you use yourself as the weapon, and lets you ground pound on your enemies.|You jump over your enemy, and slam down on top of him.|You soar over your enemy, and ground pound on his head like a Goomba.|You jumped too far, and missed the ground pound.|false|mainhand|0|0|Force|35|40|1
