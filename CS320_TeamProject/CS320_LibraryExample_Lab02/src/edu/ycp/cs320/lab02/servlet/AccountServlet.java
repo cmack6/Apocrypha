@@ -1,6 +1,7 @@
 package edu.ycp.cs320.lab02.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,18 +32,26 @@ public class AccountServlet extends HttpServlet {
 		req.getSession().setAttribute("playerString", player);
 		req.setAttribute("playerString", player);
 		List<Item> itemList = db.findAllItems();
+		int nuts=0;
 		String items = "";
-		//FIX ITEM LIST WHEN TALKING TO KORBIN
-		/*for(Item item: itemList) { 
-			if(item.getLocation()==-1&&item.getGameID()==player.getGameID()) {
+		for(Item item: itemList) { 
+			if(item.getContainerID()==-1&&item.getGameID()==player.getGameID()) {
 				if(items.equals("")) {
 				items = item.getName();
+				nuts++;
 				}
 				else {
-					items = items + ", " + item.getName();
+					if(nuts==4) {
+						nuts=0;
+						items = items + ",<br>" + item.getName();
+					}
+					else {
+						items = items + ", " + item.getName();
+					}
+					nuts++;
 				}
 			}
-		}*/
+		}
 		req.setAttribute("items", items);
 		
 		req.getRequestDispatcher("/_view/account.jsp").forward(req, resp);
