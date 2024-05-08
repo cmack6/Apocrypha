@@ -1,18 +1,31 @@
 1|Stick|weapon|-1|1|The mighty starter Stick. You'll probably want an upgrade.|Yeah that's a Stick alright.|You attack your enemy with all your might using the Stick.|YOU MISSED USING A STICK|true|mainhand|0|0|Physical|1|1|1
-2|Ketheric's Shield|weapon|2|125|Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterent against projectiles....|looks like a shield|You sprint as fast as you can using Ketheric�s Shield to bash your opponent.|you missed|false|offhand|Physical|5|Physical|4|5|1
+2|Ketheric's Shield|weapon|2|125|Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterent against projectiles....|looks like a shield|You sprint as fast as you can using Ketheric's Shield to bash your opponent.|you missed|false|offhand|Physical|5|Physical|4|5|1
 3|Flashlight|tool|-1|25|Can be used to light the way for whatever situation you find yourself in.|You light the way with your Flashlight|0|0|false|offhand|0|0|0|0|0|1
 4|Health Potion|potion|1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|0|false|0|0|0|health|5|10|1
-5|Thicc Greaves|equipment|4|15|Great Greaves!|0|0|0|false|pants|Physical|5|0|0|0|1
-6|Booties|equipment|-1|10|booties for ya booties|0|0|0|true|boots|Physical|3|0|0|0|1
-7|The Doom Slayer's Helmet|equipment|-1|50|DUKA DUKA DU DUKA DUKA DUKA|0|0|0|true|helmet|Physical|5|0|0|0|1
-8|Diamond Chestplate|equipment|-1|1000|MINECRAFT REFERENCE|0|0|0|false|chestplate|Physical|20|0|0|0|1
-9|Gortash's Gauntlets|equipment|1|75|This guy's gloves are like pretty cool|0|0|0|false|gloves|Physical|10|0|0|0|1
+5|Thick Greaves|equipment|4|15|Great Greaves!|0|0|0|false|pants|Physical|5|0|0|0|1
+6|Booties|equipment|3|10|booties for ya booties|0|0|0|true|boots|Force|3|0|0|0|1
+7|The Doom Slayer's Helmet|equipment|9|50|DUKA DUKA DU DUKA DUKA DUKA! Provides solid Necrotic resistance.|0|0|0|false|helmet|Necrotic|10|0|0|0|1
+8|Diamond Chestplate|equipment|11|1000|MINECRAFT REFERENCE|0|0|0|false|chestplate|Fire20|0|0|0|1
+9|Gortash's Gauntlets|equipment|-5|75|This guy's gloves are like pretty cool|0|0|0|false|gloves|Physical|10|0|0|0|1
 10|Huge Stick|weapon|-3|100|This is The Swan's weapon of choice!|SWING STICK|YOU BONK YOUR ENEMY UPSIDE THE HEAD|0|false|mainhand|0|0|Physical|3|9|1
-11|Energy Sword|weapon|-1|100|Dude I think this is that thing from Halo|You notice that this sword looks like it could do insane damage|You thrash The Energy Sword at your opponent in an effort to kill|0|false|mainhand|0|0|Force|10|20|1
-12|Silver Sword|weapon|-1|200|The Silver Sword of the Astral Plane, an extremely strong Greatsword that utilizes Radiance to do damage|You swing the Silver Sword as if practicing for battle|You strike your enemy with the Silver Sword|0|false|mainhand|0|0|Radiant|10|20|1
-13|Shield of the Undevout|weapon|-1|200|Super hefty shield that helps against incoming Necrotic damage|0|You bash your shield into the enemy|0|false|offhand|Necrotic|10|Physical|5|8|1
+11|Energy Sword|weapon|-5|100|Dude I think this is that thing from Halo|You notice that this sword looks like it could do insane fire damage|You thrash The Energy Sword at your opponent in an effort to kill|0|false|mainhand|0|0|Fire|20|30|1
+12|Silver Sword|weapon|9|200|The Silver Sword of the Astral Plane, an extremely strong Greatsword that utilizes Radiance to do damage|You swing the Silver Sword as if practicing for battle|You strike your enemy with the Silver Sword|0|false|mainhand|0|0|Radiant|10|20|1
+13|Shield of the Undevout|weapon||200|Super hefty shield that helps against incoming Necrotic damage|0|You bash your shield into the enemy|0|false|offhand|Fire|10|Necrotic|5|8|1
 14|Health Potion|potion|-1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|0|false|0|0|0|health|5|10|1
 15|Freaky Sword|weapon|6|0|if you're not Spencer, Jonathan, Caron or Korbin you shouldn't have this.|You're using the freaky swor....mmmm...|You swing the Freaky Sword.|You're not freaky enough. The Freaky Sword missed.|false|mainhand|0|0|Force|0|40000|1
 16|Tavern Basement keys|equipment|-4|1|Keys to the tavern basement.|You use the keys|You smack your enemy across the face with the keys!|0|false|offhand|0|0|0|0|1|1
 17|Moonveil|weapon|3|150|One of the strongest swords ever forged. It cuts through most enemies with ease.|You swing the Moonveil with all of your might.|You attack your enemy with a variety of slashes and strikes.|You swing the Moonveil with maximum effort and just straight up miss.|false|mainhand|0|0|Physical|5|10|1
-18|Rope|tool|2|1|As long as you have this, you can climb to places you couldn't without it!|0|0|0|false|0|0|0|0|0|0|1
+18|Rope|tool|10|1|As long as you have this, you can climb to places you couldn't without it!|0|0|0|false|0|0|0|0|0|0|1
+19|Boat Shoes|equipment|-2|0|Better than Carson's shoes. Well-worn pair of boat shoes to mitigate early damage.|0|0|0|false|boots|Physical|5|0|0|0|1
+20|Health Potion|potion|-2|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|0|false|0|0|0|health|5|10|1
+21|Great Health Potion|potion|-8|10|Use this to regain 15-20hp. Nothing really more to it.|You just drank a Great Health Potion!|You just drank a Great Health Potion!|0|false|0|0|0|health|15|20|1
+22|Great Health Potion|potion|-4|10|Use this to regain 15-20hp. Nothing really more to it.|You just drank a Great Health Potion!|You just drank a Great Health Potion!|0|false|0|0|0|health|15|20|1
+23|Greater Health Potion|potion|-4|10|Use this to regain 25-35hp. Nothing really more to it.|You just drank a Greater Health Potion!|You just drank a Greater Health Potion!|0|false|0|0|0|health|25|35|1
+24|Greater Health Potion|potion|-5|10|Use this to regain 25-35hp. Nothing really more to it.|You just drank a Greater Health Potion!|You just drank a Greater Health Potion!|0|false|0|0|0|health|25|35|1
+25|Greater Health Potion|potion|-3|10|Use this to regain 25-35hp. Nothing really more to it.|You just drank a Greater Health Potion!|You just drank a Greater Health Potion!|0|false|0|0|0|health|25|35|1
+26|Kratos' Kilt|equipment|-3|0|Kratos' wears this to survive powerful radiant energy that tries to front him. You should too.|0|0|0|false|pants|Radiant|20|0|0|0|1
+27|Leviathan Axe|weapon|-3|0|Kratos' main weapon. It utilizes Poison damage to defeat those who rely on their athleticism.|You wallop the Leviathan Axe with full force.|You put all of your willpower into swinging the Leviathan Axe|You swung the Leviathan Axe, channeling the might of Kratos... to miss.|false|mainhand|0|0|Poison|40|45|1
+28|Even Greater Health Potion|potion|-6|10|Use this to regain 50-60hp. Nothing really more to it.|You just drank an Even Greater Health Potion!|You just drank an Even Greater Health Potion!|0|false|0|0|0|health|50|60|1
+28|Even Greater Health Potion|potion|-6|10|Use this to regain 50-60hp. Nothing really more to it.|You just drank an Even Greater Health Potion!|You just drank an Even Greater Health Potion!|0|false|0|0|0|health|50|60|1
+28|Greatest Health Potion|potion|-7|10|Use this to regain 75hp. Nothing really more to it.|You just drank the Greatest Health Potion!|You just drank the Greatest Health Potion!|0|false|0|0|0|health|75|75|1
+29|Lakers Jersey|equipment|-6|0|LePookieBear's jersey from his time on the Lakers. Doesn't look like he'll need it anymore after D'angelo Russel's game 2 performance.|0|0|0|false|chestplate|Thunder|40|0|0|0|1
