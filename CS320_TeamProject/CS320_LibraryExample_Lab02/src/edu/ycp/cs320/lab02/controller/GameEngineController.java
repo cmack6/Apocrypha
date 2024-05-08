@@ -929,6 +929,10 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 
 				if(model.Items.get(i).getName().equals(nameOfItem) && model.Items.get(i).getContainerID() == -1 && model.Items.get(i).getGameID()==model.getPlayer().getGameID()) {
 				
+					if(model.Items.get(i).getName().equals("Greatest Health Potion")) {
+					return "<p>" + "Congrats you win!" + "</p>" + "<p>" + "Score: " + model.getPlayer().getScore() + "</p>";
+					}
+					
 					if(model.Items.get(i).getEffectType().equals("health")) {
 						Random rand = new Random();
 						healthGained = rand.nextInt(model.Items.get(i).getEffectHigh()) + model.Items.get(i).getEffectLow();
@@ -936,6 +940,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 						model.Items.get(i).setContainerID(0);
 						return "You just gained " + healthGained + " health! &#128200;";
 					}
+					
 					
 					
 					
