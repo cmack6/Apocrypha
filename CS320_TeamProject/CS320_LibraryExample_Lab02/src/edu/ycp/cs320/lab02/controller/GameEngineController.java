@@ -892,6 +892,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 			int missPlayerChance = 0;
 			boolean NPCMissed = false;
 			boolean PlayerMissed = false;
+			int TotalDefense = 0;
 			
 			
 			Random randd = new Random();
@@ -985,11 +986,17 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								for(int x = 0; x<model.Items.size(); x++) {
 									if(model.Items.get(x).getContainerID() == -1 &&  model.Items.get(x).isEquipped() && (model.Items.get(x).getType().equals("equipment") || model.Items.get(x).getCategory().equals("offhand"))) {
 										if(model.Items.get(x).getArmorType().equals(model.NPCs.get(j).getEffectType())) {
-											NPCDamageDone = NPCDamageDone - model.Items.get(x).getDefenseNumber();
+											TotalDefense = TotalDefense + model.Items.get(x).getDefenseNumber();
 										}
 									}
 								}
 							
+								if(TotalDefense > NPCDamageDone) {
+									NPCDamageDone = 0;
+								}
+								else {
+									NPCDamageDone = NPCDamageDone - TotalDefense;
+								}
 								
 								model.getPlayer().setHealth(model.getPlayer().getHealth() - NPCDamageDone);
 								
