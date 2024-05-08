@@ -962,14 +962,21 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 									return "<p>" + model.NPCs.get(j).getName() + " is already dead." + "</p>";
 								}
 								
+								boolean weak = false;
+								
 								if(model.NPCs.get(j).getWeakness().equals(model.Items.get(i).getEffectType())) {
+									weak = true;
 									damageDone = damageDone * 2;
 								}
 								
 								NPCName = model.NPCs.get(j).getName();
+								
 								if(PlayerMissed == false) {
 								model.NPCs.get(j).setHealth(model.NPCs.get(j).getHealth() - damageDone);
 								use = use + "<p>" + model.Items.get(i).getCombatDescription() + "</p>";
+								if(weak) {
+									use = use + "<p>" + "They're weak to " + model.NPCs.get(j).getWeakness() + " damage!" + "</p>";
+								}
 								use = use + "<p>" + "You did " + damageDone + " damage to " + model.NPCs.get(j).getName() + "!" + "</p>";
 								}
 								else {
@@ -983,6 +990,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								if(model.NPCs.get(j).getHealth() <=0) {
 									model.getPlayer().setInCombat(false);
 									use = use + "<p>" + model.NPCs.get(j).getDeathDialogue() + "</p>";
+									model.getPlayer().setScore(model.getPlayer().getScore()+200);
 									return use = use + "<p>" + model.NPCs.get(j).getName() + " has died!";
 								}
 								
@@ -1012,7 +1020,7 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 								
 								
 								
-								use = use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " damage to you!" + "</p>";
+								use = use + "<p>" + model.NPCs.get(j).getName() + " did " + NPCDamageDone + " " + model.NPCs.get(j).getEffectType() + " damage to you!" + "</p>";
 								
 								}
 								
