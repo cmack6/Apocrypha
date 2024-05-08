@@ -106,7 +106,7 @@
 9|northwest|-1|1|unused|1
 9|southeast|2|1|unused|1
 9|southwest|-1|1|unused|1
-9|enter|10|1|unused|1
+9|enter|10|33|The entrance is locked with a keycard scanner.|1
 9|exit|-1|1|unused|1
 9|crawl|-1|1|unused|1
 10|north|-1|1|unused|1
@@ -190,7 +190,7 @@
 18|south|19|1|unused|1
 18|climb|21|18|You don't have the stuff to climb this yet.|1
 18|west|-1|1|unused|1
-18|east|-1|1|unused|1
+18|east|17|1|unused|1
 18|northeast|-1|1|unused|1
 18|northwest|-1|1|unused|1
 18|southeast|-1|1|unused|1
