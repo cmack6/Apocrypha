@@ -3,7 +3,7 @@
 3|Flashlight|tool|-1|25|Can be used to light the way for whatever situation you find yourself in.|You light the way with your Flashlight|0|0|false|offhand|0|0|0|0|0|1
 4|Health Potion|potion|1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|0|false|0|0|0|health|5|10|1
 5|Thick Greaves|equipment|4|15|Great Greaves!|0|0|0|false|pants|Physical|5|0|0|0|1
-6|Booties|equipment|3|10|booties for ya booties|0|0|0|true|boots|Force|3|0|0|0|1
+6|Booties|equipment|3|10|booties for ya booties|0|0|0|true|boots|Force|20|0|0|0|1
 7|The Doom Slayer's Helmet|equipment|9|50|DUKA DUKA DU DUKA DUKA DUKA!|0|0|0|false|helmet|Necrotic|10|0|0|0|1
 8|Diamond Chestplate|equipment|11|1000|MINECRAFT REFERENCE|0|0|0|false|chestplate|Fire|20|0|0|0|1
 9|Gortash's Gauntlets|equipment|-5|75|This guy's gloves are like pretty cool|0|0|0|false|gloves|Physical|10|0|0|0|1
