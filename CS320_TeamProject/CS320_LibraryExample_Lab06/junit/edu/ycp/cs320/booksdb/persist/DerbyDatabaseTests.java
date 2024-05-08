@@ -17,8 +17,6 @@ public class DerbyDatabaseTests {
 
 	private IDatabase db = null;
 	
-	ArrayList<Author> authors = null;
-	ArrayList<Book>   books   = null;
 	ArrayList<Item>   items = null;
 	ArrayList<Item>   inventory = null;
 	ArrayList<Room>   rooms = null;
@@ -26,8 +24,6 @@ public class DerbyDatabaseTests {
 	ArrayList<Player> players = null;
 	ArrayList<NPC>    npcs = null;
 	ArrayList<RoomConnection> roomConnections = null;
-	List<Pair<Author, Book>> bookAuthorList = null;
-	List<Pair<Author, Book>> authorBookList = null;	
 	List<User> userList = null;
 	
 	@BeforeClass
@@ -257,6 +253,7 @@ public class DerbyDatabaseTests {
 		assertEquals("Testing", player.getLog());
 		assertEquals(2, player.getPlayerID());
 		
+		System.out.print("Attributes of player after update");
 		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
 	}
 	
@@ -313,15 +310,35 @@ public class DerbyDatabaseTests {
 		System.out.println("\n*** Testing updateNPC ***");
 		
 		NPC testNPC = new NPC();
-		testNPC.setHealth(45);
+		testNPC.setHealth(50);
 		testNPC.setNPCID(2);
+		testNPC.setRoomID(11);
 		
 		NPC npc = db.updateNPC(testNPC);
 		
-		assertEquals(45, npc.getHealth());
+		assertEquals(50, npc.getHealth());
 		assertEquals(2, npc.getNPCID());
 		
+		System.out.print("Attributes of NPC after update");
 		System.out.println(npc.getNPCID() + "," + npc.getRoomDialogue() + "," + npc.getSpeakDialogue() + ", " + npc.getRoomID() + ", " + npc.getHealth()+ ", " + npc.getGameID());
+	}
+	
+	@Test
+	public void testupdateContainer() {
+		System.out.println("\n*** Testing updateContainer ***");
+		
+		Container testContainer = new Container();
+		testContainer.setContainerID(3);
+		testContainer.setOpened(false);
+		testContainer.setRoomID(1);
+		
+		Container container = db.updateContainer(testContainer);
+		
+		assertEquals(3, container.getContainerID());
+		assertEquals(false, container.isOpened());
+		
+		System.out.print("Attributes of Container after update");
+		System.out.println(container.getContainerID() + "," + container.getName() + "," + container.getInRoomDescription()+ ", " + container.getContainerDescription() + ", " + container.getRoomID() +", " + container.getGameID());
 	}
 	
 	@Test
@@ -329,14 +346,15 @@ public class DerbyDatabaseTests {
 		System.out.println("\n*** Testing updateItem ***");
 		
 		Item testItem = new Item();
-		testItem.setContainerID(-1);
+		testItem.setContainerID(1);
 		testItem.setItemID(4);
 		
 		Item item = db.updateItem(testItem);
 		
-		assertEquals(-1, item.getContainerID());
+		assertEquals(1, item.getContainerID());
 		assertEquals(4, item.getItemID());
 		
+		System.out.println("Attributes of item after update");
 		System.out.println(item.getItemID() + ", " + item.getName() + ", " + item.getContainerID() + ", " + item.getValue() + ", " + item.getItemDescription() + ", " + item.getUseDescription() + ", " + item.getCombatDescription() + ", " + item.getCategory() + ", " + item.getArmorType() + ", " + item.getDefenseNumber() + ", " + item.getEffectType() + ", " + item.getEffectLow() + ", " + item.getEffectHigh() + ", " + item.getGameID());
 	}
 	
@@ -407,28 +425,32 @@ public class DerbyDatabaseTests {
 		assertEquals(100, player.getScore());
 		assertEquals(75, player.getHealth());
 		assertEquals(0, player.getRoomID());
-		assertEquals(2, player.getUserID());
+		assertEquals(7, player.getUserID());
 		assertEquals("Welcome to Apocrypha! Tiny hint- try moving.", player.getLog());
 		
+		System.out.println("Attributes of player after create newGame");
 		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
 	}
 	
-	/*@Test
+	@Test
 	public void testRestartGame(){
-		System.out.println("\n*** Testing createNewGame ***");
+		System.out.println("\n*** Testing restartGame ***");
 		
 		Player testPlayer = new Player();
-		testPlayer.setUserID(2);
+		testPlayer.setUserID(7);
+		testPlayer.setGameID(5);
 		
-		Player player = db.createNewGame(testPlayer.getUserID());
+		Player player = db.restartGame(testPlayer.getGameID(), testPlayer.getUserID());
 		
 		assertEquals(1, player.getPlayerID());
 		assertEquals(100, player.getScore());
 		assertEquals(75, player.getHealth());
 		assertEquals(0, player.getRoomID());
-		assertEquals(2, player.getUserID());
+		assertEquals(7, player.getUserID());
+		assertEquals(5, player.getGameID());
 		assertEquals("Welcome to Apocrypha! Tiny hint- try moving.", player.getLog());
 		
+		System.out.println("Attributes of player after restart");
 		System.out.println(player.getPlayerID() + "," + player.getScore() + "," + player.getHealth() + ", " + player.getRoomID() + ", " + player.getGameID() + ", " + player.getUserID());
-	}*/
+	}
 }
