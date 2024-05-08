@@ -188,7 +188,7 @@
 17|exit|-1|1|unused|1
 18|north|20|1|unused|1
 18|south|19|1|unused|1
-18|climb|21|19|You don't have the skills to climb this yet. Keep searching elsewhere.|1
+18|climb|21|18|You don't have the stuff to climb this yet.|1
 18|west|-1|1|unused|1
 18|east|-1|1|unused|1
 18|northeast|-1|1|unused|1
@@ -229,4 +229,4 @@
 21|enter|-1|1|unused|1
 21|exit|-1|1|unused|1
 21|crawl|-1|1|unused|1
-21|climb|18|19|how do you not have rock climb WTF|1
+21|climb|18|18|how do you not have rock climb WTF|1

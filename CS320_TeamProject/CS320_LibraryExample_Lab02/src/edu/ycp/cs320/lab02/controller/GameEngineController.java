@@ -313,11 +313,20 @@ import edu.ycp.cs320.booksdb.persist.IDatabase;
 					 }
 				 }
 			}
-			else if(setOutput.equals("freaky"))
+			else if(setOutput.equals("freak"))
 			{
 				for(RoomConnection roomConnection : model.RoomConnections)
 				 {
-					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("freaky")) {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("freak")) {
+						 output = roomConnection.getItemMissingMsg();
+					 }
+				 }
+			}
+			else if(setOutput.equals("climb"))
+			{
+				for(RoomConnection roomConnection : model.RoomConnections)
+				 {
+					 if(roomConnection.getStartingRoomID() == model.getPlayer().getRoomID() && roomConnection.getCommand().equals("climb")) {
 						 output = roomConnection.getItemMissingMsg();
 					 }
 				 }
