@@ -1,4 +1,4 @@
-1|Moonveil|weapon|-1|150|One of the strongest swords ever forged. It cuts through most enemies with ease.|You swing the Moonveil with all of your might.|You attack your enemy with a variety of slashes and strikes.|you missed|true|mainhand|0|0|Physical|5|10|1
+1|Stick|weapon|-1|1|The mighty starter Stick. You'll probably want an upgrade.|Yeah that's a Stick alright.|You attack your enemy with all your might using the Stick.|YOU MISSED USING A STICK|true|mainhand|0|0|Physical|0|1|1
 2|Ketheric's Shield|weapon|2|125|Ketheric Thorm's shield. One of the Chosen Three of the Absolute as well as a Chosen of Myrkul. Bro was a half-elf who lost his shield which is a pretty good deterent against projectiles....|looks like a shield|You sprint as fast as you can using Ketheric�s Shield to bash your opponent.|you missed|false|offhand|Physical|5|Physical|4|5|1
 3|Flashlight|tool|-1|25|Can be used to light the way for whatever situation you find yourself in.|You light the way with your Flashlight|0|0|false|offhand|0|0|0|0|0|1
 4|Health Potion|potion|1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|0|false|0|0|0|health|5|10|1
@@ -12,5 +12,7 @@
 12|Silver Sword|weapon|-1|200|The Silver Sword of the Astral Plane, an extremely strong Greatsword that utilizes Radiance to do damage|You swing the Silver Sword as if practicing for battle|You strike your enemy with the Silver Sword|0|false|mainhand|0|0|Radiant|10|20|1
 13|Shield of the Undevout|weapon|-1|200|Super hefty shield that helps against incoming Necrotic damage|0|You bash your shield into the enemy|0|false|offhand|Necrotic|10|Physical|5|8|1
 14|Health Potion|potion|-1|10|Use this to regain 5-15hp. Nothing really more to it.|You just drank a Health Potion!|You just drank a Health Potion!|0|false|0|0|0|health|5|10|1
-15|Freaky Sword|weapon|6|0|if you're not Spencer, Jonathan, Caron or Korbin you shouldn't have this.|You're using the freaky swor....mmmm...|You swing the Freaky Sword.|You're not freaky enough. The Freaky Sword missed.|false|mainhand|0|0|force|0|40000|1
+15|Freaky Sword|weapon|6|0|if you're not Spencer, Jonathan, Caron or Korbin you shouldn't have this.|You're using the freaky swor....mmmm...|You swing the Freaky Sword.|You're not freaky enough. The Freaky Sword missed.|false|mainhand|0|0|Force|0|40000|1
 16|Tavern Basement keys|equipment|-4|1|Keys to the tavern basement.|You use the keys|You smack your enemy across the face with the keys!|0|false|offhand|0|0|0|0|1|1
+17|Moonveil|weapon|3|150|One of the strongest swords ever forged. It cuts through most enemies with ease.|You swing the Moonveil with all of your might.|You attack your enemy with a variety of slashes and strikes.|You swing the Moonveil with maximum effort and just straight up miss.|false|mainhand|0|0|Physical|5|10|1
+18|Rope|tool|2|1|As long as you have this, you can climb to places you couldn't without it!|0|0|0|false|0|0|0|0|0|0|1
