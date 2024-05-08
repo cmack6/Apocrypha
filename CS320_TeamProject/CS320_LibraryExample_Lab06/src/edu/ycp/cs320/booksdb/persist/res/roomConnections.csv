@@ -227,6 +227,6 @@
 21|southeast|-1|1|unused|1
 21|southwest|-1|1|unused|1
 21|enter|-1|1|unused|1
-21|exit|12|1|unused|1
+21|exit|-1|1|unused|1
 21|crawl|-1|1|unused|1
 21|climb|18|19|how do you not have rock climb WTF|1

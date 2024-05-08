@@ -12,7 +12,7 @@
 1|north|11|1|unused|1
 1|east|5|1|unused|1
 1|west|2|1|unused|1
-1|south|0|5|Make sure you grab everything from the Backpack before leaving. It might get cold.|1
+1|south|0|1|unused|1
 1|northeast|-1|1|unused|1
 1|northwest|8|1|unused|1
 1|southeast|3|1|unused|1
@@ -227,6 +227,6 @@
 21|southeast|-1|1|unused|1
 21|southwest|-1|1|unused|1
 21|enter|-1|1|unused|1
-21|exit|12|1|unused|1
+21|exit|-1|1|unused|1
 21|crawl|-1|1|unused|1
 21|climb|18|19|how do you not have rock climb WTF|1
