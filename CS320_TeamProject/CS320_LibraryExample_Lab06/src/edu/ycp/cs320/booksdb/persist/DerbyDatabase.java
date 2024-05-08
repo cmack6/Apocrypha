@@ -919,7 +919,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt1 = conn.prepareStatement(
 								"update NPCs  " +
 								"  set roomID = ?, health = ? " +
-								"  where npcID = ? "
+								"  where npcID = ? and gameID = ? "
 						);
 						
 						
@@ -938,6 +938,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt1.setInt(1, NPC.getRoomID());
 						stmt1.setInt(2, NPC.getHealth());
 						stmt1.setInt(3, NPC.getNPCID());
+						stmt1.setInt(4, NPC.getGameID());
 
 						
 						NPC result = new NPC();
@@ -967,7 +968,7 @@ public class DerbyDatabase implements IDatabase {
 							result = null;
 						}
 						else {
-							System.out.println("NPC updated with ID "+result.getNPCID());
+							System.out.println("NPC updated with ID "+result.getNPCID() + " and gameID " + result.getGameID() + ", health was set to " + result.getHealth());
 						}
 						return result;
 						

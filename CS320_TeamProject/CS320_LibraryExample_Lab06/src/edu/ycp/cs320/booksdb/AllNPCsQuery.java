@@ -26,7 +26,7 @@ public class AllNPCsQuery {
 		else {
 			for (NPC npc: NPCList) {
 				
-				System.out.println(npc.getNPCID() + ", " + npc.getRoomDialogue() + ", " + npc.getSpeakDialogue() + ", " + npc.getRoomID() + ", " + npc.getHealth() + ", " + npc.getName() + ", " + npc.getGameID());
+				System.out.println(npc.getNPCID() + ", " + npc.getInventoryID() + ", " + npc.getRoomDialogue() + ", " + npc.getSpeakDialogue() + ", " + npc.getRoomID() + ", " + npc.getHealth() + ", " + npc.getName() + ", " + npc.getGameID());
 			
 			}
 		}
